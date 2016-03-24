@@ -1,0 +1,26 @@
+{
+  "name": "bet_shalom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Remy Allen, Bennett Batzli, Savio Nguyen, John Rachuy, Josh Sternberg",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.2",
+    "angular-animate": "^1.5.2",
+    "angular-route": "^1.5.2",
+    "angular-ui-bootstrap": "^1.2.5",
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.15.0",
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pg": "^4.5.1"
+  }
+}

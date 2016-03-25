@@ -65,7 +65,7 @@ passport.use('local', new localStrategy({
                     }
                 } else {
                     console.log('No matching user');
-                    done(null, false, {message: 'No Matching User.'});
+                    done(null, false, {message: 'Incorrect User Name'});
                 }
 
                 // Handle Errors

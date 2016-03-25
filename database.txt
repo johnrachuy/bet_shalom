@@ -6,5 +6,3 @@ CREATE TABLE users
     role character varying(50) NOT NULL
   );
 
-
-  //test2

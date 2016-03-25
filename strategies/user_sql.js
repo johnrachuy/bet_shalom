@@ -44,7 +44,7 @@ passport.use('local', new localStrategy({
 	    	console.log('called local - pg');
 	    	var user = {};
 
-            var query = client.query("SELECT * FROM users WHERE username = $1", [username],
+            var query = client.query("SELECT * FROM users WHERE username = ($1)", [username],
 
             // callback called when the results are back from the database
             function(err, result) {

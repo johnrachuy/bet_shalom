@@ -1,0 +1,29 @@
+ <div class="instructions">
+        <div class="container">
+            <h1 class="lead">Register New User</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Set action and method -->
+        <form action="/register" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div>
+                <label for="admin">Admin</label>
+                <input type="radio" name="role" value="admin">
+                <label for="teacher">Teacher</label>
+                <input type="radio" name="role" value="teacher">
+            </div>
+
+            <input type="submit" value="Register"/>
+        </form>
+    </div>

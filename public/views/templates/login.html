@@ -1,0 +1,17 @@
+<div class="container">
+    <!-- Set form action and method -->
+    <form>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" ng-model="username" id="username"/>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" ng-model="password" id="password"/>
+        </div>
+        <div>
+            <button ng-click="loginUser(username, password)">Submit</button>
+            <a href="#register">Register</a>
+        </div>
+    </form>
+</div>

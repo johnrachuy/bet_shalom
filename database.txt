@@ -1,0 +1,8 @@
+CREATE TABLE users
+  (
+    users_id SERIAL PRIMARY KEY,
+    username character varying(100) NOT NULL UNIQUE,
+    password character varying(120) NOT NULL,
+    role character varying(50) NOT NULL
+  );
+

@@ -61,7 +61,7 @@ passport.use('local', new localStrategy({
                         done(null, user);
                     } else {
                         console.log('nope');
-                        done(null, false, {message: 'Incorrect credentials.'});
+                        done(null, false, {message: 'Password incorrect.'});
                     }
                 } else {
                     console.log('No matching user');

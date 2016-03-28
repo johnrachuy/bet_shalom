@@ -1,6 +1,7 @@
-myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', function($scope, $http, PassportFactory) {
+myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', function($scope, $http, PassportFactory, DataFactory) {
 
   console.log('lesson plan controller');
+  $scope.dataFactory = DataFactory;
 
   var typeBoolean;
 
@@ -26,6 +27,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
       // tags: $scope.tag
     };
+
+    $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {
+      //notification of successful db post
+      console.log('success');
+    });
+
+
     console.log('lessonplan', lessonPlan);
   };
 

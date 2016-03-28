@@ -1,10 +1,10 @@
-myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$window', function($scope, PassportFactory, $http, $window) {
+myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$window', '$location', function($scope, PassportFactory, $http, $window, $location) {
 
     $scope.passportFactory = PassportFactory;
 
     $scope.loginUser = function (username, password) {
-        $scope.passportFactory.factoryUserSubmit(username, password);
-        console.log(username, password);
+        $scope.passportFactory.factoryUserSubmit(username, password)
+        //console.log(username, password);
         //username = $scope.username;
         //console.log(username);
 

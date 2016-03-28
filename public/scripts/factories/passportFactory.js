@@ -47,6 +47,9 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         factoryUserSubmit: function(username, password) {
             return userSubmit(username, password);
         },
+        factoryLoggedInUser: function() {
+            return loggedInUser;
+        },
 
 
 

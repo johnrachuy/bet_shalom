@@ -1,10 +1,10 @@
 <!-- Explore tag options -->
 
 <form id="lesson_plan_form">
-  <label for="lesson_plan_radio">Lesson Plan</label>
-  <input type="radio" name="type_selector" value="lesson_plan_radio">
-  <label for="resource_radio">Resource</label>
-  <input type="radio" name="type_selector" value="resource_radio">
+  <label for="lesson_plan">Lesson Plan</label>
+  <input type="radio" name="type_selector" ng-model="type_selector" value="lesson_plan">
+  <label for="resource">Resource</label>
+  <input type="radio" name="type_selector" ng-model="type_selector" value="resource">
 
   <label for="lesson_author">Author:</label>
   <input type="text" id="lesson_author" ng-model="lesson_author" />
@@ -20,7 +20,11 @@
   <textarea id="lesson_text" rows="20" cols="100" ng-model="lesson_text"></textarea>
   <button id="insert_file_button">Insert File</button>
   <button id="save_draft_button">Save Draft</button>
-  <button id="submit_lesson_button">Submit Lesson</button>
+  <button id="submit_lesson_button" ng-click="submitLesson()">Submit Lesson</button>
+
+  <button id="publish_button">Publish Lesson</button>
+  <!-- Admin-Only feature -->
+
 </form>
 
 <form id="comments_form">

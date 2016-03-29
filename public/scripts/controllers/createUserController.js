@@ -5,14 +5,18 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
     $scope.users_id = null;
     $scope.getNames = [];
 
+    getNames();
+
     //populating drop-down of existing users
-    $http.get('/get_names').then(function(response) {
-       $scope.getNames = response.data;
-    });
+    function getNames() {
+        $http.get('/get_names').then(function(response) {
+            $scope.getNames = response.data;
+        });
+    }
 
     //get info of selected name
     $scope.getInfo = function () {
-        $http.get('/get_info/' + $scope.selectedName).then(function(response) {
+        $http.get('/selected_name/' + $scope.selectedName).then(function(response) {
             $scope.viewData = response.data;
 
             $scope.username = $scope.viewData[0].username;
@@ -54,14 +58,18 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         //if existing user
         if ($scope.users_id > 0) {
             console.log('existing user')
-            $scope.passportFactory.factorySaveUpdatedEntry(entry);
-            clearForm();
+            $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function() {
+                clearForm();
+                getNames();
+            });
 
         //if new user
         } else {
             console.log('new user')
-            $scope.passportFactory.factorySaveNewEntry(entry);
-            clearForm();
+            $scope.passportFactory.factorySaveNewEntry(entry).then(function() {
+                clearForm();
+                getNames();
+            });
         }
 
         $scope.selectedName = null;

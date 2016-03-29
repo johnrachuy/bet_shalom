@@ -23,16 +23,18 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
 
     //add new user
     var saveNewEntry = function(entry) {
-        $http.post('/register', entry).then( function(response) {
+        var promise = $http.post('/register', entry).then( function(response) {
             newEntry = response.data;
         });
+        return promise;
     };
 
     //update existing user
     var saveUpdatedEntry = function(entry) {
-        $http.post('/update_user', entry).then( function(response) {
+        var promise = $http.post('/update_user', entry).then( function(response) {
             updatedEntry = response.data;
         });
+        return promise;
     };
 
 

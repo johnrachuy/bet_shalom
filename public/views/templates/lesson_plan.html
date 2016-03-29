@@ -13,6 +13,14 @@
   <label for="lesson_title">Title:</label>
   <input type="text" id="lesson_title" ng-model="lesson_title" />
 
+  <div class="tag_modal" ng-if="!search">
+    <button ng-click="open()">Choose Tags</button>
+  </div>
+
+  <script type="text/ng-template" id="myModalContent.html">
+    <h1>Something that appears!</h1>
+  </script>
+
   <div class="materials_div">
     <label for="lesson_materials_checkbox">Materials required?</label>
     <input type="checkbox" ng-model="required_materials" ng-init="checked=true" />

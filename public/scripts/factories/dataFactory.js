@@ -10,12 +10,6 @@ var saveLessonPlan = function(lessonPlan){
   return promise;
 }
 
-
-
-
-
-
-
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);

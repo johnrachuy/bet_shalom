@@ -1,9 +1,30 @@
-myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', function($scope, $http, PassportFactory, DataFactory) {
+myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', '$location', function($scope, $http, PassportFactory, DataFactory, $location) {
 
   console.log('lesson plan controller');
   $scope.dataFactory = DataFactory;
+  $scope.passportFactory = PassportFactory;
 
+  $scope.loggedInUser = {};
   var typeBoolean;
+  $scope.teacher = false;
+  $scope.admin = false;
+  $scope.search = false;
+
+
+  $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
+  console.log($scope.loggedInUser);
+
+  validateUser();
+
+  function validateUser() {
+    if($scope.loggedInUser.role == 'admin') {
+      $scope.admin = true;
+    } else if ($scope.loggedInUser.role == 'teacher') {
+      $scope.teacher = true;
+    } else {
+      $location.path('/home');
+    }
+  }
 
   $scope.submitLesson = function() {
 

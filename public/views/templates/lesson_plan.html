@@ -19,6 +19,20 @@
 
   <script type="text/ng-template" id="myModalContent.html">
     <h1>Something that appears!</h1>
+    <div class="modal-header">
+      <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+
+    <div ng-repeat="holiday in holidays">
+      <label>{{holiday}}</label>
+      ​
+      <input type="checkbox"  />
+    </div>
+    ​
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
   </script>
 
   <div class="materials_div">

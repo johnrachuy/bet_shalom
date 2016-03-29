@@ -85,7 +85,6 @@ app.post('/update_user', function(req, res, next) {
 
     var updateUser = {
         username: req.body.username,
-        password: encryptLib.encryptPassword(req.body.password),
         role: req.body.role,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -97,8 +96,8 @@ app.post('/update_user', function(req, res, next) {
     console.log('update user:', updateUser);
 
     pg.connect(connection, function(err, client, done) {
-        client.query("UPDATE users SET (username, password, role, first_name, last_name, phone, grade, deleted) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE users_id = ($9)",
-            [updateUser.username, updateUser.password, updateUser.role, updateUser.first_name, updateUser.last_name, updateUser.phone, updateUser.grade, updateUser.deleted, updateUser.users_id],
+        client.query("UPDATE users SET (username, role, first_name, last_name, phone, grade, deleted) = ($1, $2, $3, $4, $5, $6, $7) WHERE users_id = ($8)",
+            [updateUser.username, updateUser.role, updateUser.first_name, updateUser.last_name, updateUser.phone, updateUser.grade, updateUser.deleted, updateUser.users_id],
             function (err, result) {
                 client.end();
 

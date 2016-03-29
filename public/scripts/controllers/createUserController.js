@@ -23,7 +23,6 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
             $scope.grade = $scope.viewData[0].grade;
             $scope.users_id = $scope.viewData[0].users_id;
 
-            $scope.selectedName = null;
         });
     };
 
@@ -64,6 +63,8 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
             $scope.passportFactory.factorySaveNewEntry(entry);
             clearForm();
         }
+
+        $scope.selectedName = null;
     };
 
     console.log('Create User Controller');

@@ -21,6 +21,12 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         });
     };
 
+    var saveEntry = function(entry) {
+        $http.post('/register', entry).then( function(response) {
+            savedEntry = response.data;
+        });
+    };
+
     //var privateUserAuthentication = function() {
     //    var promise = $http.get('/user').then(function(response) {
     //        if (response.data) {
@@ -49,6 +55,9 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         },
         factoryLoggedInUser: function() {
             return loggedInUser;
+        },
+        factorySaveEntry: function(entry) {
+            return saveEntry(entry);
         },
 
 

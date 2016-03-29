@@ -6,45 +6,45 @@
 
     <div class="container">
         <!-- Set action and method -->
-        <form action="/register" method="post">
+        <form>
             <div>
                 <label for="username">Username/Email:</label>
-                <input type="text" name="username" id="username">
+                <input type="text" ng-model="username">
             </div>
 
             <div>
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password">
+                <input type="password" ng-model="password">
             </div>
 
             <div>
                 <label for="admin">Admin</label>
-                <input type="radio" name="role" value="admin">
+                <input type="radio" ng-model="role" value="admin">
             </div>
 
             <div>
                 <label for="teacher">Teacher</label>
-                <input type="radio" name="role" value="teacher">
+                <input type="radio" ng-model="role" value="teacher">
             </div>
 
             <div>
                 <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name">
+                <input type="text" ng-model="first_name">
             </div>
 
             <div>
                 <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name">
+                <input type="text" ng-model="last_name">
             </div>
 
             <div>
                 <label for="phone">Phone:</label>
-                <input type="text" name="phone" id="phone">
+                <input type="text" ng-model="phone">
             </div>
 
             <div>
                 <label for="grade">Grade:</label>
-                <select type="text" name="grade" id="grade">
+                <select type="text" ng-model="grade">
                     <option value="admin">Admin</option>
                     <option value="pre-k">Pre-K</option>
                     <option value="k">K</option>
@@ -60,7 +60,7 @@
             </div>
 
             <div>
-            <input type="submit" value="Register"/>
+            <button type="button" ng-click="saveUser()">Submit</button>
             </div>
 
         </form>

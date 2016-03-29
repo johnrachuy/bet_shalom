@@ -8,7 +8,7 @@
         <!-- Set action and method -->
         <form action="/register" method="post">
             <div>
-                <label for="username">Username:</label>
+                <label for="username">Username/Email:</label>
                 <input type="text" name="username" id="username">
             </div>
 
@@ -20,10 +20,48 @@
             <div>
                 <label for="admin">Admin</label>
                 <input type="radio" name="role" value="admin">
+            </div>
+
+            <div>
                 <label for="teacher">Teacher</label>
                 <input type="radio" name="role" value="teacher">
             </div>
 
+            <div>
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name">
+            </div>
+
+            <div>
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name">
+            </div>
+
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" id="phone">
+            </div>
+
+            <div>
+                <label for="grade">Grade:</label>
+                <select type="text" name="grade" id="grade">
+                    <option value="admin">Admin</option>
+                    <option value="pre-k">Pre-K</option>
+                    <option value="k">K</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                </select>
+            </div>
+
+            <div>
             <input type="submit" value="Register"/>
+            </div>
+
         </form>
     </div>

@@ -33,13 +33,13 @@ router.post('/', function(req, res){
 
 module.exports = router;
 
-// CREATE TABLE lesson
-//     (
-//     lesson_id SERIAL NOT NULL PRIMARY KEY,
-//     author character varying(120) NOT NULL,
-//     title character varying(120) NOT NULL,
-//     lesson_plan jsonb,
-//     materials BOOLEAN NOT NULL,
-//     resource BOOLEAN NOT NULL,
-//     deleted BOOLEAN NOT NULL
-//     );
+ //CREATE TABLE lesson
+ //    (
+ //    lesson_id SERIAL NOT NULL PRIMARY KEY,
+ //    author character varying(120) NOT NULL,
+ //    title character varying(120) NOT NULL,
+ //    lesson_plan jsonb,
+ //    materials BOOLEAN NOT NULL,
+ //    resource BOOLEAN NOT NULL,
+ //    deleted BOOLEAN NOT NULL
+ //    );

@@ -6,24 +6,66 @@
 
     <div class="container">
         <!-- Set action and method -->
-        <form action="/register" method="post">
+        <form>
             <div>
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username">
+                <label for="selectedName">Existing Users</label>
+                <select ng-model="selectedName" ng-options="person.users_id as person.last_name + ', ' + person.first_name for person in getNames" ng-change="getInfo()">Select Person</select>
+            </div>
+            <div>
+                <label for="username">Username/Email:</label>
+                <input type="text" ng-model="username">
             </div>
 
             <div>
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password">
+                <input type="password" ng-model="password">
             </div>
 
             <div>
                 <label for="admin">Admin</label>
-                <input type="radio" name="role" value="admin">
-                <label for="teacher">Teacher</label>
-                <input type="radio" name="role" value="teacher">
+                <input type="radio" ng-model="role" value="admin">
             </div>
 
-            <input type="submit" value="Register"/>
+            <div>
+                <label for="teacher">Teacher</label>
+                <input type="radio" ng-model="role" value="teacher">
+            </div>
+
+            <div>
+                <label for="first_name">First Name:</label>
+                <input type="text" ng-model="first_name">
+            </div>
+
+            <div>
+                <label for="last_name">Last Name:</label>
+                <input type="text" ng-model="last_name">
+            </div>
+
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="text" ng-model="phone">
+            </div>
+
+            <div>
+                <label for="grade">Grade:</label>
+                <select type="text" ng-model="grade">
+                    <option value="admin">Admin</option>
+                    <option value="pre-k">Pre-K</option>
+                    <option value="k">K</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                </select>
+            </div>
+
+            <div>
+            <button type="button" ng-click="saveUser()">Submit</button>
+            </div>
+
         </form>
     </div>

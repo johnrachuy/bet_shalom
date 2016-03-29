@@ -7,13 +7,29 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: '/views/templates/login.html',
             controller: 'LoginController'
         })
+        .when('/admin_dash', {
+            templateUrl: '/views/templates/admin_dash.html',
+            controller: 'AdminDashController'
+        })
+        .when('/teacher_dash', {
+            templateUrl: '/views/templates/teacher_dash.html',
+            controller: 'TeacherDashController'
+        })
+        .when('/search', {
+            templateUrl: '/views/templates/search.html',
+            controller: 'SearchController'
+        })
+        .when('/lesson_plan', {
+            templateUrl: '/views/templates/lesson_plan.html',
+            controller: 'LessonPlanController'
+        })
         .when('/failure', {
             templateUrl: '/views/templates/failure.html',
             controller: 'HomeController'
         })
         .when('/register', {
             templateUrl: '/views/templates/register.html',
-            controller: 'LoginController'
+            controller: 'CreateUserController'
         })
         .otherwise({
             redirectTo: 'home'

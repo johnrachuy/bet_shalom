@@ -1,27 +1,6 @@
-//var express = require('express');
-//var app = express();
-//var bodyParser = require('body-parser');
-//var pg = require('pg');
-//var connectionString = require('./modules/connection');
-//
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended: true}));
-//
-//// Serve back static files
-//app.use(express.static('public'));
-//app.use(express.static('public/views'));
-//app.use(express.static('public/scripts'));
-//app.use(express.static('public/styles'));
-//app.use(express.static('public/vendors'));
-//
-//app.set('port', process.env.PORT || 5000);
-//app.listen(app.get('port'), function() {
-//    console.log('Listening on port: ', app.get('port'));
-//});
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-
 var passport = require('./strategies/user_sql.js');
 var session = require('express-session');
 
@@ -29,7 +8,10 @@ var session = require('express-session');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var register = require('./routes/register');
-
+var lesson = require('./routes/lesson');
+var update_user = require('./routes/update_user');
+var get_names = require('./routes/get_names');
+var selected_name = require('./routes/selected_name');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -47,10 +29,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // Routes
+app.use('/lesson', lesson);
 app.use('/register', register);
 app.use('/user', user);
+app.use('/update_user', update_user);
+app.use('/get_names', get_names);
+app.use('/selected_name', selected_name);
 app.use('/', index);
 
 // Serve back static files
@@ -60,7 +45,6 @@ app.use(express.static('public/assets'));
 app.use(express.static('public/assets/scripts'));
 app.use(express.static('public/assets/styles'));
 app.use(express.static('public/vendors'));
-
 
 // App Set //
 app.set('port', (process.env.PORT || 5000));

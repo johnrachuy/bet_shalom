@@ -5,11 +5,13 @@ CREATE TABLE users
     users_id SERIAL PRIMARY KEY,
     username character varying(100) NOT NULL UNIQUE,
     password character varying(120) NOT NULL,
-    role character varying(50) NOT NULL
+    role character varying(50) NOT NULL,
+    first_name character varying(120) NOT NULL,
+    last_name character varying(120) NOT NULL,
+    phone character varying(120) NOT NULL,
+    grade character varying(120) NOT NULL,
+    deleted BOOLEAN NOT NULL
   );
-
-
-
 
  CREATE TABLE lesson
      (

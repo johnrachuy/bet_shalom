@@ -60,4 +60,55 @@ router.put('/', function(req, res){
   });
 });
 
+//router.get('/:selectedName', function(req, res) {
+//  var results = [];
+//
+//  pg.connect(connection, function(err, client, done) {
+//    var query = client.query('SELECT * FROM users WHERE users_id = ($1)',
+//        [req.params.selectedName]);
+//
+//    //Stream results back one row at a time
+//    query.on('row', function(row) {
+//      results.push(row);
+//    });
+//
+//    //close connection
+//    query.on('end', function() {
+//      done();
+//
+//      return res.json(results);
+//    });
+//
+//    if(err) {
+//      console.log(err);
+//    }
+//  });
+//});
+
+router.get('/:id',  function(req, res) {
+  var results =[];
+  var lessonPlanId = req.params.id;
+  console.log('req ', lessonPlanId);
+  pg.connect(connection, function(err, client, done) {
+    var query = client.query('SELECT * FROM lesson WHERE lesson_id = $1',
+      [lessonPlanId]);
+
+    //Stream results back one row at a time
+    query.on('row', function(row) {
+      results.push(row);
+    });
+
+    //close connection
+    query.on('end', function() {
+      done();
+
+      return res.json(results);
+    });
+
+    if(err) {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;

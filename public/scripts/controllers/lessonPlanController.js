@@ -10,6 +10,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacher = false;
   $scope.admin = false;
   $scope.search = false;
+  $scope.lessonPlanId = 1;
+  $scope.edit = true;
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
   $scope.lessonPlanStatus = 'submitted';
@@ -17,7 +19,15 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   console.log($scope.loggedInUser);
   var lessonPlan ={};
 
+
   validateUser();
+
+  if ($scope.edit === true){
+    $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
+      $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
+      console.log($scope.savedLessonPlan);
+    });
+  }
 
   function validateUser() {
     if($scope.loggedInUser.role == 'admin') {

@@ -11,14 +11,15 @@ router.post('/', function(req, res){
     lesson_plan: req.body.lesson_plan,
     materials: req.body.materials,
     resource: req.body.resource,
+    status: req.body.status,
     deleted: false
   };
 
   pg.connect(connection, function(err, client) {
     client.query('INSERT INTO lesson (author, title, lesson_plan, materials, ' +
-      'resource, deleted) VALUES ($1, $2, $3, $4, $5, $6)',
+      'resource, status, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7)',
       [lessonPlan.author, lessonPlan.title, lessonPlan.lesson_plan, lessonPlan.materials,
-      lessonPlan.resource, lessonPlan.deleted],
+      lessonPlan.resource, lessonPlan.status, lessonPlan.deleted],
 
       function(err, result) {
         if (err) {

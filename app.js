@@ -13,6 +13,26 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 
+var sendgrid  = require('sendgrid')('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');
+
+app.post('/email', function(req, res) {
+    var email     = new sendgrid.Email({
+        to:       'saviohieu.n.nguyen@gmail.com',
+        from:     'john.rachuy@gmail.com',
+        subject:  'Hey!',
+        text:     'We have the email feature working!!!!'
+    });
+    sendgrid.send(email, function(err, json) {
+
+        if (err) {
+            res.status(500).send();
+            return console.error(err);
+        }
+        console.log(json);
+        res.status(204).send();
+    });
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

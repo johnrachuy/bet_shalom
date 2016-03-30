@@ -15,6 +15,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.lessonPlanStatus = 'submitted';
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
   console.log($scope.loggedInUser);
+  var lessonPlan ={};
 
   validateUser();
 
@@ -29,51 +30,61 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   }
 
   $scope.submitLesson = function() {
-
     console.log('checked', $scope.required_materials);
 
-    if ($scope.lessonPlanStatus === 'submitted') {
-      $scope.postLesson();
-    } else if ($scope.lessonPlanStatus === 'needs review') {
-      //function for admin to finalize lesson plan
-    } else {
-      //something
-    }
+    createLessonPlanObject();
 
+    $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {
+      //notification of successful db post
+      console.log('success');
+    });
 
+    console.log('lessonplan', lessonPlan);
   };
 
-    $scope.postLesson = function() {
-
-      if ($scope.type_selector === "resource") {
-        typeBoolean = true;
-      } else {
-        typeBoolean = false;
-      }
-
-      var lessonPlan = {
-        author: $scope.lesson_author,
-        title: $scope.lesson_title,
-        lesson_plan: {
-          materials: $scope.lesson_materials,
-          text: $scope.lesson_text
-        },
-        materials: $scope.required_materials,
-        status: $scope.lessonPlanStatus,
-        resource: typeBoolean
-
-        // tags: $scope.tag
-      };
-
-      $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {
-        //notification of successful db post
-        console.log('success');
-      });
+  $scope.publishLesson = function() {
+    if ($scope.lessonPlanStatus === 'submitted') {
+      $scope.submitLesson();
+    } else {
+      $scope.editLesson();
+    }
+    console.log('publish button');
+  };
 
 
-      console.log('lessonplan', lessonPlan);
+  $scope.editLesson = function() {
+    createLessonPlanObject();
+
+    $scope.dataFactory.factoryEditLessonPlan(lessonPlan).then(function() {
+      //notification of successful db post
+      console.log('success');
+    });
+  };
+
+  var createLessonPlanObject = function() {
+    if ($scope.type_selector === "resource") {
+      typeBoolean = true;
+    } else {
+      typeBoolean = false;
+    }
+
+    lessonPlan = {
+      author: $scope.lesson_author,
+      title: $scope.lesson_title,
+      lesson_plan: {
+        materials: $scope.lesson_materials,
+        text: $scope.lesson_text
+      },
+      materials: $scope.required_materials,
+      status: $scope.lessonPlanStatus,
+      resource: typeBoolean
+
+      // tags: $scope.tag
     };
+  };
 
+
+ //modal
   $scope.open = function (size) {
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,

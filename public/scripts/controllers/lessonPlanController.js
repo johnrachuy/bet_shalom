@@ -95,6 +95,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
 
  //modal
+  $scope.addSelectedTag = function() {
+    var myHoliday = $scope.selectedHoliday;
+    var myEl = angular.element(document.querySelector('#added_holiday_container'));
+    myEl.append('<span>' + myHoliday + ' </span>');
+  };
+
+
   $scope.open = function (size) {
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,

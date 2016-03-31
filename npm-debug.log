@@ -9,8 +9,13 @@
 6 silly lifecycle bet_shalom@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle bet_shalom@1.0.0~start: bet_shalom@1.0.0
 8 verbose lifecycle bet_shalom@1.0.0~start: unsafe-perm in lifecycle true
+<<<<<<< HEAD
 9 verbose lifecycle bet_shalom@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Hieu/Documents/prime-academy/bet_shalom/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/Applications/Postgres.app/Contents/Versions/latest/bin
 10 verbose lifecycle bet_shalom@1.0.0~start: CWD: /Users/Hieu/Documents/prime-academy/bet_shalom
+=======
+9 verbose lifecycle bet_shalom@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/bennettbatzli/Documents/GitHub/bet-shalom/bet_shalom/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin
+10 verbose lifecycle bet_shalom@1.0.0~start: CWD: /Users/bennettbatzli/Documents/GitHub/bet-shalom/bet_shalom
+>>>>>>> 27aaa589990dd7524edb4d46de4c93a7e8e8148d
 11 silly lifecycle bet_shalom@1.0.0~start: Args: [ '-c', 'node app.js' ]
 12 silly lifecycle bet_shalom@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle bet_shalom@1.0.0~start: Failed to exec start script
@@ -25,7 +30,11 @@
 14 verbose stack     at maybeClose (internal/child_process.js:821:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid bet_shalom@1.0.0
+<<<<<<< HEAD
 16 verbose cwd /Users/Hieu/Documents/prime-academy/bet_shalom
+=======
+16 verbose cwd /Users/bennettbatzli/Documents/GitHub/bet-shalom/bet_shalom
+>>>>>>> 27aaa589990dd7524edb4d46de4c93a7e8e8148d
 17 error Darwin 15.3.0
 18 error argv "/usr/local/Cellar/node/5.5.0/bin/node" "/usr/local/bin/npm" "start"
 19 error node v5.5.0

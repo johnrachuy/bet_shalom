@@ -14,6 +14,15 @@
   <label for="lesson_title">Title:</label>
   <input type="text" id="lesson_title" ng-model="lesson_title" />
 
+  <div>
+  <select ng-model="selectedHoliday" ng-options="holiday for holiday in holidays">Select a Holiday</select>
+  </div>
+
+  <div>
+    <button ng-click="addSelectedTag()">Add Tag</button>
+    <div id="added_holiday_container"></div>
+  </div>
+
   <div class="tag_modal" ng-if="!search">
     <button ng-click="open()">Choose Tags</button>
   </div>

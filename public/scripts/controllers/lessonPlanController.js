@@ -10,13 +10,24 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacher = false;
   $scope.admin = false;
   $scope.search = false;
+  $scope.lessonPlanId = 1;
+  $scope.edit = true;
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
-
+  $scope.lessonPlanStatus = 'submitted';
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
   console.log($scope.loggedInUser);
+  var lessonPlan ={};
+
 
   validateUser();
+
+  if ($scope.edit === true){
+    $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
+      $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
+      console.log($scope.savedLessonPlan);
+    });
+  }
 
   function validateUser() {
     if($scope.loggedInUser.role == 'admin') {
@@ -29,36 +40,67 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   }
 
   $scope.submitLesson = function() {
-
     console.log('checked', $scope.required_materials);
 
-    if ($scope.type_selector == "resource") {
-      typeBoolean = true;
-    } else {
-      typeBoolean = false;
-    }
-
-    var lessonPlan = {
-      author: $scope.lesson_author,
-      title: $scope.lesson_title,
-      lesson_plan: {
-        materials: $scope.lesson_materials,
-        text: $scope.lesson_text,
-      },
-      materials: $scope.required_materials,
-      resource: typeBoolean
-
-      // tags: $scope.tag
-    };
+    createLessonPlanObject();
 
     $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {
       //notification of successful db post
       console.log('success');
     });
 
-
     console.log('lessonplan', lessonPlan);
   };
+
+  $scope.publishLesson = function() {
+    if ($scope.lessonPlanStatus === 'submitted') {
+      $scope.submitLesson();
+    } else {
+      $scope.editLesson();
+    }
+    console.log('publish button');
+  };
+
+
+  $scope.editLesson = function() {
+    createLessonPlanObject();
+
+    $scope.dataFactory.factoryEditLessonPlan(lessonPlan).then(function() {
+      //notification of successful db post
+      console.log('success');
+    });
+  };
+
+  var createLessonPlanObject = function() {
+    if ($scope.type_selector === "resource") {
+      typeBoolean = true;
+    } else {
+      typeBoolean = false;
+    }
+
+    lessonPlan = {
+      author: $scope.lesson_author,
+      title: $scope.lesson_title,
+      lesson_plan: {
+        materials: $scope.lesson_materials,
+        text: $scope.lesson_text
+      },
+      materials: $scope.required_materials,
+      status: $scope.lessonPlanStatus,
+      resource: typeBoolean
+
+      // tags: $scope.tag
+    };
+  };
+
+
+ //modal
+  $scope.addSelectedTag = function() {
+    var myHoliday = $scope.selectedHoliday;
+    var myEl = angular.element(document.querySelector('#added_holiday_container'));
+    myEl.append('<span>' + myHoliday + ' </span>');
+  };
+
 
   $scope.open = function (size) {
     var modalInstance = $uibModal.open({

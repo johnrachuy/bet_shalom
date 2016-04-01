@@ -75,5 +75,11 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         $scope.selectedName = null;
     };
 
+    //links to the sendgrid function
+    $scope.sendEmail = function() {
+        $http.post('/email').then(function(response) {
+        });
+    }
+
     console.log('Create User Controller');
 }]);

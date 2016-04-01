@@ -25,5 +25,64 @@ CREATE TABLE users
      deleted BOOLEAN NOT NULL
      );
 
-**lesson table**
-  'status' field will hold one of four values: draft, submitted, needs review, published
+CREATE TABLE lesson_tag
+    (
+    lesson_tag_id SERIAL NOT NULL PRIMARY KEY,
+    fk_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
+    fk_tag_id INTEGER NOT NULL REFERENCES tag (tag_id)
+    );
+
+CREATE TABLE tag
+    (
+    tag_id SERIAL NOT NULL PRIMARY KEY,
+    tag_name character varying(30) NOT NULL,
+    tag_category character varying(30) NOT NULL
+    );
+
+INSERT INTO tag
+(tag_name, tag_category)
+VALUES
+('Shabbat', 'Holiday'),
+('Havdalah', 'Holiday'),
+('Rosh Hashanah', 'Holiday'),
+('Tu BiShevat', 'Holiday'),
+('Purim', 'Holiday'),
+('Passover', 'Holiday'),
+('Shavuot', 'Holiday'),
+('Yom Kippur', 'Holiday'),
+('Sukkot', 'Holiday'),
+('Simchat Torah', 'Holiday'),
+('Chanukah', 'Holiday'),
+('Barchu', 'Prayer'),
+('Shema', 'Prayer'),
+('Vahavta', 'Prayer'),
+('Mi Chamocha', 'Prayer'),
+('Amidah', 'Prayer'),
+('Torah Blessings', 'Prayer'),
+('Haftarah Blessings', 'Prayer'),
+('Aleinu', 'Prayer'),
+('Mourners Kaddish', 'Prayer'),
+('Kiddush', 'Prayer'),
+('Hamotzi', 'Prayer'),
+('God', 'General'),
+('Torah', 'General'),
+('Prophets', 'General'),
+('History', 'General'),
+('Holocaust', 'General'),
+('Israel', 'General'),
+('Values', 'General'),
+('Social Responsibility', 'General'),
+('Electives', 'General'),
+('Modern Hebrew', 'Hebrew'),
+('Prayer Hebrew', 'Hebrew'),
+('Torah Hebrew', 'Hebrew'),
+('Pre K', 'Grade'),
+('K', 'Grade'),
+('1st', 'Grade'),
+('2nd', 'Grade'),
+('3rd', 'Grade'),
+('4th', 'Grade'),
+('5th', 'Grade'),
+('6th', 'Grade'),
+('7th', 'Grade'),
+('8th', 'Grade');

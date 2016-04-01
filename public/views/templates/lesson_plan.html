@@ -4,9 +4,11 @@
 <form id="lesson_plan_form">
   <div class="resource_lesson_radio" ng-if="admin">
     <label for="lesson_plan">Lesson Plan</label>
-    <input type="radio" name="type_selector" ng-model="type_selector" value="lesson_plan">
+    <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan">
     <label for="resource">Resource</label>
-    <input type="radio" name="type_selector" ng-model="type_selector" value="resource">
+    <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="resource">
+    <!--<textarea id="a_comment" rows="3" cols="100" ng-model="kitty" placeholder="enter comment"></textarea>-->
+
   </div>
 
   <label for="lesson_author">Author:</label>
@@ -68,16 +70,17 @@
 </form>
 
  <!-- admin only forms -->
-<form id="admin_comment_form" ng-if="admin">
-  <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>
-  <button class="insert_file_button">Insert File</button>
-  <button class="save_draft_button">Save Draft</button>
-  <button id="needs_review">Needs Review</button>
-  <button id="publish_button" ng-click="publishLesson()">Publish Lesson</button>
-  <button id="archive">Archive Lesson</button>
-  <button id="remove_lesson">Remove Lesson</button>
-</form>
-
+<div>
+  <form id="admin_comment_form" ng-if="admin">
+    <textarea id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>
+    <button class="insert_file_button">Insert File</button>
+    <button class="save_draft_button">Save Draft</button>
+    <button id="needs_review">Needs Review</button>
+    <button id="publish_button" ng-click="publishLesson()">Publish Lesson</button>
+    <button id="archive">Archive Lesson</button>
+    <button id="remove_lesson">Remove Lesson</button>
+  </form>
+</div>
 <form id="comments_form" ng-if="search">
   <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>
   <button id="submit_comment">Submit Comment</button>

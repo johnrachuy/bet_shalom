@@ -13,6 +13,7 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 var email = require('./routes/email');
+var tags = require('./routes/tags');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,6 +40,7 @@ app.use('/get_names', get_names);
 app.use('/selected_name', selected_name);
 app.use('/', index);
 app.use('/email', email);
+app.use('/tags', tags);
 
 // Serve back static files
 app.use(express.static('public'));

@@ -48,6 +48,10 @@ app.use('/email', email);
 app.use('/dashboard', dashboard);
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67582342bacae1cee09aaa224396411bbb806460
 
 // Serve back static files
 app.use(express.static('public'));

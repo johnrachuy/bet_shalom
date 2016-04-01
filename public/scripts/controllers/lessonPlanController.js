@@ -1,6 +1,5 @@
 myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', '$location', '$uibModal', '$log',
   function($scope, $http, PassportFactory, DataFactory, $location, $uibModal, $log) {
-
   console.log('lesson plan controller');
   $scope.dataFactory = DataFactory;
   $scope.passportFactory = PassportFactory;
@@ -10,8 +9,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacher = false;
   $scope.admin = false;
   $scope.search = false;
+
+    //currently hardcoded
   $scope.lessonPlanId = 1;
+
+    //currently Hardcoded
   $scope.edit = true;
+
+
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
   $scope.lessonPlanStatus = 'submitted';
@@ -25,7 +30,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   if ($scope.edit === true){
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
-      console.log($scope.savedLessonPlan);
+      console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
+      populateLessonForEdit();
+
     });
   }
 
@@ -40,7 +47,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   }
 
   $scope.submitLesson = function() {
-    console.log('checked', $scope.required_materials);
+    //console.log('checked', $scope.required_materials);
+    console.log('submit lesson');
 
     createLessonPlanObject();
 
@@ -54,21 +62,23 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   $scope.publishLesson = function() {
     if ($scope.lessonPlanStatus === 'submitted') {
-      $scope.submitLesson();
-    } else {
       $scope.editLesson();
+    } else {
+      $scope.submitLesson();
     }
     console.log('publish button');
   };
 
 
   $scope.editLesson = function() {
+    console.log('edit lesson');
+    $scope.lessonPlanStatus = 'published';
     createLessonPlanObject();
+    console.log('lesson plan::', lessonPlan);
 
-    $scope.dataFactory.factoryEditLessonPlan(lessonPlan).then(function() {
+    $scope.dataFactory.factoryEditLessonPlan(lessonPlan);
       //notification of successful db post
       console.log('success');
-    });
   };
 
   var createLessonPlanObject = function() {
@@ -83,14 +93,33 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       title: $scope.lesson_title,
       lesson_plan: {
         materials: $scope.lesson_materials,
-        text: $scope.lesson_text
+        text: $scope.lesson_text,
+        admin_comment: $scope.admin_comment
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
-      resource: typeBoolean
+      resource: typeBoolean,
+
+      //hardcoded currently
+      lesson_id: $scope.lessonPlanId
+
 
       // tags: $scope.tag
     };
+  };
+
+
+  var populateLessonForEdit = function() {
+
+    if ($scope.savedLessonPlan[0].materials == true) {
+      $scope.required_materials = true;
+    }
+    $scope.lesson_author = $scope.savedLessonPlan[0].author;
+    $scope.lesson_title = $scope.savedLessonPlan[0].title;
+    $scope.lesson_materials = $scope.savedLessonPlan[0].lesson_plan.materials;
+    $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
+    $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
+
   };
 
 

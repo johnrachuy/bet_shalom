@@ -13,6 +13,15 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 var email = require('./routes/email');
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+var dashboard = require('./routes/dashboard');
+=======
+var tags = require('./routes/tags');
+var tag_search = require('./routes/tag_search');
+>>>>>>> 3536de45a29358ae38e5cde79689b62b00df68b6
+>>>>>>> 8ec79f800ef12cc727e0d982245a8209b485ed02
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,6 +48,15 @@ app.use('/get_names', get_names);
 app.use('/selected_name', selected_name);
 app.use('/', index);
 app.use('/email', email);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+app.use('/dashboard', dashboard);
+=======
+app.use('/tags', tags);
+app.use('/tag_search', tag_search);
+>>>>>>> 3536de45a29358ae38e5cde79689b62b00df68b6
+>>>>>>> 8ec79f800ef12cc727e0d982245a8209b485ed02
 
 // Serve back static files
 app.use(express.static('public'));

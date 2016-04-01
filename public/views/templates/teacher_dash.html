@@ -1,1 +1,10 @@
-<h2>Teacher Dashboard</h2>
+<p>List of lessons!</p>
+<div id="teacher_lesson_plans" ng-repeat="lesson in lessonPlans">
+    {{lesson.author}}, {{lesson.title}}, {{lesson.status}}, {{lesson.materials}}
+</div>
+
+<br>
+<div id="teacher_favorites">
+    <p>List of favorites!</p>
+
+</div>

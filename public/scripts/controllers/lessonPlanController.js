@@ -17,7 +17,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.edit = true;
 
 
-  $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
   $scope.lessonPlanStatus = 'submitted';
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
@@ -122,12 +121,34 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   };
 
+  var populateTagDropdown = function() {
+    //The three separate get-calls are for testing purposes. Reduce later
+    $http.get('/tags').then(function(response) {
+      console.log('tags from get call:: ', response.data);
+      var tagsAreFun = response.data;
+      $scope.tags = tagsAreFun;
+    });
+    $http.get('/tags').then(function(response) {
+      console.log('tags from get call:: ', response.data);
+      var tagsAreCool = response.data;
+      $scope.moreTags = tagsAreCool;
+
+    });
+    $http.get('/tags').then(function(response) {
+      console.log('tags from get call:: ', response.data);
+      var tagsAreSweet = response.data;
+      $scope.evenMoreTags = tagsAreSweet;
+
+    });
+  };
+
+  populateTagDropdown();
 
  //modal
   $scope.addSelectedTag = function() {
-    var myHoliday = $scope.selectedHoliday;
-    var myEl = angular.element(document.querySelector('#added_holiday_container'));
-    myEl.append('<span>' + myHoliday + ' </span>');
+    var myTag = $scope.selectedTag;
+    var myEl = angular.element(document.querySelector('#added_tag_container'));
+    myEl.append('<span>' + myTag + ' </span>');
   };
 
 

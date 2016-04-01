@@ -49,7 +49,6 @@ app.use('/dashboard', dashboard);
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
 
-
 // Serve back static files
 app.use(express.static('public'));
 app.use(express.static('public/views'));

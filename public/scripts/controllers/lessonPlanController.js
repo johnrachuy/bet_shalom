@@ -9,8 +9,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacher = false;
   $scope.admin = false;
   $scope.search = false;
+
+    //currently hardcoded
   $scope.lessonPlanId = 1;
+
+    //currently Hardcoded
   $scope.edit = true;
+
+
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
   $scope.lessonPlanStatus = 'submitted';
@@ -21,14 +27,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
-  //if ($scope.edit === true){
-  //  $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
-  //    $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
-  //    console.log($scope.savedLessonPlan);
-  //    populateLessonForEdit();
-  //
-  //  });
-  //}
+  if ($scope.edit === true){
+    $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
+      $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
+      console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
+      populateLessonForEdit();
+
+    });
+  }
 
   function validateUser() {
     if($scope.loggedInUser.role == 'admin') {
@@ -88,11 +94,15 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       lesson_plan: {
         materials: $scope.lesson_materials,
         text: $scope.lesson_text,
-        admin_comment: $scope.kitty
+        admin_comment: $scope.admin_comment
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
-      resource: typeBoolean
+      resource: typeBoolean,
+
+      //hardcoded currently
+      lesson_id: $scope.lessonPlanId
+
 
       // tags: $scope.tag
     };

@@ -13,9 +13,7 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 var email = require('./routes/email');
-
 var dashboard = require('./routes/dashboard');
-
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
 

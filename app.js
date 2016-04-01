@@ -45,12 +45,9 @@ app.use('/get_names', get_names);
 app.use('/selected_name', selected_name);
 app.use('/', index);
 app.use('/email', email);
-<<<<<<< HEAD
 app.use('/dashboard', dashboard);
-=======
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
->>>>>>> 3536de45a29358ae38e5cde79689b62b00df68b6
 
 // Serve back static files
 app.use(express.static('public'));

@@ -14,11 +14,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.lessonPlanId = 1;
 
     //currently Hardcoded
-  $scope.edit = true;
+  //$scope.edit = true;
 
 
   $scope.animationsEnabled = true;
-  $scope.lessonPlanStatus = 'submitted';
+
+  //$scope.lessonPlanStatus = 'submitted';
+
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
   console.log($scope.loggedInUser);
   var lessonPlan ={};
@@ -26,7 +28,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
-  if ($scope.edit === true){
+  if ($scope.edit === true) {
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
@@ -60,6 +62,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   $scope.publishLesson = function() {
+    $scope.lessonPlanStatus = 'not submitted';
     if ($scope.lessonPlanStatus === 'submitted') {
       $scope.editLesson();
     } else {
@@ -100,11 +103,21 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       resource: typeBoolean,
 
       //hardcoded currently
-      lesson_id: $scope.lessonPlanId
+      lesson_id: $scope.lessonPlanId,
 
 
-      // tags: $scope.tag
+      tags: []
     };
+    if($scope.selectedTag){
+      lessonPlan.tags.push($scope.selectedTag.tag_id);
+    }
+    if($scope.selectedTagg){
+      lessonPlan.tags.push($scope.selectedTagg.tag_id);
+    }
+    if($scope.selectedTaggg){
+      lessonPlan.tags.push($scope.selectedTaggg.tag_id);
+    }
+
   };
 
 
@@ -149,6 +162,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     var myTag = $scope.selectedTag;
     var myEl = angular.element(document.querySelector('#added_tag_container'));
     myEl.append('<span>' + myTag + ' </span>');
+    console.log('selectedTagg', $scope.selectedTagg);
   };
 
 

@@ -13,12 +13,9 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 var email = require('./routes/email');
-<<<<<<< HEAD
 var dashboard = require('./routes/dashboard');
-=======
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
->>>>>>> 3536de45a29358ae38e5cde79689b62b00df68b6
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

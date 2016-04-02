@@ -1,6 +1,7 @@
 myApp.factory('DataFactory', ['$http', function($http) {
 
     var lessonPlan = undefined;
+    var lessonPlans = {};
 
 
 //The private function to save a lesson plan
@@ -26,6 +27,15 @@ var retrieveLessonPlan = function(id){
     return promise;
 };
 
+//function to retrieve all the lessons based on the user id, only gets all lesson until tables are in place
+var retrieveLessonPlans = function(userId){
+    var promise = $http.get('/dashboard').then(function(response) {
+        lessonPlans = response.data;
+        console.log('DataFactory: ' + lessonPlans);
+    });
+    return promise;
+};
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -38,6 +48,12 @@ var retrieveLessonPlan = function(id){
       },
       factoryLessonPlan: function(){
           return lessonPlan;
+      },
+      factoryRetrieveLessonPlans: function(userId){
+          return retrieveLessonPlans(userId);
+      },
+      factoryLessonPlans: function(){
+          return lessonPlans;
       }
   };
 

@@ -1,1 +1,11 @@
 <h2>Search</h2>
+
+<div>
+    <select ng-model="selectedTag" ng-change="searchTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">
+        <option value="">Select Tag</option>
+    </select>
+</div>
+
+<div class="col-md-6">
+    <table class="table"><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td>{{plan.title}}</td><td>{{plan.author}}</td></tr></tbody></table>
+</div>

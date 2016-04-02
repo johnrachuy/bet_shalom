@@ -18,7 +18,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
 
   $scope.animationsEnabled = true;
-  $scope.lessonPlanStatus = 'submitted';
+
+  //$scope.lessonPlanStatus = 'submitted';
+
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
   console.log($scope.loggedInUser);
   var lessonPlan ={};
@@ -26,7 +28,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
-  if ($scope.edit === true){
+  if ($scope.edit === true) {
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
@@ -60,6 +62,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   $scope.publishLesson = function() {
+    $scope.lessonPlanStatus = 'not submitted';
     if ($scope.lessonPlanStatus === 'submitted') {
       $scope.editLesson();
     } else {

@@ -18,17 +18,17 @@
 
   <!--The three dropdowns for testing-->
   <div>
-  <select ng-model="selectedTag" ng-options="tag.tag_name as tag.tag_name for tag in tags">
+  <select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">
     <option value="">Select a Tag</option>
   </select>
   </div>
   <div>
-    <select ng-model="selectedTagg" ng-options="tag.tag_name as tag.tag_name for tag in moreTags">
+    <select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">
       <option value="">Select a Tag</option>
     </select>
   </div>
   <div>
-    <select ng-model="selectedTaggg" ng-options="tag.tag_name as tag.tag_name for tag in evenMoreTags">
+    <select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">
       <option value="">Select a Tag</option>
     </select>
   </div>

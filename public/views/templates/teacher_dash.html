@@ -1,5 +1,5 @@
 <p>List of lessons!</p>
-<div id="teacher_lesson_plans" ng-repeat="lesson in lessonPlans">
+<div id="teacher_lesson_plans" ng-repeat="lesson in lessonPlans" ng-click="editClickedLesson(lesson.lesson_id)">
     {{lesson.author}}, {{lesson.title}}, {{lesson.status}}, {{lesson.materials}}
 </div>
 

@@ -1,1 +1,4 @@
-<h2>Admin Dashboard</h2>
+<p>List of lessons!</p>
+<div id="admin_lesson_plans" ng-repeat="lesson in lessonPlans" ng-click="editClickedLesson(lesson.lesson_id)">
+    {{lesson.author}}, {{lesson.title}}, {{lesson.status}}, {{lesson.materials}}
+</div>

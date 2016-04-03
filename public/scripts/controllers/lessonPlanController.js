@@ -4,40 +4,55 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.dataFactory = DataFactory;
   $scope.passportFactory = PassportFactory;
 
+  //store the logged-in user
   $scope.loggedInUser = {};
-  var typeBoolean;
+  //Sets the default state of the radio buttons for resource or lesson plan to be lesson plan
+  $scope.$parent.type_selector = "lesson_plan";
+  //attempted to set a default on the text box but it doesn't seem to work when trying to write
+  $scope.required_materials = false;
+
+  //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacher = false;
   $scope.admin = false;
   $scope.search = false;
 
-    //currently hardcoded
-  $scope.lessonPlanId = 1;
-
-    //currently Hardcoded
-  //$scope.edit = true;
+  //Stores the id of the lesson plan from the factory, sent by the page the user came from
+  $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
+  //Tracks what the status of the lesson is, changes based on where the user is coming from
+  $scope.lessonPlanStatus = 'submitted';
+  //Sets whether the page is editable or not, changes based on where the user is coming from
+  $scope.edit = true;
+  //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
+  var resourceOrLessonBoolean;
+  //declares the empty lessonPlan object used to package up data to be sent to the database
+  var lessonPlan = {};
 
 
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
 
-  //$scope.lessonPlanStatus = 'submitted';
 
+
+  //Gets the information from the factory about who is logged in and calls
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
   console.log($scope.loggedInUser);
-  var lessonPlan ={};
-
 
   validateUser();
 
+  //Sets the edit variable that controls the stae of the page from the factory
+  $scope.edit = $scope.dataFactory.factoryLessonViewState;
+
+  //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.edit === true) {
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
-
     });
   }
 
+  //function that checks the current user and either kicks them off the page or changes the variables that set the state
+    //of the page
   function validateUser() {
     if($scope.loggedInUser.role == 'admin') {
       $scope.admin = true;
@@ -48,6 +63,17 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   }
 
+  //Checks to see if the admin is publishing a new lesson or a teacher submitted lesson and calls the correct function
+  $scope.publishLesson = function() {
+    if ($scope.lessonPlanStatus === 'submitted') {
+      $scope.editLesson();
+    } else {
+      $scope.submitLesson();
+    }
+    console.log('publish button');
+  };
+
+  //Inserts a new lesson into the database
   $scope.submitLesson = function() {
     //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
@@ -62,17 +88,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     console.log('lessonplan', lessonPlan);
   };
 
-  $scope.publishLesson = function() {
-    $scope.lessonPlanStatus = 'not submitted';
-    if ($scope.lessonPlanStatus === 'submitted') {
-      $scope.editLesson();
-    } else {
-      $scope.submitLesson();
-    }
-    console.log('publish button');
-  };
-
-
+  //Updates a lesson in the database
   $scope.editLesson = function() {
     console.log('edit lesson');
     $scope.lessonPlanStatus = 'published';
@@ -84,11 +100,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       console.log('success');
   };
 
+  //Packages up the current lesson into an object to be sent to the database
   var createLessonPlanObject = function() {
     if ($scope.type_selector === "resource") {
-      typeBoolean = true;
+      resourceOrLessonBoolean = true;
     } else {
-      typeBoolean = false;
+      resourceOrLessonBoolean = false;
     }
 
     lessonPlan = {
@@ -101,7 +118,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
-      resource: typeBoolean,
+      resource: resourceOrLessonBoolean,
 
       //hardcoded currently
       lesson_id: $scope.lessonPlanId,
@@ -109,6 +126,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
       tags: []
     };
+
     if($scope.selectedTag){
       lessonPlan.tags.push($scope.selectedTag.tag_id);
     }
@@ -121,7 +139,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   };
 
-
+  //populates the inputs with the retrieved lesson plan
   var populateLessonForEdit = function() {
 
     if ($scope.savedLessonPlan[0].materials == true) {
@@ -136,8 +154,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
 
+  //The three separate get-calls are for testing purposes. Reduce later
+
   var populateTagDropdown = function() {
-    //The three separate get-calls are for testing purposes. Reduce later
     $http.get('/tags').then(function(response) {
       console.log('tags from get call:: ', response.data);
       var tagsAreFun = response.data;
@@ -158,6 +177,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   populateTagDropdown();
+
 
  //modal
   $scope.addSelectedTag = function() {
@@ -187,22 +207,59 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     });
   };
 
+
+ //variable and functions for a possible modal:
+
+    //$scope.animationsEnabled = true;
+
+
+//  $scope.addSelectedTag = function() {
+//    var myTag = $scope.selectedTag;
+//    var myEl = angular.element(document.querySelector('#added_tag_container'));
+//    myEl.append('<span>' + myTag + ' </span>');
+//    console.log('selectedTagg', $scope.selectedTagg);
+//  };
+//
+//
+//  $scope.open = function (size) {
+//    var modalInstance = $uibModal.open({
+//      animation: $scope.animationsEnabled,
+//      templateUrl: 'myModalContent.html',
+//      controller: 'ModalInstanceCtrl',
+//      size: size,
+//      resolve: {
+//        holidays: function () {
+//          return $scope.holidays;
+//        }
+//      }
+//    });
+//
+//    modalInstance.result.then(function (selectedItem) {
+//      $scope.selected = selectedItem;
+//    }, function () {
+//      $log.info('Modal dismissed at: ' + new Date());
+//    });
+//  };
+//
 }]);
 
-angular.module('myApp').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, holidays) {
 
-  $scope.holidays = holidays;
-  $scope.selected = {
-    holiday: $scope.holidays[0]
-  };
+//Another controller with the code for a possible modal
 
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.holiday);
-  };
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-});
+//angular.module('myApp').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, holidays) {
+//
+//  $scope.holidays = holidays;
+//  $scope.selected = {
+//    holiday: $scope.holidays[0]
+//  };
+//
+//  $scope.ok = function () {
+//    $uibModalInstance.close($scope.selected.holiday);
+//  };
+//
+//  $scope.cancel = function () {
+//    $uibModalInstance.dismiss('cancel');
+//  };
+//});
 
 

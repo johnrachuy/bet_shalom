@@ -13,7 +13,8 @@ var update_user = require('./routes/update_user');
 var get_names = require('./routes/get_names');
 var selected_name = require('./routes/selected_name');
 var email = require('./routes/email');
-var dashboard = require('./routes/dashboard');
+var teacher_dashboard = require('./routes/teacher_dashboard');
+var admin_dashboard = require('./routes/admin_dashboard');
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
 
@@ -43,7 +44,8 @@ app.use('/get_names', get_names);
 app.use('/selected_name', selected_name);
 app.use('/', index);
 app.use('/email', email);
-app.use('/dashboard', dashboard);
+app.use('/teacher_dashboard', teacher_dashboard);
+app.use('/admin_dashboard', admin_dashboard);
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
 

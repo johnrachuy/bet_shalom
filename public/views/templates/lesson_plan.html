@@ -1,14 +1,14 @@
 <!-- Explore tag options -->
 
-<!-- admin only options -->
+
 <form id="lesson_plan_form">
+  <!--div containing the radio buttons for the admin to choose a resource or lesson; only viewable as admin-->
   <div class="resource_lesson_radio" ng-if="admin">
     <label for="lesson_plan">Lesson Plan</label>
     <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan">
     <label for="resource">Resource</label>
     <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="resource">
     <!--<textarea id="a_comment" rows="3" cols="100" ng-model="kitty" placeholder="enter comment"></textarea>-->
-
   </div>
 
   <label for="lesson_author">Author:</label>
@@ -40,28 +40,7 @@
     <div id="added_tag_container"></div>
   </div>
 
-  <div class="tag_modal" ng-if="!search">
-    <button ng-click="open()">Choose Tags</button>
-  </div>
-
-  <script type="text/ng-template" id="myModalContent.html">
-    <h1>Something that appears!</h1>
-    <div class="modal-header">
-      <h3 class="modal-title">I'm a modal!</h3>
-    </div>
-
-    <div ng-repeat="holiday in holidays">
-      <label>{{holiday}}</label>
-      ​
-      <input type="checkbox"  />
-    </div>
-    ​
-    <div class="modal-footer">
-      <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-    </div>
-  </script>
-
+  <!--div containing the materials checkbox and text entry-->
   <div class="materials_div">
     <label for="lesson_materials_checkbox">Materials required?</label>
     <input type="checkbox" ng-model="required_materials" ng-init="checked=true" />
@@ -72,19 +51,21 @@
   <label for="lesson_text">Lesson text:</label>
   <textarea id="lesson_text" rows="20" cols="100" ng-model="lesson_text"></textarea>
 
-  <!-- teacher button bar -->
+  <!--div containg the buttons shown only on the enter lesson plan view for the teacher-->
   <div class="teacher_buttons_div" ng-if="teacher">
     <button class="insert_file_button">Insert File</button>
     <button class="save_draft_button">Save Draft</button>
     <button id="submit_lesson_button" ng-click="submitLesson()">Submit Lesson</button>
   </div>
 
+  <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
+  <!--teacher-->
   <div class="favorites_button" ng-if="search">
     <button id="add-favorite">Add to Favorites</button>
   </div>
 </form>
 
- <!-- admin only forms -->
+<!--buttons and admin comment input shown only the admin edit view-->
 <div>
   <form id="admin_comment_form" ng-if="admin">
     <textarea id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>
@@ -96,7 +77,42 @@
     <button id="remove_lesson">Remove Lesson</button>
   </form>
 </div>
+
+<!--comment section shown only on the viewable non-editable view coming from the search page-->
 <form id="comments_form" ng-if="search">
   <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>
   <button id="submit_comment">Submit Comment</button>
 </form>
+
+<!--div that shows all the comments for the lesson-->
+<div id="posted_comments" >
+
+</div>
+
+
+
+
+<!--code for a possible modal-->
+
+<!--<div class="tag_modal" ng-if="!search">-->
+<!--<button ng-click="open()">Choose Tags</button>-->
+<!--</div>-->
+
+
+<!--<script type="text/ng-template" id="myModalContent.html">-->
+  <!--<h1>Something that appears!</h1>-->
+  <!--<div class="modal-header">-->
+    <!--<h3 class="modal-title">I'm a modal!</h3>-->
+  <!--</div>-->
+
+  <!--<div ng-repeat="holiday in holidays">-->
+    <!--<label>{{holiday}}</label>-->
+    <!--​-->
+    <!--<input type="checkbox"  />-->
+  <!--</div>-->
+  <!--​-->
+  <!--<div class="modal-footer">-->
+    <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+    <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+  <!--</div>-->
+<!--</script>-->

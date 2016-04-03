@@ -46,6 +46,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   if ($scope.edit === true) {
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
+      /*
+       * Sets lessonPlanStatus to the 'status' property coming back from the database.
+       * This allows the 'Publish' button to determine whether to POST or PUT. -Savio
+       */
+      $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
+      console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
     });
@@ -169,18 +175,18 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   var populateTagDropdown = function() {
     $http.get('/tags').then(function(response) {
-      console.log('tags from get call:: ', response.data);
+      //console.log('tags from get call:: ', response.data);
       var tagsAreFun = response.data;
       $scope.tags = tagsAreFun;
     });
     $http.get('/tags').then(function(response) {
-      console.log('tags from get call:: ', response.data);
+      //console.log('tags from get call:: ', response.data);
       var tagsAreCool = response.data;
       $scope.moreTags = tagsAreCool;
 
     });
     $http.get('/tags').then(function(response) {
-      console.log('tags from get call:: ', response.data);
+      //console.log('tags from get call:: ', response.data);
       var tagsAreSweet = response.data;
       $scope.evenMoreTags = tagsAreSweet;
 

@@ -19,7 +19,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = 'submitted';
+  $scope.lessonPlanStatus = null;
   //Sets whether the page is editable or not, changes based on where the user is coming from
   $scope.edit = true;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
@@ -77,7 +77,18 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.submitLesson = function() {
     //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
-
+    /*
+     * if statement checks the role of user. Admin's submissions are immediately published, while teacher submission
+     * requires admin review
+     */
+    if ($scope.admin === true) {
+      $scope.lessonPlanStatus = 'published';
+    } else if ($scope.teacher === true) {
+      $scope.lessonPlanStatus = 'submitted';
+    }
+    /*
+     * $scope.lessonPlanStatus is now set. Function to create object will use new lessonPlanStatus
+     */
     createLessonPlanObject();
 
     $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {

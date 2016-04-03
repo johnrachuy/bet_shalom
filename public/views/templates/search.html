@@ -1,11 +1,16 @@
-<h2>Search</h2>
+<div class="container">
+    <h2>Search</h2>
+    <div class="form-group">
+        <select ng-model="selectedTag" ng-change="searchTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">
+            <option value="">Select Tag</option>
+        </select>
+        <select ng-model="selectedTag2" ng-change="filterTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">
+            <option value="">Select Tag</option>
+        </select>
+    </div>
 
-<div>
-    <select ng-model="selectedTag" ng-change="searchTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">
-        <option value="">Select Tag</option>
-    </select>
-</div>
+    <div class="jumbotron">
+        <table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Published</th><th>Materials needed</th><th>Resource</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="">Select Me</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td>{{plan.materials}}</td><td>{{plan.resource}}</td></tr></tbody></table>
+    </div>
 
-<div class="col-md-6">
-    <table class="table"><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td>{{plan.title}}</td><td>{{plan.author}}</td></tr></tbody></table>
 </div>

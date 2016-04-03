@@ -18,6 +18,7 @@ var admin_dashboard = require('./routes/admin_dashboard');
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

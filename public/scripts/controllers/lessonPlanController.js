@@ -19,7 +19,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = 'submitted';
+  $scope.lessonPlanStatus = null;
   //Sets whether the page is editable or not, changes based on where the user is coming from
   $scope.edit = true;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
@@ -27,6 +27,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
 
+
+  $scope.holidays = ['Channukah', 'Yom Kipur'];
+  $scope.animationsEnabled = true;
 
 
 
@@ -74,7 +77,18 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.submitLesson = function() {
     //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
-
+    /*
+     * if statement checks the role of user. Admin's submissions are immediately published, while teacher submission
+     * requires admin review
+     */
+    if ($scope.admin === true) {
+      $scope.lessonPlanStatus = 'published';
+    } else if ($scope.teacher === true) {
+      $scope.lessonPlanStatus = 'submitted';
+    }
+    /*
+     * $scope.lessonPlanStatus is now set. Function to create object will use new lessonPlanStatus
+     */
     createLessonPlanObject();
 
     $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {
@@ -150,7 +164,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   };
 
+
   //The three separate get-calls are for testing purposes. Reduce later
+
   var populateTagDropdown = function() {
     $http.get('/tags').then(function(response) {
       console.log('tags from get call:: ', response.data);
@@ -173,6 +189,34 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   populateTagDropdown();
 
+
+ //modal
+  $scope.addSelectedTag = function() {
+    var myTag = $scope.selectedTag;
+    var myEl = angular.element(document.querySelector('#added_tag_container'));
+    myEl.append('<span>' + myTag + ' </span>');
+    console.log('selectedTagg', $scope.selectedTagg);
+  };
+
+  $scope.open = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
 
 
  //variable and functions for a possible modal:

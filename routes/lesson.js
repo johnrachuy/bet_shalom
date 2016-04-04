@@ -7,6 +7,7 @@ var pg = require('pg');
 router.post('/', function(req, res) {
   var lessonPlan = {
     author: req.body.author,
+    author_id: req.body.author_id,
     title: req.body.title,
     published: new Date(),
     lesson_plan: req.body.lesson_plan,
@@ -18,9 +19,9 @@ router.post('/', function(req, res) {
   };
 
    pg.connect(connection, function(err, client, done) {
-    client.query('INSERT INTO lesson (author, title, published, lesson_plan, materials, ' +
-      'resource, status, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING lesson_id',
-      [lessonPlan.author, lessonPlan.title, lessonPlan.published, lessonPlan.lesson_plan, lessonPlan.materials,
+    client.query('INSERT INTO lesson (author, author_id, title, published, lesson_plan, materials, ' +
+      'resource, status, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING lesson_id',
+      [lessonPlan.author, lessonPlan.author_id, lessonPlan.title, lessonPlan.published, lessonPlan.lesson_plan, lessonPlan.materials,
         lessonPlan.resource, lessonPlan.status, lessonPlan.deleted],
       function (err, result) {
         done();

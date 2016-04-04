@@ -10,7 +10,7 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
     validateUser();
 
     function validateUser() {
-        if($scope.loggedInUser.role == 'admin') {
+        if($scope.loggedInUser.role == 'admin' || 'teacher') {
 
         } else {
             $location.path('/home');

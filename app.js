@@ -17,6 +17,7 @@ var teacher_dashboard = require('./routes/teacher_dashboard');
 var admin_dashboard = require('./routes/admin_dashboard');
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
+var favorite = require('./routes/favorite');
 
 
 app.use(bodyParser.json());
@@ -48,6 +49,7 @@ app.use('/teacher_dashboard', teacher_dashboard);
 app.use('/admin_dashboard', admin_dashboard);
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
+app.use('/favorite', favorite);
 
 // Serve back static files
 app.use(express.static('public'));

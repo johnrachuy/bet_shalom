@@ -26,6 +26,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
+    var favorite = {};
 
   //clears form
   function clearForm () {
@@ -98,6 +99,18 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
     console.log('publish button');
   };
+
+    //Favorites a lesson plan
+    $scope.addFav = function() {
+      favorite = {
+        fk_users_id: $scope.loggedInUser.users_id,
+        fk_fav_lesson_id: $scope.lessonPlanId
+      };
+      //console.log(favorite);
+      $scope.dataFactory.factoryAddFavorite(favorite).then(function() {
+
+      })
+    };
 
   //Inserts a new lesson into the database
   $scope.submitLesson = function() {

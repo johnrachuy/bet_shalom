@@ -19,7 +19,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = null;
+  $scope.lessonPlanStatus = false;
   //Sets whether the page is editable or not, changes based on where the user is coming from
   $scope.edit = true;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
@@ -55,8 +55,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
     });
+  } else {
+    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
-
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
   function validateUser() {
@@ -127,6 +128,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     lessonPlan = {
       author: $scope.lesson_author,
+      author_id: $scope.loggedInUser.users_id,
       title: $scope.lesson_title,
       lesson_plan: {
         materials: $scope.lesson_materials,

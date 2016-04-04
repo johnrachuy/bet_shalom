@@ -17,6 +17,7 @@ CREATE TABLE users
      (
       lesson_id SERIAL NOT NULL PRIMARY KEY,
       author character varying(120) NOT NULL,
+      author_id INTEGER NOT NULL,
       title character varying(120) NOT NULL,
       published character varying(120),
       lesson_plan jsonb,
@@ -31,6 +32,13 @@ CREATE TABLE lesson_tag
     lesson_tag_id SERIAL NOT NULL PRIMARY KEY,
     fk_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
     fk_tag_id INTEGER NOT NULL REFERENCES tag (tag_id)
+    );
+
+CREATE TABLE favorite
+    (
+    favorite_id SERIAL NOT NULL PRIMARY KEY,
+    fk_users_id INTEGER NOT NULL REFERENCES users (users_id),
+    fk_fav_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id)
     );
 
 CREATE TABLE tag
@@ -72,6 +80,7 @@ VALUES
 ('Holocaust', 'General'),
 ('Israel', 'General'),
 ('Values', 'General'),
+('Tzedakah', 'General'),
 ('Social Responsibility', 'General'),
 ('Electives', 'General'),
 ('Modern Hebrew', 'Hebrew'),

@@ -144,15 +144,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       tags: []
     };
 
-    if($scope.selectedTag){
-      lessonPlan.tags.push($scope.selectedTag.tag_id);
-    }
-    if($scope.selectedTagg){
-      lessonPlan.tags.push($scope.selectedTagg.tag_id);
-    }
-    if($scope.selectedTaggg){
-      lessonPlan.tags.push($scope.selectedTaggg.tag_id);
-    }
+    // lessonPlan object property 'tags' is assigned the value of the global 'tags' array created by ngTagsInput
+    lessonPlan.tags = $scope.tags;
+
 
   };
 
@@ -171,32 +165,39 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
 
-  //The three separate get-calls are for testing purposes. Reduce later
-
-  var populateTagDropdown = function() {
-    $http.get('/tags').then(function(response) {
-      //console.log('tags from get call:: ', response.data);
-      var tagsAreFun = response.data;
-      $scope.tags = tagsAreFun;
-    });
-    $http.get('/tags').then(function(response) {
-      //console.log('tags from get call:: ', response.data);
-      var tagsAreCool = response.data;
-      $scope.moreTags = tagsAreCool;
-
-    });
-    $http.get('/tags').then(function(response) {
-      //console.log('tags from get call:: ', response.data);
-      var tagsAreSweet = response.data;
-      $scope.evenMoreTags = tagsAreSweet;
-
+  //Auto-complete function for ngTagsInput -savio
+  $scope.loadTags = function($query) {
+    return $http.get('/tags', { cache: true}).then(function(response) {
+      var keyTags = response.data;
+      return keyTags.filter(function(tag) {
+        return tag.tag_name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+      });
     });
   };
 
-  populateTagDropdown();
+  /*
+   * Functions that populate and remove tag_id from tags array when tags are selected with ngTagsInput
+   */
+  $scope.tags = [];
+  $scope.tagAdded = function(tag) {
+    console.log('Tag added: ', tag);
+    $scope.tags.push(tag.tag_id);
+    console.log($scope.tags);
+  };
+  $scope.tagRemoved = function(tag) {
+    console.log('Tag removed: ', tag);
+    var removedTag = $scope.tags.indexOf(tag.tag_id);
+    if(removedTag != -1) {
+      $scope.tags.splice(removedTag, 1);
+    }
+    console.log($scope.tags);
+  };
 
+  /*
+   * End of add/remove tag functions -Savio
+   */
 
- //modal
+    //modal
   $scope.addSelectedTag = function() {
     var myTag = $scope.selectedTag;
     var myEl = angular.element(document.querySelector('#added_tag_container'));

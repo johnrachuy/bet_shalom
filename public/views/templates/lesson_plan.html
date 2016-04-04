@@ -17,28 +17,64 @@
   <input type="text" id="lesson_title" ng-model="lesson_title" />
 
   <!--The three dropdowns for testing-->
-  <div>
-  <select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">
-    <option value="">Select a Tag</option>
-  </select>
-  </div>
-  <div>
-    <select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">
-      <option value="">Select a Tag</option>
-    </select>
-  </div>
-  <div>
-    <select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">
-      <option value="">Select a Tag</option>
-    </select>
-  </div>
+  <!--<div>-->
+  <!--<select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">-->
+    <!--<option value="">Select a Tag</option>-->
+  <!--</select>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">-->
+      <!--<option value="">Select a Tag</option>-->
+    <!--</select>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">-->
+      <!--<option value="">Select a Tag</option>-->
+    <!--</select>-->
+  <!--</div>-->
   <!--The three dropdowns for testing-->
 
 
-  <div>
-    <button ng-click="addSelectedTag()">Add Tag</button>
-    <div id="added_tag_container"></div>
-  </div>
+  <!--<div>-->
+    <!--<button ng-click="addSelectedTag()">Add Tag</button>-->
+    <!--<div id="added_tag_container"></div>-->
+  <!--</div>-->
+
+  <!-- ngTagsInput -->
+  <tags-input ng-model="selectedTag"
+              display-property="tag_name"
+              placeholder="Select tag"
+              replace-spaces-with-dashes="false"
+              on-tag-added="tagAdded($tag)"
+              on-tag-removed="tagRemoved($tag)"
+              template="tag-template">
+    <auto-complete source="loadTags($query)"
+                   min-length="0"
+                   load-on-focus="true"
+                   load-on-empty="true"
+                   max-results-to-show="45"
+                   template="autocomplete-template"></auto-complete>
+  </tags-input>
+
+  <script type="text/ng-template" id="tag-template">
+    <div class="tag-template">
+      <div class="right-panel">
+        <span ng-model="selectedTag">{{$getDisplayText()}}</span>
+        <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="autocomplete-template">
+    <div class="autocomplete-template">
+      <div class="right-panel">
+        <span ng-bind-html="$highlight($getDisplayText())"></span>
+        <span>ID: {{data.tag_id}}, </span>
+        <span>Category: {{data.tag_category}}</span>
+      </div>
+    </div>
+  </script>
+  <!-- ngTagsInput -->
 
   <!--div containing the materials checkbox and text entry-->
   <div class="materials_div">

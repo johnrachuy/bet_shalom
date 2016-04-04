@@ -27,6 +27,23 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
 
+  //clears form
+  function clearForm () {
+    $scope.lesson_author = null;
+    $scope.lesson_title = null;
+    $scope.lesson_materials = null;
+    $scope.lesson_text = null;
+    $scope.admin_comment = null;
+    $scope.required_materials = null;
+    $scope.lessonPlanStatus = null;
+    $scope.lessonPlanId = null;
+
+    // Naming will be changed with added tag search
+    $scope.selectedTag = null;
+    $scope.selectedTagg = null;
+    $scope.selectedTaggg = null;
+  }
+
 
   $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
@@ -103,6 +120,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     });
 
     console.log('lessonplan', lessonPlan);
+
+    clearForm();
   };
 
   //Updates a lesson in the database
@@ -115,6 +134,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.dataFactory.factoryEditLessonPlan(lessonPlan);
       //notification of successful db post
       console.log('success');
+
+    clearForm();
   };
 
   //Packages up the current lesson into an object to be sent to the database

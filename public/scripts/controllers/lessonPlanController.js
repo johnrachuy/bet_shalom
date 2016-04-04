@@ -29,7 +29,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //clears form
   function clearForm () {
-    $scope.lesson_author = null;
+    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
     $scope.lesson_title = null;
     $scope.lesson_materials = null;
     $scope.lesson_text = null;

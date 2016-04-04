@@ -19,13 +19,31 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = null;
+  $scope.lessonPlanStatus = false;
   //Sets whether the page is editable or not, changes based on where the user is coming from
   $scope.edit = true;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
+
+  //clears form
+  function clearForm () {
+    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
+    $scope.lesson_title = null;
+    $scope.lesson_materials = null;
+    $scope.lesson_text = null;
+    $scope.admin_comment = null;
+    $scope.required_materials = false;
+    $scope.lessonPlanStatus = null;
+    $scope.lessonPlanId = null;
+    resourceOrLessonBoolean = undefined;
+
+    // Naming will be changed with added tag search
+    $scope.selectedTag = null;
+    $scope.selectedTagg = null;
+    $scope.selectedTaggg = null;
+  }
 
 
   $scope.holidays = ['Channukah', 'Yom Kipur'];
@@ -55,8 +73,10 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
     });
+    $scope.dataFactory.factoryLessonViewState = false;
+  } else {
+    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
-
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
   function validateUser() {
@@ -103,6 +123,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     });
 
     console.log('lessonplan', lessonPlan);
+
+    clearForm();
   };
 
   //Updates a lesson in the database
@@ -115,6 +137,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.dataFactory.factoryEditLessonPlan(lessonPlan);
       //notification of successful db post
       console.log('success');
+
+    clearForm();
   };
 
   //Packages up the current lesson into an object to be sent to the database
@@ -127,6 +151,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     lessonPlan = {
       author: $scope.lesson_author,
+      author_id: $scope.loggedInUser.users_id,
       title: $scope.lesson_title,
       lesson_plan: {
         materials: $scope.lesson_materials,

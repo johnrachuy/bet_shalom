@@ -34,9 +34,10 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_materials = null;
     $scope.lesson_text = null;
     $scope.admin_comment = null;
-    $scope.required_materials = null;
+    $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
+    resourceOrLessonBoolean = undefined;
 
     // Naming will be changed with added tag search
     $scope.selectedTag = null;
@@ -72,6 +73,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
     });
+    $scope.dataFactory.factoryLessonViewState = false;
   }
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state

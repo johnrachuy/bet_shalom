@@ -112,7 +112,7 @@ router.put('/', function(req, res){
     materials: req.body.materials,
     resource: req.body.resource,
     status: req.body.status,
-    deleted: false,
+    deleted: req.body.deleted,
     lesson_id: req.body.lesson_id
   };
 

@@ -27,6 +27,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
+  //tracks if the lesson is to be deleted (archived)
+  var lessonDeleted = false;
 
   //clears form
   function clearForm () {
@@ -38,7 +40,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
-    resourceOrLessonBoolean = undefined;
+    lessonDeleted = false;
+    resourceOrLessonBoolean = "lesson_plan";
 
     // Naming will be changed with added tag search
     $scope.selectedTag = null;
@@ -78,6 +81,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   } else {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
+
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
   function validateUser() {
@@ -90,10 +94,15 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   }
 
-  //Checks to see if the admin is publishing a new lesson or a teacher submitted lesson and calls the correct function
-  $scope.publishLesson = function() {
-    if ($scope.lessonPlanStatus === 'submitted') {
-      $scope.lessonPlanStatus = 'published';
+  //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
+    //function to handle the database call
+  $scope.submitOrPublishLesson = function() {
+    if ($scope.lessonPlanStatus === 'submitted' || $scope.lessonPlanStatus === 'draft') {
+      if ($scope.adminEditState === true) {
+        $scope.lessonPlanStatus = 'published';
+      } else if ($scope.teacherEditState === true) {
+        $scope.lessonPlanStatus = 'submitted';
+      }
       $scope.editLesson();
     } else {
       /*
@@ -105,18 +114,19 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       } else if ($scope.teacherEditState === true) {
         $scope.lessonPlanStatus = 'submitted';
       }
+      $scope.submitLesson();
       /*
        * $scope.lessonPlanStatus is now set. Function to create object will use new lessonPlanStatus
        */
-      $scope.submitLesson();
+
     }
-    console.log('publish button');
+    console.log('submit or publish function');
   };
 
-    //Saves a lesson as a draft or updates an existing draft in the database
+    //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
     $scope.saveLessonDraft = function() {
       console.log('Saving Draft!');
-      if ($scope.lessonPlanStatus === 'draft') {
+      if ($scope.lessonPlanStatus === 'submitted' || 'draft') {
         $scope.editLesson();
       } else {
         $scope.lessonPlanStatus = 'draft';
@@ -130,7 +140,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.submitLesson = function() {
     //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
-
 
     createLessonPlanObject();
 
@@ -146,7 +155,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Updates a lesson in the database
   $scope.editLesson = function() {
-    console.log('edit lesson');
+    console.log('edit function');
     createLessonPlanObject();
     console.log('lesson plan::', lessonPlan);
 
@@ -156,6 +165,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     clearForm();
   };
+
+  //When the needs review button is clicked changes the status to reflect that and calls the function to update the
+    //database with the change
+  $scope.needsReview = function(){
+    $scope.lessonPlanStatus = 'needs review';
+    $scope.editLesson();
+  }
+
+  //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
+  $scope.removeLesson = function(){
+    $scope.lessonPlanStatus = 'archived';
+    lessonDeleted = true;
+    $scope.editLesson();
+  }
 
   //Packages up the current lesson into an object to be sent to the database
   var createLessonPlanObject = function() {
@@ -177,9 +200,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
       resource: resourceOrLessonBoolean,
+      deleted: lessonDeleted,
 
       //hardcoded currently
       lesson_id: $scope.lessonPlanId,
+
 
 
       tags: []

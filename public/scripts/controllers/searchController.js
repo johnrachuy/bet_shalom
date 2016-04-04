@@ -18,13 +18,33 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
     }
 
     //Populates the drop-down menus
-    $http.get('/tags').then(function(response) {
-        $scope.keyTags = response.data;
-    });
+    //$http.get('/tags').then(function(response) {
+    //    $scope.keyTags = response.data;
+    //});
+
+    $scope.tags = [];
+    $scope.tagAdded = function(tag) {
+        console.log('Tag added: ', tag);
+        $scope.searchTag(tag);
+    };
+    $scope.tagRemoved = function(tag) {
+        console.log('Tag removed: ', tag);
+        console.log($scope.tags);
+    };
+
+    //Auto-complete function for ngTagsInput
+    $scope.loadTags = function($query) {
+        return $http.get('/tags', { cache: true}).then(function(response) {
+            var keyTags = response.data;
+            return keyTags.filter(function(tag) {
+                return tag.tag_name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+            });
+        });
+    };
 
     //Tied to a ng-change on the first drop-down menu
-    $scope.searchTag = function() {
-        $http.get('/tag_search/'+ $scope.selectedTag).then(function(response) {
+    $scope.searchTag = function(tag) {
+        $http.get('/tag_search/' + tag.tag_id).then(function(response) {
             $scope.viewLesson = response.data;
             console.log($scope.viewLesson);
             $scope.selectedName = null;

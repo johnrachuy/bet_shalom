@@ -53,74 +53,26 @@ router.post('/', function(req, res) {
       });
   });
 });
-//router.post('/', function(req, res){
-//  var lessonPlan = {
-//    author: req.body.author,
-//    title: req.body.title,
-//    lesson_plan: req.body.lesson_plan,
-//    materials: req.body.materials,
-//    resource: req.body.resource,
-//    status: req.body.status,
-//    deleted: false,
-//    tags: req.body.tags
-//  };
-//
-//  var sqlString = 'INSERT INTO lesson_tag ( fk_lesson_id, fk_tag_id ) VALUES';
-//
-//  pg.connect(connection, function(err, client) {
-//
-//    client.query('INSERT INTO lesson (author, title, lesson_plan, materials, ' +
-//      'resource, status, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-//      [lessonPlan.author, lessonPlan.title, lessonPlan.lesson_plan, lessonPlan.materials,
-//      lessonPlan.resource, lessonPlan.status, lessonPlan.deleted],
-//
-//      function(err, result) {
-//        done();
-//        if (err) {
-//          console.log('Error inserting data', err);
-//          res.send(false);
-//        } else {
-//
-//          for (var i = 0; i < lessonPlan.tags.length; i++){
-//            sqlString = sqlString + '(' + result.rows[0].lesson_id + ',' + lessonPlan.tags[i] + ')';
-//            if (i < (lessonPlan.tags.length - 1)){
-//              sqlString = sqlString + ',';
-//            }
-//          }
-//
-//          client.query(sqlString);
-//          function(err, result) {
-//            done();
-//            if(err) {
-//              console.log("Error inserting data: ", err);
-//              res.send(false);
-//            } else {
-//              res.send(result);
-//            }
-//          }
-//
-//        }
-//      });
-//  });
-//});
 
 router.put('/', function(req, res){
   var lessonPlan = {
     author: req.body.author,
+    author_id: req.body.author_id,
     title: req.body.title,
+    published: new Date(),
     lesson_plan: req.body.lesson_plan,
     materials: req.body.materials,
     resource: req.body.resource,
     status: req.body.status,
-    deleted: false,
+    deleted: req.body.deleted,
     lesson_id: req.body.lesson_id
   };
 
   pg.connect(connection, function(err, client) {
     client.query(
-      'UPDATE lesson SET (author, title, lesson_plan, materials, ' +
-      'resource, status, deleted) = ($1, $2, $3, $4, $5, $6, $7) WHERE lesson_id = $8',
-        [lessonPlan.author, lessonPlan.title, lessonPlan.lesson_plan, lessonPlan.materials,
+      'UPDATE lesson SET (author, author_id, title, published, lesson_plan, materials, ' +
+      'resource, status, deleted) = ($1, $2, $3, $4, $5, $6, $7, $8, $9) WHERE lesson_id = $10',
+        [lessonPlan.author, lessonPlan.author_id, lessonPlan.title, lessonPlan.published, lessonPlan.lesson_plan, lessonPlan.materials,
           lessonPlan.resource, lessonPlan.status, lessonPlan.deleted, lessonPlan.lesson_id],
 
         function(err, result) {

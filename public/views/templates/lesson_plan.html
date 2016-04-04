@@ -3,7 +3,7 @@
 
 <form id="lesson_plan_form">
   <!--div containing the radio buttons for the admin to choose a resource or lesson; only viewable as admin-->
-  <div class="resource_lesson_radio" ng-if="admin">
+  <div class="resource_lesson_radio" ng-if="adminEditState">
     <label for="lesson_plan">Lesson Plan</label>
     <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan">
     <label for="resource">Resource</label>
@@ -18,28 +18,64 @@
   <button ng-click="addFav()">Add to favorites <span class="glyphicon glyphicon-star"></span></button>
 
   <!--The three dropdowns for testing-->
-  <div>
-  <select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">
-    <option value="">Select a Tag</option>
-  </select>
-  </div>
-  <div>
-    <select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">
-      <option value="">Select a Tag</option>
-    </select>
-  </div>
-  <div>
-    <select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">
-      <option value="">Select a Tag</option>
-    </select>
-  </div>
+  <!--<div>-->
+  <!--<select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">-->
+    <!--<option value="">Select a Tag</option>-->
+  <!--</select>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">-->
+      <!--<option value="">Select a Tag</option>-->
+    <!--</select>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">-->
+      <!--<option value="">Select a Tag</option>-->
+    <!--</select>-->
+  <!--</div>-->
   <!--The three dropdowns for testing-->
 
 
-  <div>
-    <button ng-click="addSelectedTag()">Add Tag</button>
-    <div id="added_tag_container"></div>
-  </div>
+  <!--<div>-->
+    <!--<button ng-click="addSelectedTag()">Add Tag</button>-->
+    <!--<div id="added_tag_container"></div>-->
+  <!--</div>-->
+
+  <!-- ngTagsInput -->
+  <tags-input ng-model="selectedTag"
+              display-property="tag_name"
+              placeholder="Select tag"
+              replace-spaces-with-dashes="false"
+              on-tag-added="tagAdded($tag)"
+              on-tag-removed="tagRemoved($tag)"
+              template="tag-template">
+    <auto-complete source="loadTags($query)"
+                   min-length="0"
+                   load-on-focus="true"
+                   load-on-empty="true"
+                   max-results-to-show="45"
+                   template="autocomplete-template"></auto-complete>
+  </tags-input>
+
+  <script type="text/ng-template" id="tag-template">
+    <div class="tag-template">
+      <div class="right-panel">
+        <span ng-model="selectedTag">{{$getDisplayText()}}</span>
+        <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="autocomplete-template">
+    <div class="autocomplete-template">
+      <div class="right-panel">
+        <span ng-bind-html="$highlight($getDisplayText())"></span>
+        <span>ID: {{data.tag_id}}, </span>
+        <span>Category: {{data.tag_category}}</span>
+      </div>
+    </div>
+  </script>
+  <!-- ngTagsInput -->
 
   <!--div containing the materials checkbox and text entry-->
   <div class="materials_div">
@@ -52,35 +88,34 @@
   <label for="lesson_text">Lesson text:</label>
   <textarea id="lesson_text" rows="20" cols="100" ng-model="lesson_text"></textarea>
 
-  <!--div containg the buttons shown only on the enter lesson plan view for the teacher-->
-  <div class="teacher_buttons_div" ng-if="teacher">
+  <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
+  <div class="teacher_buttons_div" ng-if="teacherEditState">
     <button class="insert_file_button">Insert File</button>
-    <button class="save_draft_button">Save Draft</button>
-    <button id="submit_lesson_button" ng-click="submitLesson()">Submit Lesson</button>
+    <button class="save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+    <button id="submit_lesson_button" ng-click="submitOrPublishLesson()">Submit Lesson</button>
   </div>
 
   <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
   <!--teacher-->
-  <div class="favorites_button" ng-if="search">
+  <div class="favorites_button" ng-if="searchState">
     <button id="add-favorite">Add to Favorites</button>
   </div>
 </form>
 
 <!--buttons and admin comment input shown only the admin edit view-->
 <div>
-  <form id="admin_comment_form" ng-if="admin">
+  <form id="admin_comment_form" ng-if="adminEditState">
     <textarea id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>
     <button class="insert_file_button">Insert File</button>
-    <button class="save_draft_button">Save Draft</button>
-    <button id="needs_review">Needs Review</button>
-    <button id="publish_button" ng-click="publishLesson()">Publish Lesson</button>
-    <button id="archive">Archive Lesson</button>
-    <button id="remove_lesson">Remove Lesson</button>
+    <button class="save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+    <button id="needs_review" ng-click="needsReview()">Needs Review</button>
+    <button id="publish_button" ng-click="submitOrPublishLesson()">Publish Lesson</button>
+    <button id="remove_lesson" ng-click="removeLesson()">Remove Lesson</button>
   </form>
 </div>
 
 <!--comment section shown only on the viewable non-editable view coming from the search page-->
-<form id="comments_form" ng-if="search">
+<form id="comments_form" ng-if="searchState">
   <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>
   <button id="submit_comment">Submit Comment</button>
 </form>

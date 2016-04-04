@@ -52,6 +52,15 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
+    //function to add favorite status on lesson plan
+    var addFavorite = function(favorite){
+        console.log(favorite);
+        var promise = $http.post('/favorite', favorite).then(function(response) {
+            console.log(response);
+        });
+        return promise;
+    };
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -79,6 +88,9 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryStoredLessonId: function(){
           return lessonId;
+      },
+      factoryAddFavorite: function(favorite) {
+          return addFavorite(favorite);
       }
   };
 

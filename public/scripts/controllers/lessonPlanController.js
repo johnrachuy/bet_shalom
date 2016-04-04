@@ -27,6 +27,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
+
+    var favorite = {};
   //tracks if the lesson is to be deleted (archived)
   var lessonDeleted = false;
 
@@ -123,6 +125,17 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     console.log('submit or publish function');
   };
 
+    //Favorites a lesson plan
+    $scope.addFav = function() {
+      favorite = {
+        fk_users_id: $scope.loggedInUser.users_id,
+        fk_fav_lesson_id: $scope.lessonPlanId
+      };
+      //console.log(favorite);
+      $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
+
+      })
+    };
     //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
     $scope.saveLessonDraft = function() {
       console.log('Saving Draft!');

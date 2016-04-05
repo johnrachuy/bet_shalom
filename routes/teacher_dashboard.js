@@ -7,7 +7,7 @@ var pg = require('pg');
 router.get('/',  function(req, res) {
     var results =[];
     pg.connect(connection, function(err, client, done) {
-        var query = client.query('SELECT lesson_id, author, title, materials, status FROM lesson');
+        var query = client.query('SELECT lesson_id, author, title, materials, status, resource, published FROM lesson');
 
         //Stream results back one row at a time
         query.on('row', function(row) {

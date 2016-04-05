@@ -45,15 +45,17 @@
     <!-- ngTagsInput -->
     <tags-input ng-model="selectedTag"
                 display-property="tag_name"
-                placeholder="Select tag"
+                placeholder="Arrow Down To See Complete List"
                 replace-spaces-with-dashes="false"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
                 template="tag-template">
       <auto-complete source="loadTags($query)"
                      min-length="0"
+                     debounce-delay="100"
+                     load-on-down-arrow="true"
                      load-on-focus="true"
-                     load-on-empty="true"
+                     load-on-empty="false"
                      max-results-to-show="45"
                      template="autocomplete-template"></auto-complete>
     </tags-input>

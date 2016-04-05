@@ -20,7 +20,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = false;
+  $scope.lessonPlanStatus = null;
   //Sets whether the page is editable or not, changes based on where the user is coming from
   $scope.loadSavedLesson = false;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
@@ -139,7 +139,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
     $scope.saveLessonDraft = function() {
       console.log('Saving Draft!');
-      if ($scope.lessonPlanStatus === 'submitted' || 'draft') {
+      if ($scope.lessonPlanStatus === 'submitted' || $scope.lessonPlanStatus === 'draft') {
         $scope.editLesson();
       } else {
         $scope.lessonPlanStatus = 'draft';
@@ -255,6 +255,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   //populates the inputs with the retrieved lesson plan
+  $scope.selectedTag = [];
   var populateLessonForEdit = function() {
 
     if ($scope.savedLessonPlan[0].materials == true) {
@@ -266,6 +267,16 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
     $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
 
+    //This for loop grabs the tags retrieved from the lesson plan get call and creates a JSON for ngTagsInput
+    //to populate the tag bar with tags associated with that lesson plan.
+    for (var i = 0; i < $scope.savedLessonPlan.length; i++) {
+      $scope.selectedTag.push({
+        tag_id: $scope.savedLessonPlan[i].tag_id,
+        tag_name: $scope.savedLessonPlan[i].tag_name,
+        tag_category: $scope.savedLessonPlan[i].tag_category
+      })
+    }
+    console.log($scope.selectedTag);
   };
 
 

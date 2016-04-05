@@ -187,11 +187,36 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   }
 
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
-  $scope.removeLesson = function(){
-    $scope.lessonPlanStatus = 'archived';
-    lessonDeleted = true;
-    $scope.editLesson();
-  }
+  $scope.removeLesson = function(size){
+    //$scope.lessonPlanStatus = 'archived';
+    //lessonDeleted = true;
+    //$scope.editLesson();
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      var lessonId = {lesson_id: $scope.dataFactory.factoryStoredLessonId};
+
+      $http.put('/remove_lesson', lessonId).then(function(){
+        console.log('removed!');
+      });
+
+      clearForm();
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
 
   //Packages up the current lesson into an object to be sent to the database
   var createLessonPlanObject = function() {

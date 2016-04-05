@@ -18,6 +18,7 @@ var admin_dashboard = require('./routes/admin_dashboard');
 var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
 var favorite = require('./routes/favorite');
+var remove_lesson = require('./routes/remove_lesson');
 
 
 app.use(bodyParser.json());
@@ -50,6 +51,7 @@ app.use('/admin_dashboard', admin_dashboard);
 app.use('/tags', tags);
 app.use('/tag_search', tag_search);
 app.use('/favorite', favorite);
+app.use('/remove_lesson', remove_lesson);
 
 // Serve back static files
 app.use(express.static('public'));

@@ -70,9 +70,9 @@ router.put('/', function(req, res){
 
   pg.connect(connection, function(err, client) {
     client.query(
-      'UPDATE lesson SET (author, author_id, title, published, lesson_plan, materials, ' +
-      'resource, status, deleted) = ($1, $2, $3, $4, $5, $6, $7, $8, $9) WHERE lesson_id = $10',
-        [lessonPlan.author, lessonPlan.author_id, lessonPlan.title, lessonPlan.published, lessonPlan.lesson_plan, lessonPlan.materials,
+      'UPDATE lesson SET (author, title, published, lesson_plan, materials, ' +
+      'resource, status, deleted) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE lesson_id = $9',
+        [lessonPlan.author, lessonPlan.title, lessonPlan.published, lessonPlan.lesson_plan, lessonPlan.materials,
           lessonPlan.resource, lessonPlan.status, lessonPlan.deleted, lessonPlan.lesson_id],
 
         function(err, result) {

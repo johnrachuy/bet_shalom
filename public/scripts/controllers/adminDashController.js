@@ -33,12 +33,11 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     }
 
     //Function to reroute the user to the lesson plan controller
-    $scope.editClickedLesson = function(id){
-        $scope.dataFactory.factoryStoredLessonId = id;
+    $scope.editClickedLesson = function(index){
+        $scope.dataFactory.factoryStoredLessonId = $scope.lessonPlans[index].lesson_id;
         $scope.dataFactory.factoryLessonViewState = true;
         $location.path('/lesson_plan');
-        console.log('AdminDashController: ' + id);
-    }
+    };
 
     console.log('Admin Dashboard Controller');
 }]);

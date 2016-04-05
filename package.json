@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "font-awesome": "^4.5.0",
     "ng-tags-input": "^3.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

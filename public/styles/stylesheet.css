@@ -1,3 +1,11 @@
+body {
+    /*background-color: #2aabd2;*/
+}
+
+textarea {
+    resize: none;
+}
+
 .green {
     color: green;
 }
@@ -12,4 +20,16 @@
 
 .center {
     text-align: center;
+}
+
+.lesson_plan_container {
+    /*margin: 0 auto;*/
+}
+
+.teacher_buttons_div {
+    /*text-align: center;*/
+}
+
+.admin_button_container {
+    margin: 0.4rem auto
 }

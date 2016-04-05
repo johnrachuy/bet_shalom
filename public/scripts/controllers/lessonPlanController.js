@@ -96,58 +96,66 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   }
 
-  //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
-    //function to handle the database call
-  $scope.submitOrPublishLesson = function() {
-    if ($scope.lessonPlanStatus === 'submitted' || $scope.lessonPlanStatus === 'draft') {
-      if ($scope.adminEditState === true) {
-        $scope.lessonPlanStatus = 'published';
-      } else if ($scope.teacherEditState === true) {
-        $scope.lessonPlanStatus = 'submitted';
-      }
-      $scope.editLesson();
-    } else {
-      /*
-       * if statement checks the role of user. Admin's submissions are immediately published, while teacher submission
-       * requires admin review
-       */
-      if ($scope.adminEditState === true) {
-        $scope.lessonPlanStatus = 'published';
-      } else if ($scope.teacherEditState === true) {
-        $scope.lessonPlanStatus = 'submitted';
-      }
-      $scope.submitLesson();
-      /*
-       * $scope.lessonPlanStatus is now set. Function to create object will use new lessonPlanStatus
-       */
+  //Favorites a lesson plan
+  $scope.addFav = function() {
+    favorite = {
+      fk_users_id: $scope.loggedInUser.users_id,
+      fk_fav_lesson_id: $scope.lessonPlanId
+    };
+    //console.log(favorite);
+    $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
 
+    })
+  };
+
+  //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
+    //function to handle the database call (admin only button)
+  $scope.adminPublishLesson = function() {
+    if ($scope.lessonPlanStatus === null) {
+      $scope.lessonPlanStatus = 'published';
+      $scope.submitLesson();
+    } else {
+      $scope.lessonPlanStatus = 'published';
+      $scope.editLesson();
     }
     console.log('submit or publish function');
   };
 
-    //Favorites a lesson plan
-    $scope.addFav = function() {
-      favorite = {
-        fk_users_id: $scope.loggedInUser.users_id,
-        fk_fav_lesson_id: $scope.lessonPlanId
-      };
-      //console.log(favorite);
-      $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
+  //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
+    //function to handle the database call (teacher only button)
+  $scope.teacherSubmitLesson = function(){
+    if ($scope.lessonPlanStatus === null){
+      $scope.lessonPlanStatus = 'submitted';
+      $scope.submitLesson();
+    } else {
+      $scope.lessonPlanStatus = 'submitted';
+      $scope.editLesson();
+    }
+  };
 
-      })
-    };
-    //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
-    $scope.saveLessonDraft = function() {
-      console.log('Saving Draft!');
-      if ($scope.lessonPlanStatus === 'submitted' || $scope.lessonPlanStatus === 'draft') {
-        $scope.editLesson();
-      } else {
-        $scope.lessonPlanStatus = 'draft';
-        $scope.submitLesson();
-      }
+  //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
+  $scope.saveLessonDraft = function() {
+    console.log('Saving Draft!');
+    if ($scope.lessonPlanStatus === null){
+      $scope.lessonPlanStatus = 'draft';
+      $scope.submitLesson();
+    } else {
+      $scope.lessonPlanStatus = 'draft';
+      $scope.editLesson();
+    }
+    console.log('save lesson plan::', lessonPlan);
+  };
 
-      console.log('save lesson plan::', lessonPlan);
-    };
+  //When the needs review button is clicked changes the status to reflect that and calls the function to update the
+  //database with the change
+  $scope.needsReview = function(){
+    if ($scope.lessonPlanStatus === null){
+      alert('No lesson loaded.');
+    } else {
+      $scope.lessonPlanStatus = 'needs review';
+      $scope.editLesson();
+    }
+  };
 
   //Inserts a new lesson into the database
   $scope.submitLesson = function() {
@@ -178,13 +186,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     clearForm();
   };
-
-  //When the needs review button is clicked changes the status to reflect that and calls the function to update the
-    //database with the change
-  $scope.needsReview = function(){
-    $scope.lessonPlanStatus = 'needs review';
-    $scope.editLesson();
-  }
 
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){

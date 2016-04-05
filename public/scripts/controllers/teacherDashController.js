@@ -13,11 +13,12 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
 
     //validateUser to make sure the role can be on this page then get all the lessons for the teacher
     validateUser();
-    getLessonPlans();
 
     //Function to check the user and re-route them if they are not validated
     function validateUser() {
         if($scope.loggedInUser.role == 'teacher') {
+            getLessonPlans();
+            getFavorites();
 
         } else {
             $location.path('/home');
@@ -26,11 +27,19 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
 
     //Function to get all the lesson plans for this teacher
     function getLessonPlans () {
-        $scope.dataFactory.factoryTeacherRetrieveLessonPlans().then(function () {
+        $scope.dataFactory.factoryTeacherRetrieveLessonPlans($scope.loggedInUser.users_id).then(function () {
             $scope.lessonPlans = $scope.dataFactory.factoryLessonPlans();
-            console.log('Teacher controller' + $scope.lessonPlans);
+            //console.log('Teacher controller' + $scope.lessonPlans);
         });
     }
+
+        //Function to get favorite lesson plans for this teacher
+        function getFavorites() {
+            $scope.dataFactory.factoryGetFavorites($scope.loggedInUser.users_id).then(function (response) {
+                $scope.favoritePlans = $scope.dataFactory.factoryGetfavoritePlans();
+                //console.log('Teacher controller' + $scope.lessonPlans);
+            });
+        }
 
     //Function to reroute the user to the lesson plan controller
         $scope.editClickedLesson = function(index){

@@ -19,6 +19,7 @@ var tags = require('./routes/tags');
 var tag_search = require('./routes/tag_search');
 var favorite = require('./routes/favorite');
 var remove_lesson = require('./routes/remove_lesson');
+var get_favorites = require('./routes/get_favorites');
 
 
 app.use(bodyParser.json());
@@ -52,6 +53,7 @@ app.use('/tags', tags);
 app.use('/tag_search', tag_search);
 app.use('/favorite', favorite);
 app.use('/remove_lesson', remove_lesson);
+app.use('/get_favorites', get_favorites);
 
 // Serve back static files
 app.use(express.static('public'));

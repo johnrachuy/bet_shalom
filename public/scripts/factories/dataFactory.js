@@ -7,6 +7,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
     //Variables to store the state and the lesson id for the lesson plan view
     var lessonViewState = undefined;
     var lessonId = undefined;
+    var favoritePlans = {};
 
 
     //The private function to save a lesson plan
@@ -35,8 +36,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
     };
 
     //function to retrieve all the lessons based on the user id, only gets all lessons until tables are in place
-    var teacherRetrieveLessonPlans = function(userId){
-        var promise = $http.get('/teacher_dashboard').then(function(response) {
+    var teacherRetrieveLessonPlans = function(id){
+        var promise = $http.get('/teacher_dashboard/' + id).then(function(response) {
             lessonPlans = response.data;
             console.log('DataFactory: ' + lessonPlans);
         });
@@ -61,6 +62,15 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
+    //function to get lesson plans favorites to teacher dashboard
+    var getFavorites = function(id){
+        var promise = $http.get('/get_favorites/' + id).then(function(response) {
+            favoritePlans = response.data;
+            console.log(response);
+        });
+        return promise;
+    };
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -74,8 +84,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
       factoryLessonPlan: function(){
           return lessonPlan;
       },
-      factoryTeacherRetrieveLessonPlans: function(userId){
-          return teacherRetrieveLessonPlans(userId);
+      factoryTeacherRetrieveLessonPlans: function(id){
+          return teacherRetrieveLessonPlans(id);
       },
       factoryAdminRetrieveLessonPlans: function() {
           return adminRetrieveLessonPlans();
@@ -91,6 +101,12 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryAddFavorite: function(favorite) {
           return addFavorite(favorite);
+      },
+      factoryGetFavorites: function(id) {
+          return getFavorites(id);
+      },
+      factoryGetfavoritePlans: function(){
+          return favoritePlans;
       }
   };
 

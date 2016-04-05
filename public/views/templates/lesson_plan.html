@@ -94,7 +94,7 @@
     <div class="teacher_buttons_div" ng-if="teacherEditState">
       <button class="insert_file_button">Insert File</button>
       <button class="save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
-      <button id="submit_lesson_button" ng-click="submitOrPublishLesson()">Submit Lesson</button>
+      <button id="submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
     </div>
 
     <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
@@ -111,7 +111,7 @@
       <button class="insert_file_button">Insert File</button>
       <button class="save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
       <button id="needs_review" ng-click="needsReview()">Needs Review</button>
-      <button id="publish_button" ng-click="submitOrPublishLesson()">Publish Lesson</button>
+      <button id="publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
       <button id="remove_lesson" ng-click="removeLesson()">Remove Lesson</button>
     </form>
   </div>

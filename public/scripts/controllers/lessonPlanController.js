@@ -255,6 +255,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   //populates the inputs with the retrieved lesson plan
+  $scope.selectedTag = [];
   var populateLessonForEdit = function() {
 
     if ($scope.savedLessonPlan[0].materials == true) {
@@ -266,6 +267,16 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
     $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
 
+    //This for loop grabs the tags retrieved from the lesson plan get call and creates a JSON for ngTagsInput
+    //to populate the tag bar with tags associated with that lesson plan.
+    for (var i = 0; i < $scope.savedLessonPlan.length; i++) {
+      $scope.selectedTag.push({
+        tag_id: $scope.savedLessonPlan[i].tag_id,
+        tag_name: $scope.savedLessonPlan[i].tag_name,
+        tag_category: $scope.savedLessonPlan[i].tag_category
+      })
+    }
+    console.log($scope.selectedTag);
   };
 
 

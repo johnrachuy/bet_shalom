@@ -91,7 +91,11 @@ router.get('/:id',  function(req, res) {
   var lessonPlanId = req.params.id;
   console.log('req ', lessonPlanId);
   pg.connect(connection, function(err, client, done) {
-    var query = client.query('SELECT * FROM lesson WHERE lesson_id = $1',
+    var query = client.query('SELECT * ' +
+    'FROM lesson ' +
+    'JOIN lesson_tag ON lesson.lesson_id = lesson_tag.fk_lesson_id ' +
+    'JOIN tag ON lesson_tag.fk_tag_id = tag.tag_id ' +
+    'WHERE lesson.lesson_id = ($1)',
       [lessonPlanId]);
 
     //Stream results back one row at a time

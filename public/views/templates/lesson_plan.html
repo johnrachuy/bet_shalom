@@ -129,6 +129,22 @@
 
 
 <!--code for a possible modal-->
+<script type="text/ng-template" id="myModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Are you sure you want to delete lesson plan?</h3>
+  </div>
+
+  <div class="modal-body">
+    <button class="btn btn-primary" type="button" ng-click="deleteLessonPlan()">Yes. Delete this lesson plan.</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+
+  <!--<div class="modal-footer">-->
+  <!--<button class="btn btn-primary" type="button" ng-click="ok()">Yes. Delete this lesson plan.</button>-->
+  <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+  <!--</div>-->
+</script>
+
 
 <!--<div class="tag_modal" ng-if="!search">-->
 <!--<button ng-click="open()">Choose Tags</button>-->

@@ -88,7 +88,7 @@ VALUES
 ('Prayer Hebrew', 'Hebrew'),
 ('Torah Hebrew', 'Hebrew'),
 ('Pre K', 'Grade'),
-('K', 'Grade'),
+('Kindergarten', 'Grade'),
 ('1st', 'Grade'),
 ('2nd', 'Grade'),
 ('3rd', 'Grade'),

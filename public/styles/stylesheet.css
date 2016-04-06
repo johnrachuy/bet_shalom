@@ -1,5 +1,5 @@
 body {
-    /*background-color: #2aabd2;*/
+    background-color: lightgray;
 }
 
 textarea {
@@ -32,4 +32,29 @@ textarea {
 
 .admin_button_container {
     margin: 0.4rem auto
+}
+
+.lesson_title_displayed {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.resource_lesson_radio {
+    cursor: default !important;
+}
+
+#lesson_materials {
+    cursor: text !important;
+}
+
+.no_gray {
+    background-color: #cbebff !important;
+}
+
+#lesson_text {
+    cursor: text !important;
+}
+
+.materials_checkbox {
+    cursor: default !important;
 }

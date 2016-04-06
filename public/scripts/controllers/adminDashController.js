@@ -36,6 +36,8 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     $scope.editClickedLesson = function(index){
         $scope.dataFactory.factoryStoredLessonId = $scope.lessonPlans[index].lesson_id;
         $scope.dataFactory.factoryLessonViewState = true;
+        $scope.dataFactory.factoryLessonStatus = $scope.lessonPlans[index].status;
+        console.log('huh ADMIN,', $scope.lessonPlans[index].status);
         $location.path('/lesson_plan');
     };
 

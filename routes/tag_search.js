@@ -10,7 +10,7 @@ router.get('/:selectedTag', function(req, res) {
     var results = [];
 
     pg.connect(connection, function(err, client, done) {
-        var query = client.query('SELECT lesson.lesson_id, lesson.title, lesson.author, lesson.published, lesson.materials, lesson.resource FROM lesson JOIN lesson_tag ON lesson.lesson_id = lesson_tag.fk_lesson_id JOIN tag ON lesson_tag.fk_tag_id = tag.tag_id WHERE tag.tag_id = ($1)',
+        var query = client.query("SELECT lesson.lesson_id, lesson.title, lesson.author, lesson.published, lesson.materials, lesson.resource FROM lesson JOIN lesson_tag ON lesson.lesson_id = lesson_tag.fk_lesson_id JOIN tag ON lesson_tag.fk_tag_id = tag.tag_id WHERE tag.tag_id = ($1) AND lesson.status = 'published'",
             [req.params.selectedTag]);
 
         //Stream results back one row at a time

@@ -15,6 +15,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
+
   $scope.statusToCheckIfPublished = false;
 
   $scope.myFav = [];
@@ -113,7 +114,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Favorites a lesson plan
   $scope.addFav = function() {
-    if (Object.keys($scope.myFav).length == 0) {
+    if (!$scope.myFav) {
       console.log('new favorite');
       favorite = {
         fk_users_id: $scope.loggedInUser.users_id,
@@ -123,8 +124,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
       });
     } else {
+      console.log('updated');
       fav_id = {
-        favorite_id: $scope.myFav[0].favorite_id
+        favorite_id: $scope.myFav.favorite_id
       };
       $scope.dataFactory.factoryUpdateFavorite(fav_id).then(function () {
         checkFav();

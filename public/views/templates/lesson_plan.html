@@ -22,10 +22,8 @@
     <!--<input type="text" id="lesson_author" ng-model="lesson_author" />-->
 
       <!--<button class="btn btn-primary" ng-click="addFav()" ng-show="$scope.myFav.fk_fav_lesson_id > 0">Add to favorites <span class="glyphicon yellow glyphicon-star"></span></button>-->
-      <button class="btn btn-primary" ng-click="addFav()">Add to favorites</button>
-    <span ng-="myFav.favorite_status == true">
-      <i class="fa fa-star"></i>
-    </span>
+      <button class="btn btn-primary" ng-click="addFav()">Add to favorites <span ng-show="myFav.favorite_status"><i class="fa yellow fa-star"></i></span><span ng-hide="myFav.favorite_status"><i class="fa fa-star"></i></span></button>
+
 
     <!-- ngTagsInput -->
     <tags-input ng-model="selectedTag"

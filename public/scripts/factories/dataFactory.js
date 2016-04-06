@@ -80,7 +80,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
 
         console.log(id, lesson);
         var promise = $http.get('/favorite?id=' + id + '&lesson=' + lesson).then(function(response) {
-            myFavorite = response.data;
+            myFavorite = response.data[0];
             console.log(response.data);
         });
         return promise;

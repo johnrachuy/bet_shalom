@@ -15,8 +15,10 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
-  $scope.searchState = false;
 
+  $scope.statusToCheckIfPublished = false;
+
+  $scope.myFav = [];
 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
@@ -65,6 +67,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Sets the edit variable that controls the stae of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
+  if($scope.dataFactory.factoryLessonStatus == 'published') {
+    $scope.statusToCheckIfPublished = true;
+  }
+  $scope.dataFactory.factoryLessonStatus = undefined;
+
 
   //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.loadSavedLesson === true) {
@@ -77,6 +84,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
+
       populateLessonForEdit();
       checkFav();
     });
@@ -129,6 +137,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
   $scope.adminPublishLesson = function() {
+    console.log('admin publish function--lesson title?', $scope.lesson_title);
     if ($scope.lessonPlanStatus === null) {
       $scope.lessonPlanStatus = 'published';
       $scope.submitLesson();
@@ -136,7 +145,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lessonPlanStatus = 'published';
       $scope.editLesson();
     }
-    console.log('submit or publish function');
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
@@ -331,55 +339,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * End of add/remove tag functions -Savio
    */
 
-    //modal
-  $scope.addSelectedTag = function() {
-    var myTag = $scope.selectedTag;
-    var myEl = angular.element(document.querySelector('#added_tag_container'));
-    myEl.append('<span>' + myTag + ' </span>');
-    console.log('selectedTagg', $scope.selectedTagg);
-  };
 
-  $scope.open = function (size) {
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        holidays: function () {
-          return $scope.holidays;
-        }
-      }
-    });
+  //$scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
-
-
-
-
-  $scope.isCollapsed = true;
-  var materialsRequiredDomIndicator = {
-    required: 'Yes',
-    not_required: 'No'
-  };
-
-  $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
-
-  $scope.toggleMaterialsRequirement = function() {
-    $scope.isCollapsed = !$scope.isCollapsed;
-
-    if($scope.isCollapsed == true) {
-      $scope.required_materials = false;
-      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
-    } else {
-      $scope.required_materials = true;
-      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.required;
+  $scope.toggleMaterialsRequirement = function(materials) {
+    //$scope.isCollapsed = !$scope.isCollapsed;
+    if(materials == false){
+      $scope.lesson_materials = null;
     }
   };
  //variable and functions for a possible modal:

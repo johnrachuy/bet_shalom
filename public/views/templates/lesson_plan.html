@@ -3,48 +3,27 @@
 <div class="lesson_plan_container col-md-8">
   <form id="lesson_plan_form">
     <!--div containing the radio buttons for the admin to choose a resource or lesson; only viewable as admin-->
-    <div class="resource_lesson_radio" ng-if="adminEditState">
+    <div class="resource_lesson_radio_container" ng-if="adminEditState">
       <label for="lesson_plan">Lesson Plan</label>
-      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan">
+      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan" ng-disabled="statusToCheckIfPublished" class="resource_lesson_radio">
       <label for="resource">Resource</label>
-      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="resource">
+      <input type="radio" class="resource_lesson_radio" name="type_selector" ng-model="$parent.type_selector" value="resource" ng-disabled="statusToCheckIfPublished">
       <!--<textarea id="a_comment" rows="3" cols="100" ng-model="kitty" placeholder="enter comment"></textarea>-->
     </div>
 
+
+    <label for="lesson_title">Title:</label>
+    <input type="text" id="lesson_title" ng-model="$parent.lesson_title" ng-if="!statusToCheckIfPublished" />
+    <span class="lesson_title_displayed" ng-if="statusToCheckIfPublished">{{lesson_title}}</span>
+    <!--line break for now-->
+    <br>
     <label for="lesson_author">Author:</label>
     <span>{{lesson_author}}</span>
     <!--<input type="text" id="lesson_author" ng-model="lesson_author" />-->
-    <label for="lesson_title">Title:</label>
-    <input type="text" id="lesson_title" ng-model="lesson_title" />
+
       <!--<button class="btn btn-primary" ng-click="addFav()" ng-show="$scope.myFav.fk_fav_lesson_id > 0">Add to favorites <span class="glyphicon yellow glyphicon-star"></span></button>-->
       <button class="btn btn-primary" ng-click="addFav()">Add to favorites <span ng-show="myFav.favorite_status"><i class="fa yellow fa-star"></i></span><span ng-hide="myFav.favorite_status"><i class="fa fa-star"></i></span></button>
 
-
-
-
-    <!--The three dropdowns for testing-->
-    <!--<div>-->
-    <!--<select ng-model="selectedTag" ng-options="tag as tag.tag_name for tag in tags">-->
-    <!--<option value="">Select a Tag</option>-->
-    <!--</select>-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--<select ng-model="selectedTagg" ng-options="tag as tag.tag_name for tag in moreTags">-->
-    <!--<option value="">Select a Tag</option>-->
-    <!--</select>-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--<select ng-model="selectedTaggg" ng-options="tag as tag.tag_name for tag in evenMoreTags">-->
-    <!--<option value="">Select a Tag</option>-->
-    <!--</select>-->
-    <!--</div>-->
-    <!--The three dropdowns for testing-->
-
-
-    <!--<div>-->
-    <!--<button ng-click="addSelectedTag()">Add Tag</button>-->
-    <!--<div id="added_tag_container"></div>-->
-    <!--</div>-->
 
     <!-- ngTagsInput -->
     <tags-input ng-model="selectedTag"
@@ -53,7 +32,8 @@
                 replace-spaces-with-dashes="false"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
-                template="tag-template">
+                template="tag-template"
+                ng-disabled="statusToCheckIfPublished">
       <auto-complete source="loadTags($query)"
                      min-length="0"
                      debounce-delay="100"
@@ -83,14 +63,17 @@
       </div>
     </script>
     <!-- ngTagsInput -->
-    <h3>Materials required? {{materialsRequiredMessage}}</h3>
-    <button type="button" class="btn btn-default" ng-click="toggleMaterialsRequirement()">Click to add materials.</button>
-    <hr>
-    <div uib-collapse="isCollapsed">
-      <div class="well well-lg">
-        <textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>
-      </div>
-    </div>
+    <label for="lesson_materials_checkbox">Materials required?</label>
+    <input type="checkbox" class="materials_checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" />
+    <textarea class="form-control" id="lesson_materials" ng-class="{'no_gray': statusToCheckIfPublished}" rows="3" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished"></textarea>
+
+    <!--<button type="button" class="btn btn-default" ng-click="toggleMaterialsRequirement()">Click to add materials.</button>-->
+    <!--<hr>-->
+    <!--<div uib-collapse="isCollapsed">-->
+      <!--<div class="well well-lg">-->
+        <!--<textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <!--div containing the materials checkbox and text entry-->
     <!--<div class="materials_div">-->
@@ -108,13 +91,15 @@
     <label for="lesson_text">Lesson text:</label>
     <!--line break for now-->
     <br>
-    <textarea id="lesson_text" class="form-control" rows="20" cols="100" ng-model="lesson_text"></textarea>
+    <textarea id="lesson_text" class="form-control" ng-class="{'no_gray': statusToCheckIfPublished}" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished"></textarea>
 
     <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
     <div class="teacher_buttons_div" ng-if="teacherEditState">
-      <button class="insert_file_button">Insert File</button>
-      <button class="save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
-      <button id="submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
+      <div ng-if="!statusToCheckIfPublished">
+        <button class="btn btn-primary insert_file_button">Insert File</button>
+        <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+        <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
+      </div>
     </div>
 
     <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
@@ -131,11 +116,14 @@
       <!--line break for now-->
       <br>
       <textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>
-      <button class="btn btn-primary insert_file_button">Insert File</button>
-      <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
-      <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
-      <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
-      <button class="btn btn-warning remove_lesson" ng-click="removeLesson()">Remove Lesson</button>
+      <span ng-if="!statusToCheckIfPublished">
+        <button class="btn btn-primary insert_file_button">Insert File</button>
+        <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+        <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
+        <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
+      </span>
+      <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
+
     </form>
   </div>
 
@@ -151,9 +139,7 @@
   </div>
 
 
-
-
-  <!--code for a possible modal-->
+  <!--modal when delete is clicked-->
   <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
       <h3 class="modal-title">Are you sure you want to delete lesson plan?</h3>
@@ -171,27 +157,3 @@
   </script>
 
 </div>
-
-
-<!--<div class="tag_modal" ng-if="!search">-->
-<!--<button ng-click="open()">Choose Tags</button>-->
-<!--</div>-->
-
-
-<!--<script type="text/ng-template" id="myModalContent.html">-->
-  <!--<h1>Something that appears!</h1>-->
-  <!--<div class="modal-header">-->
-    <!--<h3 class="modal-title">I'm a modal!</h3>-->
-  <!--</div>-->
-
-  <!--<div ng-repeat="holiday in holidays">-->
-    <!--<label>{{holiday}}</label>-->
-    <!--​-->
-    <!--<input type="checkbox"  />-->
-  <!--</div>-->
-  <!--​-->
-  <!--<div class="modal-footer">-->
-    <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
-    <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
-  <!--</div>-->
-<!--</script>-->

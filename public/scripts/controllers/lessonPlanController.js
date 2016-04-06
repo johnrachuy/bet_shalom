@@ -17,8 +17,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.adminEditState = false;
   $scope.statusToCheckIfPublished = false;
 
-    $scope.myFav = [];
-
+  $scope.myFav = [];
 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
@@ -136,6 +135,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
   $scope.adminPublishLesson = function() {
+    console.log('admin publish function--lesson title?', $scope.lesson_title);
     if ($scope.lessonPlanStatus === null) {
       $scope.lessonPlanStatus = 'published';
       $scope.submitLesson();
@@ -143,7 +143,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lessonPlanStatus = 'published';
       $scope.editLesson();
     }
-    console.log('submit or publish function');
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
@@ -338,47 +337,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * End of add/remove tag functions -Savio
    */
 
-    //modal
-  $scope.addSelectedTag = function() {
-    var myTag = $scope.selectedTag;
-    var myEl = angular.element(document.querySelector('#added_tag_container'));
-    myEl.append('<span>' + myTag + ' </span>');
-    console.log('selectedTagg', $scope.selectedTagg);
-  };
-
-  $scope.open = function (size) {
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        holidays: function () {
-          return $scope.holidays;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
-
-    //var materialsRequiredDomIndicator = {
-    //  required: 'Yes',
-    //  not_required: 'No'
-    //};
-
 
   //$scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
 
   $scope.toggleMaterialsRequirement = function(materials) {
     //$scope.isCollapsed = !$scope.isCollapsed;
-
-    console.log('alert', materials);
     if(materials == false){
       $scope.lesson_materials = null;
     }

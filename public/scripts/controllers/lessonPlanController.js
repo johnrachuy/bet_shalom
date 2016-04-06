@@ -47,8 +47,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     // Naming will be changed with added tag search
     $scope.selectedTag = null;
-    $scope.selectedTagg = null;
-    $scope.selectedTaggg = null;
+    $scope.tags = [];
   }
 
 
@@ -298,7 +297,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.tagAdded = function(tag) {
     console.log('Tag added: ', tag);
     $scope.tags.push(tag.tag_id);
-    console.log($scope.tags);
+    console.log('tags array', $scope.tags);
   };
   $scope.tagRemoved = function(tag) {
     console.log('Tag removed: ', tag);

@@ -12,7 +12,6 @@
                 display-property="tag_name"
                 placeholder="Select tag"
                 replace-spaces-with-dashes="false"
-                on-invalid-tag="removeTag()"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
                 add-on-enter="false"
@@ -22,7 +21,7 @@
                        highlight-matched-text="true"
                        load-on-down-arrow="true"
                        load-on-focus="true"
-                       load-on-empty="true"
+                       load-on-empty="false"
                        max-results-to-show="45"
                        template="autocomplete-template"></auto-complete>
     </tags-input>

@@ -32,6 +32,8 @@
                 replace-spaces-with-dashes="false"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
+                add-on-enter="false"
+                template="tag-template">
       <auto-complete source="loadTags($query)"
                      min-length="0"
                      debounce-delay="100"

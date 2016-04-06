@@ -17,12 +17,12 @@
                 template="tag-template">
         <auto-complete source="loadTags($query)"
                        min-length="0"
+                       load-on-down-arrow="true"
                        load-on-focus="true"
-                       load-on-empty="true"
+                       load-on-empty="false"
                        max-results-to-show="45"
                        template="autocomplete-template"></auto-complete>
     </tags-input>
-    <button ng-click="searchTag()">Search</button>
 
     <script type="text/ng-template" id="tag-template">
         <div class="tag-template">

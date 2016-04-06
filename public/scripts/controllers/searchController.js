@@ -29,7 +29,7 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
     };
     $scope.tagRemoved = function(tag) {
         console.log('Tag removed: ', tag);
-        console.log($scope.tags);
+        $scope.viewLesson = null;
     };
 
     //Auto-complete function for ngTagsInput

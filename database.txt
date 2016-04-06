@@ -39,7 +39,7 @@ CREATE TABLE favorite
      favorite_id SERIAL NOT NULL PRIMARY KEY,
      fk_users_id INTEGER NOT NULL REFERENCES users (users_id),
      fk_fav_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
-     deleted BOOLEAN
+     favorite_status BOOLEAN NOT NULL
      );
 
 CREATE TABLE tag

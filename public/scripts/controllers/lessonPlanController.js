@@ -60,7 +60,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Gets the information from the factory about who is logged in and calls
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
-  console.log($scope.loggedInUser[0]);
+  console.log($scope.loggedInUser);
 
   validateUser();
 
@@ -102,24 +102,28 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     function checkFav() {
       $scope.dataFactory.factoryCheckFavorite($scope.loggedInUser.users_id, $scope.lessonPlanId).then(function () {
         $scope.myFav = $scope.dataFactory.factoryMyFavorite();
-        if (Object.keys($scope.myFav).length == 0) {
-          console.log('this is not a fav');
-        } else {
-          console.log('this is a fav');
-        }
       })
     }
 
   //Favorites a lesson plan
   $scope.addFav = function() {
-    favorite = {
-      fk_users_id: $scope.loggedInUser.users_id,
-      fk_fav_lesson_id: $scope.lessonPlanId
-    };
-    //console.log(favorite);
-    $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
-
-    })
+    if (Object.keys($scope.myFav).length == 0) {
+      console.log('new favorite');
+      favorite = {
+        fk_users_id: $scope.loggedInUser.users_id,
+        fk_fav_lesson_id: $scope.lessonPlanId,
+        favorite_status: true
+      };
+      $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
+      });
+    } else {
+      fav_id = {
+        favorite_id: $scope.myFav[0].favorite_id
+      };
+      $scope.dataFactory.factoryUpdateFavorite(fav_id).then(function () {
+        checkFav();
+      })
+    }
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate

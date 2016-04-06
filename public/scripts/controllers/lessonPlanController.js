@@ -16,7 +16,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
   $scope.searchState = false;
-    $scope.myFav = [];
 
 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
@@ -107,7 +106,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Favorites a lesson plan
   $scope.addFav = function() {
-    if (Object.keys($scope.myFav).length == 0) {
+    if (!$scope.myFav) {
       console.log('new favorite');
       favorite = {
         fk_users_id: $scope.loggedInUser.users_id,
@@ -117,8 +116,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
       });
     } else {
+      console.log('updated');
       fav_id = {
-        favorite_id: $scope.myFav[0].favorite_id
+        favorite_id: $scope.myFav.favorite_id
       };
       $scope.dataFactory.factoryUpdateFavorite(fav_id).then(function () {
         checkFav();

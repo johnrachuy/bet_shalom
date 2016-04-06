@@ -48,5 +48,12 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
             $location.path('/lesson_plan');
         };
 
+        //Function to reroute the user to the lesson plan controller
+        $scope.editClickedFav = function(index){
+            $scope.dataFactory.factoryStoredLessonId = $scope.favoritePlans[index].lesson_id;
+            $scope.dataFactory.factoryLessonViewState = true;
+            $location.path('/lesson_plan');
+        };
+
     console.log('Teacher Dashboard Controller');
 }]);

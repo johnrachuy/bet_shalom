@@ -106,7 +106,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Favorites a lesson plan
   $scope.addFav = function() {
-    if (!$scope.myFav) {
+    console.log($scope.myFav);
+    if ($scope.myFav == undefined) {
       console.log('new favorite');
       favorite = {
         fk_users_id: $scope.loggedInUser.users_id,
@@ -114,6 +115,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         favorite_status: true
       };
       $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
+        checkFav();
       });
     } else {
       console.log('updated');

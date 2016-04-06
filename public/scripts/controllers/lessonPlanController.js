@@ -341,6 +341,28 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
 
+
+
+
+  $scope.isCollapsed = true;
+  var materialsRequiredDomIndicator = {
+    required: 'Yes',
+    not_required: 'No'
+  };
+
+  $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
+
+  $scope.toggleMaterialsRequirement = function() {
+    $scope.isCollapsed = !$scope.isCollapsed;
+
+    if($scope.isCollapsed == true) {
+      $scope.required_materials = false;
+      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
+    } else {
+      $scope.required_materials = true;
+      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.required;
+    }
+  };
  //variable and functions for a possible modal:
 
     //$scope.animationsEnabled = true;

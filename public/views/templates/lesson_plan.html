@@ -79,19 +79,27 @@
       </div>
     </script>
     <!-- ngTagsInput -->
-
-    <!--div containing the materials checkbox and text entry-->
-    <div class="materials_div">
-      <label for="lesson_materials_checkbox">Materials required?</label>
-      <input type="checkbox" slide-toggle="#materials-slide" ng-model="required_materials" />
-
-      <!--line break for now-->
-      <br>
-      <div id="materials-slide" class="slideable">
-        <label for="lesson_materials">Materials:</label>
+    <h3>Materials required? {{materialsRequiredMessage}}</h3>
+    <button type="button" class="btn btn-default" ng-click="toggleMaterialsRequirement()">Click to add materials.</button>
+    <hr>
+    <div uib-collapse="isCollapsed">
+      <div class="well well-lg">
         <textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>
       </div>
     </div>
+
+    <!--div containing the materials checkbox and text entry-->
+    <!--<div class="materials_div">-->
+      <!--<label for="lesson_materials_checkbox">Materials required?</label>-->
+      <!--<input type="checkbox" slide-toggle="#materials-slide" ng-model="required_materials" />-->
+
+      <!--&lt;!&ndash;line break for now&ndash;&gt;-->
+      <!--<br>-->
+      <!--<div id="materials-slide" class="slideable">-->
+        <!--<label for="lesson_materials">Materials:</label>-->
+        <!--<textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <label for="lesson_text">Lesson text:</label>
     <!--line break for now-->

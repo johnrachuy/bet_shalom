@@ -17,6 +17,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.adminEditState = false;
   $scope.statusToCheckIfPublished = false;
 
+    $scope.myFav = [];
+
+
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
@@ -64,10 +67,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Sets the edit variable that controls the stae of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
-    if($scope.dataFactory.factoryLessonStatus == 'published') {
-      $scope.statusToCheckIfPublished = true;
-    }
-    //console.log('editable?:: ',$scope.dataFactory.factoryLessonStatus);
+  if($scope.dataFactory.factoryLessonStatus == 'published') {
+    $scope.statusToCheckIfPublished = true;
+  }
+  $scope.dataFactory.factoryLessonStatus = undefined;
+
 
   //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.loadSavedLesson === true) {
@@ -80,11 +84,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
-      //if($scope.lessonPlanStatus == 'published'){
-      //  populatePublishedLesson();
-      //} else {
-        populateLessonForEdit();
-      //}
+
+      populateLessonForEdit();
+      checkFav();
     });
     $scope.dataFactory.factoryLessonViewState = false;
   } else {
@@ -103,16 +105,32 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   }
 
+    //Function to check favorite status
+    function checkFav() {
+      $scope.dataFactory.factoryCheckFavorite($scope.loggedInUser.users_id, $scope.lessonPlanId).then(function () {
+        $scope.myFav = $scope.dataFactory.factoryMyFavorite();
+      })
+    }
+
   //Favorites a lesson plan
   $scope.addFav = function() {
-    favorite = {
-      fk_users_id: $scope.loggedInUser.users_id,
-      fk_fav_lesson_id: $scope.lessonPlanId
-    };
-    //console.log(favorite);
-    $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
-
-    })
+    if (Object.keys($scope.myFav).length == 0) {
+      console.log('new favorite');
+      favorite = {
+        fk_users_id: $scope.loggedInUser.users_id,
+        fk_fav_lesson_id: $scope.lessonPlanId,
+        favorite_status: true
+      };
+      $scope.dataFactory.factoryAddFavorite(favorite).then(function () {
+      });
+    } else {
+      fav_id = {
+        favorite_id: $scope.myFav[0].favorite_id
+      };
+      $scope.dataFactory.factoryUpdateFavorite(fav_id).then(function () {
+        checkFav();
+      })
+    }
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate

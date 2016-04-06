@@ -15,7 +15,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
-  $scope.searchState = false;
+  $scope.statusToCheckIfPublished = false;
 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
@@ -64,6 +64,10 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Sets the edit variable that controls the stae of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
+    if($scope.dataFactory.factoryLessonStatus == 'published') {
+      $scope.statusToCheckIfPublished = true;
+    }
+    //console.log('editable?:: ',$scope.dataFactory.factoryLessonStatus);
 
   //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.loadSavedLesson === true) {
@@ -76,7 +80,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
-      populateLessonForEdit();
+      //if($scope.lessonPlanStatus == 'published'){
+      //  populatePublishedLesson();
+      //} else {
+        populateLessonForEdit();
+      //}
     });
     $scope.dataFactory.factoryLessonViewState = false;
   } else {
@@ -341,26 +349,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
 
+    //var materialsRequiredDomIndicator = {
+    //  required: 'Yes',
+    //  not_required: 'No'
+    //};
 
 
+  //$scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
 
-  $scope.isCollapsed = true;
-  var materialsRequiredDomIndicator = {
-    required: 'Yes',
-    not_required: 'No'
-  };
+  $scope.toggleMaterialsRequirement = function(materials) {
+    //$scope.isCollapsed = !$scope.isCollapsed;
 
-  $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
-
-  $scope.toggleMaterialsRequirement = function() {
-    $scope.isCollapsed = !$scope.isCollapsed;
-
-    if($scope.isCollapsed == true) {
-      $scope.required_materials = false;
-      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
-    } else {
-      $scope.required_materials = true;
-      $scope.materialsRequiredMessage = materialsRequiredDomIndicator.required;
+    console.log('alert', materials);
+    if(materials == false){
+      $scope.lesson_materials = null;
     }
   };
  //variable and functions for a possible modal:

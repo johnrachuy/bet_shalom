@@ -5,9 +5,9 @@
     <!--div containing the radio buttons for the admin to choose a resource or lesson; only viewable as admin-->
     <div class="resource_lesson_radio" ng-if="adminEditState">
       <label for="lesson_plan">Lesson Plan</label>
-      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan">
+      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan" ng-disabled="statusToCheckIfPublished">
       <label for="resource">Resource</label>
-      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="resource">
+      <input type="radio" name="type_selector" ng-model="$parent.type_selector" value="resource" ng-disabled="statusToCheckIfPublished">
       <!--<textarea id="a_comment" rows="3" cols="100" ng-model="kitty" placeholder="enter comment"></textarea>-->
     </div>
 
@@ -15,7 +15,7 @@
     <span>{{lesson_author}}</span>
     <!--<input type="text" id="lesson_author" ng-model="lesson_author" />-->
     <label for="lesson_title">Title:</label>
-    <input type="text" id="lesson_title" ng-model="lesson_title" />
+    <input type="text" id="lesson_title" ng-model="lesson_title" ng-disabled="statusToCheckIfPublished" />
     <button class="btn btn-primary" ng-click="addFav()">Add to favorites <span class="glyphicon glyphicon-star"></span></button>
 
     <!--The three dropdowns for testing-->
@@ -49,7 +49,8 @@
                 replace-spaces-with-dashes="false"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
-                template="tag-template">
+                template="tag-template"
+                ng-disabled="statusToCheckIfPublished">
       <auto-complete source="loadTags($query)"
                      min-length="0"
                      debounce-delay="100"
@@ -79,14 +80,17 @@
       </div>
     </script>
     <!-- ngTagsInput -->
-    <h3>Materials required? {{materialsRequiredMessage}}</h3>
-    <button type="button" class="btn btn-default" ng-click="toggleMaterialsRequirement()">Click to add materials.</button>
-    <hr>
-    <div uib-collapse="isCollapsed">
-      <div class="well well-lg">
-        <textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>
-      </div>
-    </div>
+    <label for="lesson_materials_checkbox">Materials required?</label>
+    <input type="checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" />
+    <textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished"></textarea>
+
+    <!--<button type="button" class="btn btn-default" ng-click="toggleMaterialsRequirement()">Click to add materials.</button>-->
+    <!--<hr>-->
+    <!--<div uib-collapse="isCollapsed">-->
+      <!--<div class="well well-lg">-->
+        <!--<textarea class="form-control" id="lesson_materials" rows="3" cols="130" ng-model="lesson_materials"></textarea>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <!--div containing the materials checkbox and text entry-->
     <!--<div class="materials_div">-->
@@ -104,7 +108,7 @@
     <label for="lesson_text">Lesson text:</label>
     <!--line break for now-->
     <br>
-    <textarea id="lesson_text" class="form-control" rows="20" cols="100" ng-model="lesson_text"></textarea>
+    <textarea id="lesson_text" class="form-control" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished"></textarea>
 
     <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
     <div class="teacher_buttons_div" ng-if="teacherEditState">
@@ -131,7 +135,7 @@
       <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
       <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
       <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
-      <button class="btn btn-warning remove_lesson" ng-click="removeLesson()">Remove Lesson</button>
+      <button class="btn btn-danger remove_lesson" ng-click="removeLesson()">Remove Lesson</button>
     </form>
   </div>
 

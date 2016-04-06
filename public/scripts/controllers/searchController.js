@@ -56,6 +56,8 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
         $scope.dataFactory.factoryStoredLessonId = $scope.viewLesson[index].lesson_id;
         //$scope.dataFactory.factoryStoredLessonId = id.lesson_id;
         $scope.dataFactory.factoryLessonViewState = true;
+        console.log('what is this::', $scope.viewLesson);
+        $scope.dataFactory.factoryLessonStatus = $scope.viewLesson[index].status;
         $location.path('/lesson_plan');
     };
 

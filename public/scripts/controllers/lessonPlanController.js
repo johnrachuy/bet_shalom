@@ -54,7 +54,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   }
 
 
-  $scope.holidays = ['Channukah', 'Yom Kipur'];
   $scope.animationsEnabled = true;
 
 
@@ -339,67 +338,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * End of add/remove tag functions -Savio
    */
 
-
-  //$scope.materialsRequiredMessage = materialsRequiredDomIndicator.not_required;
-
   $scope.toggleMaterialsRequirement = function(materials) {
     //$scope.isCollapsed = !$scope.isCollapsed;
     if(materials == false){
       $scope.lesson_materials = null;
     }
   };
- //variable and functions for a possible modal:
-
-    //$scope.animationsEnabled = true;
-
-
-//  $scope.addSelectedTag = function() {
-//    var myTag = $scope.selectedTag;
-//    var myEl = angular.element(document.querySelector('#added_tag_container'));
-//    myEl.append('<span>' + myTag + ' </span>');
-//    console.log('selectedTagg', $scope.selectedTagg);
-//  };
-//
-//
-//  $scope.open = function (size) {
-//    var modalInstance = $uibModal.open({
-//      animation: $scope.animationsEnabled,
-//      templateUrl: 'myModalContent.html',
-//      controller: 'ModalInstanceCtrl',
-//      size: size,
-//      resolve: {
-//        holidays: function () {
-//          return $scope.holidays;
-//        }
-//      }
-//    });
-//
-//    modalInstance.result.then(function (selectedItem) {
-//      $scope.selected = selectedItem;
-//    }, function () {
-//      $log.info('Modal dismissed at: ' + new Date());
-//    });
-//  };
-//
 }]);
-
-
-//Another controller with the code for a possible modal
-
-//angular.module('myApp').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, holidays) {
-//
-//  $scope.holidays = holidays;
-//  $scope.selected = {
-//    holiday: $scope.holidays[0]
-//  };
-//
-//  $scope.ok = function () {
-//    $uibModalInstance.close($scope.selected.holiday);
-//  };
-//
-//  $scope.cancel = function () {
-//    $uibModalInstance.dismiss('cancel');
-//  };
-//});
 
 

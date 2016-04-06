@@ -14,9 +14,11 @@
                 replace-spaces-with-dashes="false"
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
+                add-on-enter="false"
                 template="tag-template">
         <auto-complete source="loadTags($query)"
                        min-length="0"
+                       highlight-matched-text="true"
                        load-on-down-arrow="true"
                        load-on-focus="true"
                        load-on-empty="false"

@@ -6,10 +6,12 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var lessonPlans = {};
     //Variables to store the state and the lesson id for the lesson plan view
     var lessonViewState = undefined;
+    var lessonStatus = undefined;
     var lessonId = undefined;
     var favoritePlans = {};
     var favorite = {};
     var myFavorite = {};
+
 
 
     //The private function to save a lesson plan
@@ -117,6 +119,9 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryLessonViewState: function(){
           return lessonViewState;
+      },
+      factoryLessonStatus: function(){
+          return lessonStatus;
       },
       factoryStoredLessonId: function(){
           return lessonId;

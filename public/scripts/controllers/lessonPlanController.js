@@ -16,6 +16,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
   $scope.searchState = false;
+    $scope.myFav = [];
+
 
   //Stores the id of the lesson plan from the factory, sent by the page the user came from
   $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
@@ -58,7 +60,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Gets the information from the factory about who is logged in and calls
   $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
-  console.log($scope.loggedInUser);
+  console.log($scope.loggedInUser[0]);
 
   validateUser();
 
@@ -77,6 +79,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
       populateLessonForEdit();
+      checkFav();
     });
     $scope.dataFactory.factoryLessonViewState = false;
   } else {
@@ -94,6 +97,18 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $location.path('/home');
     }
   }
+
+    //Function to check favorite status
+    function checkFav() {
+      $scope.dataFactory.factoryCheckFavorite($scope.loggedInUser.users_id, $scope.lessonPlanId).then(function () {
+        $scope.myFav = $scope.dataFactory.factoryMyFavorite();
+        if (Object.keys($scope.myFav).length == 0) {
+          console.log('this is not a fav');
+        } else {
+          console.log('this is a fav');
+        }
+      })
+    }
 
   //Favorites a lesson plan
   $scope.addFav = function() {

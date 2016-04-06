@@ -8,6 +8,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var lessonViewState = undefined;
     var lessonId = undefined;
     var favoritePlans = {};
+    var favorite = {};
+    var myFavorite = {};
 
 
     //The private function to save a lesson plan
@@ -71,6 +73,17 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
+    //function to check logged in users favorites
+    var checkFavorite = function(id, lesson){
+
+        console.log(id, lesson);
+        var promise = $http.get('/favorite?id=' + id + '&lesson=' + lesson).then(function(response) {
+            myFavorite = response.data;
+            console.log(response.data);
+        });
+        return promise;
+    };
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -107,6 +120,12 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryGetfavoritePlans: function(){
           return favoritePlans;
+      },
+      factoryCheckFavorite: function(id, lesson) {
+          return checkFavorite(id, lesson);
+      },
+      factoryMyFavorite: function() {
+          return myFavorite;
       }
   };
 

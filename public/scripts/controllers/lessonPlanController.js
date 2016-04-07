@@ -161,16 +161,45 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
-  $scope.saveLessonDraft = function() {
-    console.log('Saving Draft!');
-    if ($scope.lessonPlanStatus === null){
-      $scope.lessonPlanStatus = 'draft';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'draft';
-      $scope.editLesson();
-    }
-    console.log('save lesson plan::', lessonPlan);
+  $scope.saveLessonDraft = function(size) {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalSaveDraft.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      if ($scope.lessonPlanStatus === null){
+        $scope.lessonPlanStatus = 'draft';
+        $scope.submitLesson();
+      } else {
+        $scope.lessonPlanStatus = 'draft';
+        $scope.editLesson();
+      }
+
+      //clearForm();
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+    //
+    //console.log('Saving Draft!');
+    //if ($scope.lessonPlanStatus === null){
+    //  $scope.lessonPlanStatus = 'draft';
+    //  $scope.submitLesson();
+    //} else {
+    //  $scope.lessonPlanStatus = 'draft';
+    //  $scope.editLesson();
+    //}
+    //console.log('save lesson plan::', lessonPlan);
   };
 
   //When the needs review button is clicked changes the status to reflect that and calls the function to update the
@@ -221,7 +250,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     //$scope.editLesson();
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
+      templateUrl: 'modalDelete.html',
       controller: 'ModalController',
       size: size,
       //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason

@@ -33,7 +33,8 @@
                 on-tag-added="tagAdded($tag)"
                 on-tag-removed="tagRemoved($tag)"
                 add-on-enter="false"
-                template="tag-template">
+                template="tag-template"
+                ng-disabled="statusToCheckIfPublished">
       <auto-complete source="loadTags($query)"
                      min-length="0"
                      debounce-delay="100"
@@ -101,12 +102,16 @@
         <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
       </div>
     </div>
-
-    <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
-    <!--teacher-->
-    <div class="favorites_button" ng-if="searchState">
-      <button id="add-favorite">Add to Favorites</button>
-    </div>
+  </form>
+  <div>
+    <!-- Area to display comments -->
+  </div>
+  <form id="comment_form">
+    <label for="comment">Admin Comments:</label>
+    <!--line break for now-->
+    <br>
+    <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="enter comment"></textarea>
+    <button class="btn btn-primary publish_button" ng-click="">Add Comment</button>
   </form>
 
   <!--buttons and admin comment input shown only the admin edit view-->

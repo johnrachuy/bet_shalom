@@ -135,16 +135,27 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+    $scope.lesson_title = [];
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
   $scope.adminPublishLesson = function() {
-    console.log('admin publish function--lesson title?', $scope.lesson_title);
-    if ($scope.lessonPlanStatus === null) {
-      $scope.lessonPlanStatus = 'published';
-      $scope.submitLesson();
+
+    if (Object.keys($scope.selectedTag).length == 0) {
+      alert('No Tags');
     } else {
-      $scope.lessonPlanStatus = 'published';
-      $scope.editLesson();
+      console.log('Has Tags');
+      if (Object.keys($scope.lesson_title).length == 0) {
+        alert('No Title');
+      } else {
+        console.log('Has Title');
+        if ($scope.lessonPlanStatus === null) {
+          $scope.lessonPlanStatus = 'published';
+          $scope.submitLesson();
+        } else {
+          $scope.lessonPlanStatus = 'published';
+          $scope.editLesson();
+        }
+      }
     }
   };
 
@@ -217,7 +228,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.submitLesson = function() {
     //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
-
     createLessonPlanObject();
 
     $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {

@@ -161,6 +161,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         $scope.lessonPlanStatus = 'published';
         $scope.editLesson();
       }
+      $location.path('/admin_dash');
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
@@ -193,6 +194,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         $scope.lessonPlanStatus = 'submitted';
         $scope.editLesson();
       }
+      $location.path('/teacher_dash');
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
@@ -254,8 +256,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         $scope.lessonPlanStatus = 'needs review';
         $scope.editLesson();
       }
-
-      clearForm();
+      $location.path('/admin_dash');
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());

@@ -2,9 +2,7 @@ myApp.controller('ModalController', ['$scope', '$http', '$uibModalInstance', 'ho
 
   $scope.dataFactory = DataFactory;
 
-  //console.log('hola', $scope.dataFactory.factoryStoredLessonId);
-  //var lessonId = {lesson_id: $scope.dataFactory.factoryStoredLessonId};
-
+//modal for when delete button clicked
   $scope.deleteLessonPlan = function () {
     $uibModalInstance.close();
 
@@ -18,4 +16,10 @@ myApp.controller('ModalController', ['$scope', '$http', '$uibModalInstance', 'ho
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+
+
+  //modal for when saved draft button is clicked
+  $scope.okaySavedDraft = function() {
+    $uibModalInstance.close();
+  }
 }]);

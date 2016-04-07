@@ -19,10 +19,11 @@
     <br>
     <label for="lesson_author">Author:</label>
     <span>{{lesson_author}}</span>
+    <div class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa yellow fa-star"></i></div><div class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa fa-star-o"></i></div>
     <!--<input type="text" id="lesson_author" ng-model="lesson_author" />-->
 
       <!--<button class="btn btn-primary" ng-click="addFav()" ng-show="$scope.myFav.fk_fav_lesson_id > 0">Add to favorites <span class="glyphicon yellow glyphicon-star"></span></button>-->
-      <button class="btn btn-primary" ng-click="addFav()">Add to favorites <span ng-show="myFav.favorite_status"><i class="fa yellow fa-star"></i></span><span ng-hide="myFav.favorite_status"><i class="fa fa-star"></i></span></button>
+      <!--<button class="btn btn-primary" ng-click="addFav()">Add to favorites <span ng-show="myFav.favorite_status"><i class="fa yellow fa-star"></i></span><span ng-hide="myFav.favorite_status"><i class="fa fa-star"></i></span></button>-->
 
 
     <!-- ngTagsInput -->
@@ -102,6 +103,7 @@
         <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
       </div>
     </div>
+<<<<<<< HEAD
   </form>
   <div>
     <!-- Area to display comments -->
@@ -145,7 +147,7 @@
 
 
   <!--modal when delete is clicked-->
-  <script type="text/ng-template" id="myModalContent.html">
+  <script type="text/ng-template" id="modalDelete.html">
     <div class="modal-header">
       <h3 class="modal-title">Are you sure you want to delete lesson plan?</h3>
     </div>
@@ -160,5 +162,17 @@
     <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
     <!--</div>-->
   </script>
+
+  <script type="text/ng-template" id="modalSaveDraft.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Saved Draft!</h3>
+    </div>
+
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okaySavedDraft()">Okay</button>
+    </div>
+  </script>
+
+
 
 </div>

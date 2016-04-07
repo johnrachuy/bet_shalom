@@ -58,3 +58,21 @@ textarea {
 .materials_checkbox {
     cursor: default !important;
 }
+
+.fa-star {
+    font-size: 35px;
+}
+
+.fa-star-o {
+    font-size: 35px;
+}
+
+.fa-star-o:hover {
+    font-size: 35px;
+    color: gold;
+}
+
+.starr {
+    width: 40px;
+    height: 40px;
+}

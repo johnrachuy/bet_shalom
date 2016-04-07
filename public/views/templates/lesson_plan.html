@@ -159,9 +159,10 @@
     <!--</div>-->
   </script>
 
+  <!--modal when save draft is clicked-->
   <script type="text/ng-template" id="modalSaveDraft.html">
     <div class="modal-header">
-      <h3 class="modal-title">Saved Draft!</h3>
+      <h3 class="modal-title">Saved draft on your dashboard!</h3>
     </div>
 
     <div class="modal-body">
@@ -170,5 +171,39 @@
   </script>
 
 
+<!--modal when teacher submits lesson for approval-->
+  <script type="text/ng-template" id="modalTeacherSubmit.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Submit lesson plan for approval?</h3>
+    </div>
 
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okaySubmit()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <!--modal for when admin publishes lesson-->
+  <script type="text/ng-template" id="modalPublish.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Publish Lesson?</h3>
+    </div>
+
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okayPublish()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <!--modal for when admin clicks needs-review button-->
+  <script type="text/ng-template" id="modalNeedsReview.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Send lesson back to author for additional review?</h3>
+    </div>
+
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okayNeedsReview()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
 </div>

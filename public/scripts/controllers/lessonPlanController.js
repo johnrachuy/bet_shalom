@@ -80,6 +80,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
        * Sets lessonPlanStatus to the 'status' property coming back from the database.
        * This allows the 'Publish' button to determine whether to POST or PUT. -Savio
        */
+      console.log('why', $scope.savedLessonPlan);
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
@@ -137,32 +138,78 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
-  $scope.adminPublishLesson = function() {
-    console.log('admin publish function--lesson title?', $scope.lesson_title);
-    if ($scope.lessonPlanStatus === null) {
-      $scope.lessonPlanStatus = 'published';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'published';
-      $scope.editLesson();
-    }
+  $scope.adminPublishLesson = function(size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalPublish.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+
+      if ($scope.lessonPlanStatus === null) {
+        $scope.lessonPlanStatus = 'published';
+        $scope.submitLesson();
+      } else {
+        $scope.lessonPlanStatus = 'published';
+        $scope.editLesson();
+      }
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (teacher only button)
-  $scope.teacherSubmitLesson = function(){
-    if ($scope.lessonPlanStatus === null){
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.editLesson();
-    }
+  $scope.teacherSubmitLesson = function(size){
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalTeacherSubmit.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+
+      if ($scope.lessonPlanStatus === null){
+        $scope.lessonPlanStatus = 'submitted';
+        $scope.submitLesson();
+      } else {
+        $scope.lessonPlanStatus = 'submitted';
+        $scope.editLesson();
+      }
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+
   };
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
-
+    if ($scope.lessonPlanStatus === null){
+      $scope.lessonPlanStatus = 'draft';
+      $scope.submitLesson();
+    } else {
+      $scope.lessonPlanStatus = 'draft';
+      $scope.editLesson();
+    }
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'modalSaveDraft.html',
@@ -177,45 +224,47 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     });
 
     modalInstance.result.then(function () {
-      if ($scope.lessonPlanStatus === null){
-        $scope.lessonPlanStatus = 'draft';
-        $scope.submitLesson();
-      } else {
-        $scope.lessonPlanStatus = 'draft';
-        $scope.editLesson();
-      }
-
-      //clearForm();
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
     });
-    //
-    //console.log('Saving Draft!');
-    //if ($scope.lessonPlanStatus === null){
-    //  $scope.lessonPlanStatus = 'draft';
-    //  $scope.submitLesson();
-    //} else {
-    //  $scope.lessonPlanStatus = 'draft';
-    //  $scope.editLesson();
-    //}
-    //console.log('save lesson plan::', lessonPlan);
   };
 
   //When the needs review button is clicked changes the status to reflect that and calls the function to update the
   //database with the change
-  $scope.needsReview = function(){
-    if ($scope.lessonPlanStatus === null){
-      alert('No lesson loaded.');
-    } else {
-      $scope.lessonPlanStatus = 'needs review';
-      $scope.editLesson();
-    }
+  $scope.needsReview = function(size){
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalNeedsReview.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      if ($scope.lessonPlanStatus === null){
+        alert('No lesson loaded.');
+      } else {
+        $scope.lessonPlanStatus = 'needs review';
+        $scope.editLesson();
+      }
+
+      clearForm();
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
   };
 
   //Inserts a new lesson into the database
   $scope.submitLesson = function() {
-    //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
 
     createLessonPlanObject();
@@ -245,9 +294,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){
-    //$scope.lessonPlanStatus = 'archived';
-    //lessonDeleted = true;
-    //$scope.editLesson();
+
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'modalDelete.html',

@@ -1,10 +1,35 @@
+/*######## colors from mood board ########*/
+/*color: #2b1913;*/
+/*color: #796f64;*/
+/*color: #cfc8c6;*/
+/*color: #b67434;*/
+/*color: #bfd5ed;*/
+
+
+
 body {
-    background-color: lightgray;
+    background-color: #cfc8c6;
 }
 
 textarea {
     resize: none;
 }
+
+table {
+    table-layout: fixed;
+}
+
+tr td {
+    width: 3%;
+    /*word-break: break-all;*/
+
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+}
+
+/*.select-lesson-btn{*/
+    /*width: 20%;*/
+/*}*/
 
 .green {
     color: green;
@@ -48,7 +73,7 @@ textarea {
 }
 
 .no_gray {
-    background-color: #cbebff !important;
+    background-color: #bfd5ed !important;
 }
 
 #lesson_text {
@@ -57,6 +82,14 @@ textarea {
 
 .materials_checkbox {
     cursor: default !important;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-header {
+    text-align: center;
 }
 
 .fa-star {

@@ -14,6 +14,8 @@
     "angular-animate": "^1.5.2",
     "angular-route": "^1.5.2",
     "angular-ui-bootstrap": "^1.2.5",
+    "aws": "0.0.3-2",
+    "aws-sdk": "^2.3.1",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
@@ -23,6 +25,7 @@
     "ng-tags-input": "^3.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "pg": "^4.5.1",
     "sendgrid": "^2.0.0"
   }

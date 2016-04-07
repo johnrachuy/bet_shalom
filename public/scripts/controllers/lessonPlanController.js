@@ -11,7 +11,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Sets the required materials text box default to false so if it is never clicked a value will still get written to
     //the database
   $scope.required_materials = false;
-
+  $scope.lessonPlanUsed = false;
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
@@ -34,6 +34,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     var favorite = {};
   //tracks if the lesson is to be deleted (archived)
   var lessonDeleted = false;
+
+  $scope.commentForm = false;
+
 
   //clears form
   function clearForm () {
@@ -64,6 +67,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
+
+
   //Sets the edit variable that controls the stae of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
   if($scope.dataFactory.factoryLessonStatus == 'published') {
@@ -74,6 +79,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.loadSavedLesson === true) {
+    $scope.commentForm = true;
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       /*
@@ -373,6 +379,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     //$scope.isCollapsed = !$scope.isCollapsed;
     if(materials == false){
       $scope.lesson_materials = null;
+    }
+  };
+
+  $scope.usedLessonPlanToggle = function(used) {
+    //$scope.isCollapsed = !$scope.isCollapsed;
+    if(used == false){
+      $scope.admin_comment = null;
     }
   };
 }]);

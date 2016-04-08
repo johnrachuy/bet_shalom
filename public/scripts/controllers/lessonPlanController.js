@@ -161,72 +161,92 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+    $scope.lesson_title = [];
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
   $scope.adminPublishLesson = function(size) {
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'modalPublish.html',
-      controller: 'ModalController',
-      size: size,
-      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
-      resolve: {
-        holidays: function () {
-          return $scope.holidays;
-        }
-      }
-    });
 
-    modalInstance.result.then(function () {
-
-      if ($scope.lessonPlanStatus === null) {
-        $scope.lessonPlanStatus = 'published';
-        $scope.submitLesson();
+    if (Object.keys($scope.selectedTag).length == 0) {
+      alert('No Tags');
+    } else {
+      console.log('Has Tags');
+      if (Object.keys($scope.lesson_title).length == 0) {
+        alert('No Title');
       } else {
-        $scope.lessonPlanStatus = 'published';
-        $scope.editLesson();
-      }
-      $location.path('/admin_dash');
+        console.log('Has Title');
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'modalPublish.html',
+          controller: 'ModalController',
+          size: size,
+          //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+          resolve: {
+            holidays: function () {
+              return $scope.holidays;
+            }
+          }
+        });
 
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
+        modalInstance.result.then(function () {
+
+          if ($scope.lessonPlanStatus === null) {
+            $scope.lessonPlanStatus = 'published';
+            $scope.submitLesson();
+          } else {
+            $scope.lessonPlanStatus = 'published';
+            $scope.editLesson();
+          }
+          $location.path('/admin_dash');
+
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+      }
+    }
+  }
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (teacher only button)
-  $scope.teacherSubmitLesson = function(size){
+  $scope.teacherSubmitLesson = function(size) {
 
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'modalTeacherSubmit.html',
-      controller: 'ModalController',
-      size: size,
-      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
-      resolve: {
-        holidays: function () {
-          return $scope.holidays;
+      if (Object.keys($scope.selectedTag).length == 0) {
+        alert('No Tags');
+      } else {
+        console.log('Has Tags');
+        if (Object.keys($scope.lesson_title).length == 0) {
+          alert('No Title');
+        } else {
+          console.log('Has Title');
+          var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'modalTeacherSubmit.html',
+            controller: 'ModalController',
+            size: size,
+            //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+            resolve: {
+              holidays: function () {
+                return $scope.holidays;
+              }
+            }
+          });
+
+          modalInstance.result.then(function () {
+
+            if ($scope.lessonPlanStatus === null){
+              $scope.lessonPlanStatus = 'submitted';
+              $scope.submitLesson();
+            } else {
+              $scope.lessonPlanStatus = 'submitted';
+              $scope.editLesson();
+            }
+            $location.path('/teacher_dash');
+
+          }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+          });
         }
       }
-    });
-
-    modalInstance.result.then(function () {
-
-      if ($scope.lessonPlanStatus === null){
-        $scope.lessonPlanStatus = 'submitted';
-        $scope.submitLesson();
-      } else {
-        $scope.lessonPlanStatus = 'submitted';
-        $scope.editLesson();
-      }
-      $location.path('/teacher_dash');
-
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-
-
-  };
+    };
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
@@ -292,7 +312,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Inserts a new lesson into the database
   $scope.submitLesson = function() {
     console.log('submit lesson');
-
     createLessonPlanObject();
 
     $scope.dataFactory.factorySaveLessonPlan(lessonPlan).then(function() {

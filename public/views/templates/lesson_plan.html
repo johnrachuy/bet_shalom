@@ -131,7 +131,6 @@
       <br>
       <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
       <button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button>
-      <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
     </form>
   </div>
   <!--buttons and admin comment input shown only the admin edit view-->
@@ -144,6 +143,7 @@
       <span ng-if="!statusToCheckIfPublished">
         <!--<button class="btn btn-primary insert_file_button">Insert File</button>-->
         <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+
         <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
         <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
       </span>

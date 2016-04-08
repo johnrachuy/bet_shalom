@@ -22,6 +22,7 @@ var remove_lesson = require('./routes/remove_lesson');
 var get_favorites = require('./routes/get_favorites');
 var add_comment = require('./routes/add_comment');
 var pic_route = require('./routes/pic_route');
+var logout = require('./routes/logout');
 
 
 app.use(bodyParser.json());
@@ -58,6 +59,7 @@ app.use('/remove_lesson', remove_lesson);
 app.use('/get_favorites', get_favorites);
 app.use('/add_comment', add_comment);
 app.use('/sign_s3', pic_route);
+app.use('/logout', logout);
 
 
 // Serve back static files

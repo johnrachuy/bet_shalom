@@ -7,6 +7,18 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
     getNames();
 
+    //validateUser to make sure the role can be on this page then get all the lessons for the teacher
+    validateUser();
+
+    //Function to check the user and re-route them if they are not validated
+    function validateUser() {
+        if($scope.loggedInUser.role == 'admin') {
+
+        } else {
+            $location.path('/home');
+        }
+    }
+
     //populating drop-down of existing users
     function getNames() {
         $http.get('/get_names').then(function(response) {

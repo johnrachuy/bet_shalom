@@ -161,17 +161,29 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (teacher only button)
-  $scope.teacherSubmitLesson = function(){
-    if ($scope.lessonPlanStatus === null){
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.editLesson();
-    }
-  };
+  $scope.teacherSubmitLesson = function() {
 
-  //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
+      if (Object.keys($scope.selectedTag).length == 0) {
+        alert('No Tags');
+      } else {
+        console.log('Has Tags');
+        if (Object.keys($scope.lesson_title).length == 0) {
+          alert('No Title');
+        } else {
+          console.log('Has Title');
+          if ($scope.lessonPlanStatus === null) {
+            $scope.lessonPlanStatus = 'submitted';
+            $scope.submitLesson();
+          } else {
+            $scope.lessonPlanStatus = 'submitted';
+            $scope.editLesson();
+          }
+        }
+      }
+    };
+
+
+    //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
 
     var modalInstance = $uibModal.open({

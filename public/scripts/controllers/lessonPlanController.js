@@ -52,7 +52,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
-    document.getElementById("uploadedFile").src = null;
+    document.getElementById("uploadedFile").src = "";
     lessonDeleted = false;
     resourceOrLessonBoolean = "lesson_plan";
 

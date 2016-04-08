@@ -37,6 +37,15 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         return promise;
     };
 
+    //logout user
+    var logoutUser = function() {
+        var promise = $http.get('/logout').then( function(response) {
+            loggedInUser = '';
+            $location.path('/home');
+        });
+        return promise;
+    };
+
 
     //public
     var publicApi = {
@@ -55,6 +64,9 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         factorySaveUpdatedEntry: function(entry) {
             return saveUpdatedEntry(entry);
         },
+        factoryLogoutUser: function() {
+            return logoutUser();
+        }
 
     };
 

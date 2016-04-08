@@ -141,8 +141,6 @@
       <!--<br>-->
       <!--<textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>-->
       <span ng-if="!statusToCheckIfPublished">
-        <button class="btn btn-primary insert_file_button">Insert File</button>
-        <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
         <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
         <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
       </span>

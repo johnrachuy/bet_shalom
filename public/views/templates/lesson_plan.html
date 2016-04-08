@@ -141,6 +141,26 @@
     </form>
   </div>
 
+<<<<<<< HEAD
+=======
+  <div id="fileUpload">
+    <input type="file" id="file_input"/>
+    <img id="uploadedFile" src="" />
+  </div>
+
+  <!--comment section shown only on the viewable non-editable view coming from the search page-->
+  <form id="comments_form" ng-if="searchState">
+    <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>
+    <button id="submit_comment">Submit Comment</button>
+  </form>
+
+  <!--div that shows all the comments for the lesson-->
+  <div id="posted_comments" >
+
+  </div>
+
+
+
   <!--modal when delete is clicked-->
   <script type="text/ng-template" id="modalDelete.html">
     <div class="modal-header">
@@ -158,9 +178,10 @@
     <!--</div>-->
   </script>
 
+  <!--modal when save draft is clicked-->
   <script type="text/ng-template" id="modalSaveDraft.html">
     <div class="modal-header">
-      <h3 class="modal-title">Saved Draft!</h3>
+      <h3 class="modal-title">Saved draft on your dashboard!</h3>
     </div>
 
     <div class="modal-body">
@@ -169,5 +190,39 @@
   </script>
 
 
+<!--modal when teacher submits lesson for approval-->
+  <script type="text/ng-template" id="modalTeacherSubmit.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Submit lesson plan for approval?</h3>
+    </div>
 
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okaySubmit()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <!--modal for when admin publishes lesson-->
+  <script type="text/ng-template" id="modalPublish.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Publish Lesson?</h3>
+    </div>
+
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okayPublish()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <!--modal for when admin clicks needs-review button-->
+  <script type="text/ng-template" id="modalNeedsReview.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Send lesson back to author for additional review?</h3>
+    </div>
+
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" ng-click="okayNeedsReview()">Yes</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
 </div>

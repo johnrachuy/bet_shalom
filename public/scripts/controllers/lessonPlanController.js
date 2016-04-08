@@ -52,6 +52,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
+    document.getElementById("uploadedFile").src = null;
     lessonDeleted = false;
     resourceOrLessonBoolean = "lesson_plan";
 
@@ -90,6 +91,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
        * Sets lessonPlanStatus to the 'status' property coming back from the database.
        * This allows the 'Publish' button to determine whether to POST or PUT. -Savio
        */
+      console.log('why', $scope.savedLessonPlan);
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
       console.log($scope.lessonPlanStatus);
       console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
@@ -101,6 +103,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   } else {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
+
+  //Grabs the file the user selects and attemtps to upload it to the server
+  (function() {
+    document.getElementById("file_input").onchange = function(){
+      var files = document.getElementById("file_input").files;
+      var file = files[0];
+      if(file == null){
+        alert("No file selected.");
+      }
+      else{
+        get_signed_request(file);
+      }
+    };
+  })();
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
@@ -147,32 +163,80 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
-  $scope.adminPublishLesson = function() {
-    console.log('admin publish function--lesson title?', $scope.lesson_title);
-    if ($scope.lessonPlanStatus === null) {
-      $scope.lessonPlanStatus = 'published';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'published';
-      $scope.editLesson();
-    }
+  $scope.adminPublishLesson = function(size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalPublish.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+
+      if ($scope.lessonPlanStatus === null) {
+        $scope.lessonPlanStatus = 'published';
+        $scope.submitLesson();
+      } else {
+        $scope.lessonPlanStatus = 'published';
+        $scope.editLesson();
+      }
+      $location.path('/admin_dash');
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
   };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (teacher only button)
-  $scope.teacherSubmitLesson = function(){
-    if ($scope.lessonPlanStatus === null){
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.submitLesson();
-    } else {
-      $scope.lessonPlanStatus = 'submitted';
-      $scope.editLesson();
-    }
+  $scope.teacherSubmitLesson = function(size){
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalTeacherSubmit.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+
+      if ($scope.lessonPlanStatus === null){
+        $scope.lessonPlanStatus = 'submitted';
+        $scope.submitLesson();
+      } else {
+        $scope.lessonPlanStatus = 'submitted';
+        $scope.editLesson();
+      }
+      $location.path('/teacher_dash');
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+
   };
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
-
+    if ($scope.lessonPlanStatus === null){
+      $scope.lessonPlanStatus = 'draft';
+      $scope.submitLesson();
+    } else {
+      $scope.lessonPlanStatus = 'draft';
+      $scope.editLesson();
+    }
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'modalSaveDraft.html',
@@ -187,45 +251,46 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     });
 
     modalInstance.result.then(function () {
-      if ($scope.lessonPlanStatus === null){
-        $scope.lessonPlanStatus = 'draft';
-        $scope.submitLesson();
-      } else {
-        $scope.lessonPlanStatus = 'draft';
-        $scope.editLesson();
-      }
-
-      //clearForm();
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
     });
-    //
-    //console.log('Saving Draft!');
-    //if ($scope.lessonPlanStatus === null){
-    //  $scope.lessonPlanStatus = 'draft';
-    //  $scope.submitLesson();
-    //} else {
-    //  $scope.lessonPlanStatus = 'draft';
-    //  $scope.editLesson();
-    //}
-    //console.log('save lesson plan::', lessonPlan);
   };
 
   //When the needs review button is clicked changes the status to reflect that and calls the function to update the
   //database with the change
-  $scope.needsReview = function(){
-    if ($scope.lessonPlanStatus === null){
-      alert('No lesson loaded.');
-    } else {
-      $scope.lessonPlanStatus = 'needs review';
-      $scope.editLesson();
-    }
+  $scope.needsReview = function(size){
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'modalNeedsReview.html',
+      controller: 'ModalController',
+      size: size,
+      //no idea what the resolve is for, but it errors out without it. that's why it's set to 'holidays' for no reason
+      resolve: {
+        holidays: function () {
+          return $scope.holidays;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      if ($scope.lessonPlanStatus === null){
+        alert('No lesson loaded.');
+      } else {
+        $scope.lessonPlanStatus = 'needs review';
+        $scope.editLesson();
+      }
+      $location.path('/admin_dash');
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
   };
 
   //Inserts a new lesson into the database
   $scope.submitLesson = function() {
-    //console.log('checked', $scope.required_materials);
     console.log('submit lesson');
 
     createLessonPlanObject();
@@ -283,9 +348,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){
-    //$scope.lessonPlanStatus = 'archived';
-    //lessonDeleted = true;
-    //$scope.editLesson();
+
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'modalDelete.html',
@@ -328,7 +391,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       lesson_plan: {
         materials: $scope.lesson_materials,
         text: $scope.lesson_text,
-        saved_comment: []
+        saved_comment: [],
+        picture: document.getElementById("uploadedFile").src
+
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
@@ -359,6 +424,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_materials = $scope.savedLessonPlan[0].lesson_plan.materials;
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
     $scope.saved_comments = $scope.savedLessonPlan[0].lesson_plan.saved_comment;
+    $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
+    document.getElementById("uploadedFile").src = $scope.savedLessonPlan[0].lesson_plan.picture;
 
     //This for loop grabs the tags retrieved from the lesson plan get call and creates a JSON for ngTagsInput
     //to populate the tag bar with tags associated with that lesson plan.
@@ -426,12 +493,50 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+
   $scope.usedLessonPlanToggle = function(used) {
     //$scope.isCollapsed = !$scope.isCollapsed;
     if(used == false){
       $scope.admin_comment = null;
     }
   };
+
+  //Gets signed url to allow you to upload your file to aws
+  function get_signed_request(file){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState === 4){
+        if(xhr.status === 200){
+          var response = JSON.parse(xhr.responseText);
+          upload_file(file, response.signed_request, response.url);
+        }
+        else{
+          alert("Could not get signed URL.");
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  //Uploads your file to aws and places it one the dom
+  function upload_file(file, signed_request, url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", signed_request);
+    xhr.setRequestHeader('x-amz-acl', 'public-read');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        document.getElementById("uploadedFile").src = url;
+        console.log('upload file ' + url);
+      }
+    };
+    xhr.onerror = function() {
+      alert("Could not upload file.");
+    };
+    xhr.send(file);
+  }
+
+
 }]);
 
 

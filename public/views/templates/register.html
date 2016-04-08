@@ -3,23 +3,23 @@
             <!--<h1 class="lead">Register New User</h1>-->
         <!--</div>-->
     <!--</div>-->
-
-    <div class="container">
+    <div class="col-md-4"></div>
+    <div class="container col-md-4">
         <!-- Set action and method -->
         <h3>Create New User</h3>
         <form>
-            <div>
+            <div class="form-group">
                 <label for="selectedName">Existing Users</label>
-                <select ng-model="selectedName" ng-options="person.users_id as person.last_name + ', ' + person.first_name for person in getNames" ng-change="getInfo()">Select Person</select>
+                <select class="form-control" ng-model="selectedName" ng-options="person.users_id as person.last_name + ', ' + person.first_name for person in getNames" ng-change="getInfo()">Select Person</select>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="username">Username/Email:</label>
-                <input type="text" ng-model="username">
+                <input class="form-control" type="text" ng-model="username">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" ng-model="password">
+                <input class="form-control" type="password" ng-model="password">
             </div>
 
             <div>
@@ -32,27 +32,27 @@
                 <input type="radio" ng-model="role" value="teacher">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="first_name">First Name:</label>
-                <input type="text" ng-model="first_name">
+                <input class="form-control" type="text" ng-model="first_name">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="last_name">Last Name:</label>
-                <input type="text" ng-model="last_name">
+                <input class="form-control" type="text" ng-model="last_name">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="phone">Phone:</label>
-                <input type="text" ng-model="phone">
+                <input class="form-control" type="text" ng-model="phone">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="grade">Grade:</label>
-                <select type="text" ng-model="grade">
+                <select class="form-control" type="text" ng-model="grade">
                     <option value="admin">Admin</option>
                     <option value="pre-k">Pre-K</option>
-                    <option value="k">K</option>
+                    <option value="k">Kindergarten</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                     <option value="3rd">3rd</option>
@@ -64,11 +64,11 @@
                 </select>
             </div>
 
-            <div>
+            <div class="form-group">
             <button type="button" ng-click="saveUser()">Submit</button>
             </div>
 
-            <div>
+            <div class="form-group">
                 <button ng-click="sendEmail()">Send E-mail</button>
             </div>
 

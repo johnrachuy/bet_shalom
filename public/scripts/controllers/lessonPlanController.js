@@ -31,6 +31,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
 
+  $scope.saved_comments = {};
+
     var favorite = {};
   //tracks if the lesson is to be deleted (archived)
   var lessonDeleted = false;
@@ -249,6 +251,21 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     clearForm();
   };
 
+  //Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
+  $scope.saved_comments =[];
+  $scope.addComment = function(){
+    console.log('add comment button');
+    $scope.new_comment = {
+      author: $scope.lesson_author,
+      date_stamp: new Date(),
+      comment: $scope.comment
+    };
+    $scope.saved_comments.push($scope.new_comment);
+    console.log('new comments ', $scope.saved_comments);
+    createLessonPlanObject();
+    console.log('lesson plan with new comment ', lessonPlan);
+  };
+
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){
     //$scope.lessonPlanStatus = 'archived';
@@ -296,7 +313,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       lesson_plan: {
         materials: $scope.lesson_materials,
         text: $scope.lesson_text,
-        admin_comment: $scope.admin_comment
+        saved_comment: []
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
@@ -306,14 +323,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       //hardcoded currently
       lesson_id: $scope.lessonPlanId,
 
-
-
       tags: []
     };
 
     // lessonPlan object property 'tags' is assigned the value of the global 'tags' array created by ngTagsInput
     lessonPlan.tags = $scope.tags;
-
+    lessonPlan.lesson_plan.saved_comment = $scope.saved_comments;
 
   };
 

@@ -111,13 +111,13 @@
   <div>
     <form id="comment_form" ng-if="commentForm">
       <label for="used_lesson_checkbox">Use Lesson Plan: </label>
-      <input type="checkbox" id="used_lesson_checkbox" ng-model="lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
+      <input type="checkbox" id="used_lesson_checkbox" ng-model="$parent.lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
       <br />
       <label for="comment">Comments:</label>
       <!--line break for now-->
       <br>
-      <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
-      <button class="btn btn-primary comment_button" ng-click="">Add Comment</button>
+      <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
+      <button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button>
       <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
     </form>
   </div>

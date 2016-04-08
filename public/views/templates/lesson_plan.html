@@ -107,7 +107,7 @@
 
   <div id="display_comments" ng-repeat="comments in saved_comments">
     <!-- Area to display comments -->
-    {{comments.author}} {{comments.date_stamp || date}}
+    {{comments.author}} {{comments.date_stamp | date}}
     {{comments.comment}}
   </div>
   <div>

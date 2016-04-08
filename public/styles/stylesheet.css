@@ -31,6 +31,16 @@ tr td {
     /*width: 20%;*/
 /*}*/
 
+.jumbotron {
+    /*border: 4px solid #b67434 ;*/
+    background-color: #bfd5ed;
+
+}
+
+.navbar {
+    /*border: 4px solid #2b1913;*/
+}
+
 .green {
     color: green;
 }
@@ -41,6 +51,16 @@ tr td {
 
 .yellow {
     color: gold;
+}
+
+.favorites-lesson-plans {
+    border-left: 1px dashed #333;
+
+}
+
+.lessons-created-by-user {
+    /*border-right: 1px dashed #333;*/
+
 }
 
 .center {

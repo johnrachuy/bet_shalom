@@ -95,6 +95,14 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
+    //function to add comment
+    var addComment = function(lessonPlan) {
+        var promise = $http.put('/add_comment', lessonPlan).then(function(response) {
+            console.log(response);
+        });
+        return promise;
+    };
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -143,6 +151,9 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryUpdateFavorite: function(id) {
           return updateFavorite(id);
+      },
+      factoryAddComment: function(lessonPlan) {
+          return addComment(lessonPlan);
       }
   };
 

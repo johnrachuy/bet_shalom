@@ -39,6 +39,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   $scope.commentForm = false;
 
+  var commentSavedInDb = false;
+
 
   //clears form
   function clearForm () {
@@ -251,20 +253,33 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     clearForm();
   };
 
-  //Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
-  $scope.saved_comments =[];
+  /*
+   * Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
+   */
+  $scope.saved_comments =[]; //global empty array to push comment objects into
   $scope.addComment = function(){
     console.log('add comment button');
+    //new comment object is created when 'Add Comment' button is pushed
     $scope.new_comment = {
-      author: $scope.lesson_author,
+      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name,
       date_stamp: new Date(),
       comment: $scope.comment
     };
-    $scope.saved_comments.push($scope.new_comment);
+    $scope.saved_comments.push($scope.new_comment); //object is pushed into saved_comments array
+
     console.log('new comments ', $scope.saved_comments);
-    createLessonPlanObject();
+
+    createLessonPlanObject(); // saved_comments are now included into existing lessonPlan
+
     console.log('lesson plan with new comment ', lessonPlan);
+
+    $scope.dataFactory.factoryAddComment(lessonPlan).then(function() { //$http PUT to update comments
+      console.log('new comment success');
+    })
   };
+  /*
+   * End addComment function -Savio
+   */
 
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){
@@ -343,7 +358,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_title = $scope.savedLessonPlan[0].title;
     $scope.lesson_materials = $scope.savedLessonPlan[0].lesson_plan.materials;
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
-    $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
+    $scope.saved_comments = $scope.savedLessonPlan[0].lesson_plan.saved_comment;
 
     //This for loop grabs the tags retrieved from the lesson plan get call and creates a JSON for ngTagsInput
     //to populate the tag bar with tags associated with that lesson plan.
@@ -354,6 +369,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         tag_category: $scope.savedLessonPlan[i].tag_category
       })
     }
+
+    if($scope.saved_comments.length > 0) {
+      commentSavedInDb = true;
+    }
+    console.log('comment if statement', commentSavedInDb);
+    console.log('comments', $scope.saved_comments);
+
+    //for (var i = 0; i < $scope.savedLessonPlan.length; i++) {
+    //  $scope.selectedTag.push({
+    //    tag_id: $scope.savedLessonPlan[i].tag_id,
+    //    tag_name: $scope.savedLessonPlan[i].tag_name,
+    //    tag_category: $scope.savedLessonPlan[i].tag_category
+    //  })
+    //}
     console.log($scope.selectedTag);
   };
 

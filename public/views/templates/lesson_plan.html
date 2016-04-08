@@ -105,8 +105,10 @@
     </div>
   </form>
 
-  <div id="display_comments">
+  <div id="display_comments" ng-repeat="comments in saved_comments">
     <!-- Area to display comments -->
+    {{comments.author}} {{comments.date_stamp || date}}
+    {{comments.comment}}
   </div>
   <div>
     <form id="comment_form" ng-if="commentForm">

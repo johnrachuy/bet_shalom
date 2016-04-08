@@ -130,6 +130,11 @@
     </form>
   </div>
 
+  <div id="fileUpload">
+    <input type="file" id="file_input"/>
+    <img id="uploadedFile" src="" />
+  </div>
+
   <!--comment section shown only on the viewable non-editable view coming from the search page-->
   <form id="comments_form" ng-if="searchState">
     <textarea class="comment_text" rows="3" cols="100" placeholder="enter comment" ng-model="comment"></textarea>

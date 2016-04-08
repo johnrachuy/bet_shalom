@@ -45,6 +45,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
+    document.getElementById("uploadedFile").src = null;
     lessonDeleted = false;
     resourceOrLessonBoolean = "lesson_plan";
 
@@ -92,6 +93,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   } else {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
+
+  //Grabs the file the user selects and attemtps to upload it to the server
+  (function() {
+    document.getElementById("file_input").onchange = function(){
+      var files = document.getElementById("file_input").files;
+      var file = files[0];
+      if(file == null){
+        alert("No file selected.");
+      }
+      else{
+        get_signed_request(file);
+      }
+    };
+  })();
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
@@ -338,7 +353,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       lesson_plan: {
         materials: $scope.lesson_materials,
         text: $scope.lesson_text,
-        admin_comment: $scope.admin_comment
+        admin_comment: $scope.admin_comment,
+        picture: document.getElementById("uploadedFile").src
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
@@ -371,6 +387,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_materials = $scope.savedLessonPlan[0].lesson_plan.materials;
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
     $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
+    document.getElementById("uploadedFile").src = $scope.savedLessonPlan[0].lesson_plan.picture;
 
     //This for loop grabs the tags retrieved from the lesson plan get call and creates a JSON for ngTagsInput
     //to populate the tag bar with tags associated with that lesson plan.
@@ -423,6 +440,42 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       $scope.lesson_materials = null;
     }
   };
+
+  //Gets signed url to allow you to upload your file to aws
+  function get_signed_request(file){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState === 4){
+        if(xhr.status === 200){
+          var response = JSON.parse(xhr.responseText);
+          upload_file(file, response.signed_request, response.url);
+        }
+        else{
+          alert("Could not get signed URL.");
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  //Uploads your file to aws and places it one the dom
+  function upload_file(file, signed_request, url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", signed_request);
+    xhr.setRequestHeader('x-amz-acl', 'public-read');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        document.getElementById("uploadedFile").src = url;
+        console.log('upload file ' + url);
+      }
+    };
+    xhr.onerror = function() {
+      alert("Could not upload file.");
+    };
+    xhr.send(file);
+  }
+
 }]);
 
 

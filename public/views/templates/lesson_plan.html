@@ -107,7 +107,8 @@
 
   <div id="display_comments" ng-repeat="comments in saved_comments">
     <!-- Area to display comments -->
-    {{comments.author}} {{comments.date_stamp | date}}
+    {{comments.author}} used this on {{comments.date_stamp | date}}
+    <br>
     {{comments.comment}}
   </div>
   <div>
@@ -141,8 +142,6 @@
     </form>
   </div>
 
-<<<<<<< HEAD
-=======
   <div id="fileUpload">
     <input type="file" id="file_input"/>
     <img id="uploadedFile" src="" />

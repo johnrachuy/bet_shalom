@@ -113,3 +113,8 @@ tr td {
 .nav-color {
     background-color: lightgrey;
 }
+
+#file_input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -98,7 +98,7 @@
     <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
     <div class="teacher_buttons_div" ng-if="teacherEditState">
       <div ng-if="!statusToCheckIfPublished">
-        <button class="btn btn-primary insert_file_button">Insert File</button>
+        <!--<button class="btn btn-primary insert_file_button">Insert File</button>-->
         <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
         <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
       </div>
@@ -141,6 +141,9 @@
       <!--<br>-->
       <!--<textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>-->
       <span ng-if="!statusToCheckIfPublished">
+        <!--<button class="btn btn-primary insert_file_button">Insert File</button>-->
+        <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+
         <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
         <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
       </span>
@@ -152,13 +155,13 @@
 
       <!--<button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>-->
 
-
-  </div>
-
-  <div id="fileUpload">
-    <input type="file" id="file_input"/>
+  <span id="file_upload">
+    <input class="btn btn-primary" type="file" id="file_input"/>
     <img id="uploadedFile" src="" />
-  </div>
+  </span>
+</div>
+
+
 
   <!--comment section shown only on the viewable non-editable view coming from the search page-->
   <form id="comments_form" ng-if="searchState">

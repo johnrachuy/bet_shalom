@@ -20,6 +20,8 @@ var tag_search = require('./routes/tag_search');
 var favorite = require('./routes/favorite');
 var remove_lesson = require('./routes/remove_lesson');
 var get_favorites = require('./routes/get_favorites');
+var add_comment = require('./routes/add_comment');
+var pic_route = require('./routes/pic_route');
 
 
 app.use(bodyParser.json());
@@ -54,6 +56,9 @@ app.use('/tag_search', tag_search);
 app.use('/favorite', favorite);
 app.use('/remove_lesson', remove_lesson);
 app.use('/get_favorites', get_favorites);
+app.use('/add_comment', add_comment);
+app.use('/sign_s3', pic_route);
+
 
 // Serve back static files
 app.use(express.static('public'));
@@ -69,4 +74,9 @@ app.set('port', (process.env.PORT || 5000));
 // Listen //
 app.listen(app.get("port"), function(){
     console.log("Listening on port: " + app.get("port"));
+
+
+
+
+
 });

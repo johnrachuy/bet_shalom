@@ -103,33 +103,46 @@
         <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
       </div>
     </div>
-
-    <!--div containing the button that can add a lesson to favorites: shown only on the viewable non-editable view for the -->
-    <!--teacher-->
-    <div class="favorites_button" ng-if="searchState">
-      <!--####### can the admin have favorites is my question -Bennett #########-->
-      <button id="add-favorite">Add to Favorites</button>
-    </div>
   </form>
 
+  <div id="display_comments" ng-repeat="comments in saved_comments">
+    <!-- Area to display comments -->
+    {{comments.author}} {{comments.date_stamp | date}}
+    {{comments.comment}}
+  </div>
+  <div>
+    <form id="comment_form" ng-if="commentForm">
+      <label for="used_lesson_checkbox">Use Lesson Plan: </label>
+      <input type="checkbox" id="used_lesson_checkbox" ng-model="$parent.lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
+      <br />
+      <label for="comment">Comments:</label>
+      <!--line break for now-->
+      <br>
+      <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
+      <button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button>
+      <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
+    </form>
+  </div>
   <!--buttons and admin comment input shown only the admin edit view-->
   <div>
     <form id="admin_comment_form" ng-if="adminEditState">
-      <label for="admin_comment">Admin Comments:</label>
-      <!--line break for now-->
-      <br>
-      <textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>
+      <!--<label for="admin_comment">Admin Comments:</label>-->
+      <!--&lt;!&ndash;line break for now&ndash;&gt;-->
+      <!--<br>-->
+      <!--<textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>-->
       <span ng-if="!statusToCheckIfPublished">
         <button class="btn btn-primary insert_file_button">Insert File</button>
         <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
         <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
         <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
       </span>
-      <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
+      <!--<button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>-->
 
     </form>
   </div>
 
+<<<<<<< HEAD
+=======
   <div id="fileUpload">
     <input type="file" id="file_input"/>
     <img id="uploadedFile" src="" />
@@ -145,6 +158,7 @@
   <div id="posted_comments" >
 
   </div>
+
 
 
   <!--modal when delete is clicked-->

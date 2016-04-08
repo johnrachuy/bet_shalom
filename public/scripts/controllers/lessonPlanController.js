@@ -11,7 +11,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //Sets the required materials text box default to false so if it is never clicked a value will still get written to
     //the database
   $scope.required_materials = false;
-
+  $scope.lessonPlanUsed = false;
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
@@ -31,9 +31,16 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   //declares the empty lessonPlan object used to package up data to be sent to the database
   var lessonPlan = {};
 
+  $scope.saved_comments = {};
+
     var favorite = {};
   //tracks if the lesson is to be deleted (archived)
   var lessonDeleted = false;
+
+  $scope.commentForm = false;
+
+  var commentSavedInDb = false;
+
 
   //clears form
   function clearForm () {
@@ -65,6 +72,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
+
+
   //Sets the edit variable that controls the stae of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
   if($scope.dataFactory.factoryLessonStatus == 'published') {
@@ -75,6 +84,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Checks to see if the page should be editable and if so populates it based on the stored lession id
   if ($scope.loadSavedLesson === true) {
+    $scope.commentForm = true;
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       /*
@@ -308,6 +318,34 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     clearForm();
   };
 
+  /*
+   * Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
+   */
+  $scope.saved_comments =[]; //global empty array to push comment objects into
+  $scope.addComment = function(){
+    console.log('add comment button');
+    //new comment object is created when 'Add Comment' button is pushed
+    $scope.new_comment = {
+      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name,
+      date_stamp: new Date(),
+      comment: $scope.comment
+    };
+    $scope.saved_comments.push($scope.new_comment); //object is pushed into saved_comments array
+
+    console.log('new comments ', $scope.saved_comments);
+
+    createLessonPlanObject(); // saved_comments are now included into existing lessonPlan
+
+    console.log('lesson plan with new comment ', lessonPlan);
+
+    $scope.dataFactory.factoryAddComment(lessonPlan).then(function() { //$http PUT to update comments
+      console.log('new comment success');
+    })
+  };
+  /*
+   * End addComment function -Savio
+   */
+
   //When archive is clicked it sets the deleted property on the object to be sent to the database to 'true'
   $scope.removeLesson = function(size){
 
@@ -353,8 +391,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       lesson_plan: {
         materials: $scope.lesson_materials,
         text: $scope.lesson_text,
-        admin_comment: $scope.admin_comment,
+        saved_comment: [],
         picture: document.getElementById("uploadedFile").src
+
       },
       materials: $scope.required_materials,
       status: $scope.lessonPlanStatus,
@@ -364,14 +403,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       //hardcoded currently
       lesson_id: $scope.lessonPlanId,
 
-
-
       tags: []
     };
 
     // lessonPlan object property 'tags' is assigned the value of the global 'tags' array created by ngTagsInput
     lessonPlan.tags = $scope.tags;
-
+    lessonPlan.lesson_plan.saved_comment = $scope.saved_comments;
 
   };
 
@@ -386,6 +423,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_title = $scope.savedLessonPlan[0].title;
     $scope.lesson_materials = $scope.savedLessonPlan[0].lesson_plan.materials;
     $scope.lesson_text = $scope.savedLessonPlan[0].lesson_plan.text;
+    $scope.saved_comments = $scope.savedLessonPlan[0].lesson_plan.saved_comment;
     $scope.admin_comment= $scope.savedLessonPlan[0].lesson_plan.admin_comment;
     document.getElementById("uploadedFile").src = $scope.savedLessonPlan[0].lesson_plan.picture;
 
@@ -398,6 +436,20 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         tag_category: $scope.savedLessonPlan[i].tag_category
       })
     }
+
+    if($scope.saved_comments.length > 0) {
+      commentSavedInDb = true;
+    }
+    console.log('comment if statement', commentSavedInDb);
+    console.log('comments', $scope.saved_comments);
+
+    //for (var i = 0; i < $scope.savedLessonPlan.length; i++) {
+    //  $scope.selectedTag.push({
+    //    tag_id: $scope.savedLessonPlan[i].tag_id,
+    //    tag_name: $scope.savedLessonPlan[i].tag_name,
+    //    tag_category: $scope.savedLessonPlan[i].tag_category
+    //  })
+    //}
     console.log($scope.selectedTag);
   };
 
@@ -441,6 +493,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+
+  $scope.usedLessonPlanToggle = function(used) {
+    //$scope.isCollapsed = !$scope.isCollapsed;
+    if(used == false){
+      $scope.admin_comment = null;
+    }
+  };
+
   //Gets signed url to allow you to upload your file to aws
   function get_signed_request(file){
     var xhr = new XMLHttpRequest();
@@ -475,6 +535,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     };
     xhr.send(file);
   }
+
 
 }]);
 

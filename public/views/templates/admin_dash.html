@@ -5,7 +5,12 @@
 
     <div class="col-md-9">
         <h4>Lessons needing approval</h4>
-        <table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Status</th><th>Published</th><th>Materials needed</th></tr></thead><tbody ng-repeat="lesson in lessonPlans"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.materials == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
+        <table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Status</th>
+            <!--<th>Published</th>-->
+            <th>Materials needed</th></tr></thead><tbody ng-repeat="lesson in lessonPlans"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td>
+            <td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td>
+            <!--<td>{{lesson.published | date}}</td>-->
+            <td ng-show="lesson.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.materials == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
     </div>
 
     <div class="col-md-3">

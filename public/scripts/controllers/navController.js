@@ -29,7 +29,9 @@ myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$rou
             $scope.teacherEditState = true;
             $scope.loggedIn = true;
         } else {
-
+            $scope.teacherEditState = false;
+            $scope.adminEditState = false;
+            $scope.loggedIn = false;
         }
     }
 
@@ -39,7 +41,7 @@ myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$rou
 
     $scope.logout = function() {
         $scope.passportFactory.factoryLogoutUser().then(function () {
-            $window.location.reload();
+            validateUser();
         });
     }
 

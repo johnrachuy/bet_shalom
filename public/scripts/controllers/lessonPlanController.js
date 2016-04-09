@@ -74,7 +74,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
 
 
-  //Sets the edit variable that controls the stae of the page from the factory
+  //Sets the edit variable that controls the state of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
@@ -82,7 +82,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.dataFactory.factoryLessonStatus = undefined;
 
 
-  //Checks to see if the page should be editable and if so populates it based on the stored lession id
+  //Checks to see if the page should be editable and if so populates it based on the stored lesson id
   if ($scope.loadSavedLesson === true) {
     $scope.commentForm = true;
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
@@ -188,6 +188,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         });
 
         modalInstance.result.then(function () {
+          $scope.addComment();
 
           if ($scope.lessonPlanStatus === null) {
             $scope.lessonPlanStatus = 'published';
@@ -196,7 +197,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
             $scope.lessonPlanStatus = 'published';
             $scope.editLesson();
           }
-          $location.path('/admin_dash');
+          //$location.path('/admin_dash');
 
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
@@ -239,7 +240,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
               $scope.lessonPlanStatus = 'submitted';
               $scope.editLesson();
             }
-            $location.path('/teacher_dash');
+            //$location.path('/teacher_dash');
 
           }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -298,10 +299,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       if ($scope.lessonPlanStatus === null){
         alert('No lesson loaded.');
       } else {
+        $scope.addComment();
         $scope.lessonPlanStatus = 'needs review';
         $scope.editLesson();
       }
-      $location.path('/admin_dash');
+      //$location.path('/admin_dash');
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());

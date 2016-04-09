@@ -6,7 +6,7 @@
             <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#lesson_plan">Create Lesson Plan</a></li></ul>
             <ul class="nav navbar-nav" ng-if="adminEditState"><li><a href="#register">Create User</a></li></ul>
             <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#search">Search</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#home">Logout</a></li></ul>
+            <ul class="nav navbar-nav" ng-if="loggedIn"><li><a ng-click="logout()">Logout</a></li></ul>
         </div>
     </div>
 </nav>

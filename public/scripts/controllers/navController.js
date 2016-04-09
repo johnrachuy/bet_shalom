@@ -1,4 +1,4 @@
-myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', function($scope, PassportFactory, $window) {
+myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$route', function($scope, PassportFactory, $window, $route) {
 
     $scope.passportFactory = PassportFactory;
 
@@ -32,6 +32,10 @@ myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', funct
 
         }
     }
+
+    $scope.reloadRoute = function() {
+        $route.reload();
+    };
 
     $scope.logout = function() {
         $scope.passportFactory.factoryLogoutUser().then(function () {

@@ -142,7 +142,9 @@
       <!--<textarea class="form-control" id="admin_comment" rows="3" cols="100" ng-model="$parent.admin_comment" placeholder="enter comment"></textarea>-->
       <span ng-if="!statusToCheckIfPublished">
         <!--<button class="btn btn-primary insert_file_button">Insert File</button>-->
+        <div ng-if="!loadSavedLesson">
         <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
+        </div>
 
         <button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button>
         <button class="btn btn-primary publish_button" ng-click="adminPublishLesson()">Publish Lesson</button>
@@ -155,10 +157,14 @@
 
       <!--<button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>-->
 
-  <span id="file_upload">
-    <input class="btn btn-primary" type="file" id="file_input"/>
-    <img id="uploadedFile" src="" />
-  </span>
+  <!--May want to look at this later-->
+    <span ng-show="!statusToCheckIfPublished">
+      <span id="file_upload">
+        <input class="btn btn-primary" type="file" id="file_input"/>
+      </span>
+    </span>
+  <img id="uploadedFile" src="" />
+
 </div>
 
 

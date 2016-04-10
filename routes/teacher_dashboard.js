@@ -5,7 +5,7 @@ var connection = require('../modules/connection');
 var pg = require('pg');
 
 router.get('/:id',  function(req, res) {
-    console.log(req.params);
+    //console.log(req.params);
     var results =[];
     pg.connect(connection, function(err, client, done) {
         var query = client.query('SELECT lesson_id, author, title, materials, status, published FROM lesson WHERE author_id = ($1)',

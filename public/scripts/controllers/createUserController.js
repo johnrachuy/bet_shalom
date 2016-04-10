@@ -1,9 +1,10 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$window', function($scope, PassportFactory, $http, $window) {
+myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$window', '$location', function($scope, PassportFactory, $http, $window, $location) {
 
     $scope.passportFactory = PassportFactory;
     $scope.selectedName = null;
     $scope.users_id = null;
     $scope.getNames = [];
+    $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     getNames();
 

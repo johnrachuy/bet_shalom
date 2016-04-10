@@ -41,7 +41,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   var commentSavedInDb = false;
 
-
   //clears form
   function clearForm () {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
@@ -104,19 +103,19 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
 
-  //Grabs the file the user selects and attemtps to upload it to the server
-  (function() {
-    document.getElementById("file_input").onchange = function(){
-      var files = document.getElementById("file_input").files;
-      var file = files[0];
-      if(file == null){
-        alert("No file selected.");
-      }
-      else{
-        get_signed_request(file);
-      }
-    };
-  })();
+  ////Grabs the file the user selects and attemtps to upload it to the server
+  //(function() {
+  //  document.getElementById("file_input").onchange = function(){
+  //    var files = document.getElementById("file_input").files;
+  //    var file = files[0];
+  //    if(file == null){
+  //      alert("No file selected.");
+  //    }
+  //    else{
+  //      get_signed_request(file);
+  //    }
+  //  };
+  //})();
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
@@ -522,6 +521,17 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+  //Grabs the file the user selects and attemtps to upload it to the server
+  $scope.uploadFile = function() {
+    var file = $scope.files[0];
+    if(file == null){
+      alert("No file selected.");
+    }
+    else{
+      get_signed_request(file);
+    }
+  }
+
   //Gets signed url to allow you to upload your file to aws
   function get_signed_request(file){
     var xhr = new XMLHttpRequest();
@@ -548,7 +558,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     xhr.onload = function() {
       if (xhr.status === 200) {
         document.getElementById("uploadedFile").src = url;
-        console.log('upload file ' + url);
       }
     };
     xhr.onerror = function() {
@@ -556,8 +565,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     };
     xhr.send(file);
   }
-
-
 }]);
 
 

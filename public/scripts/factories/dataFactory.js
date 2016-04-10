@@ -49,8 +49,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
     };
 
     //function to retrieve all the lessons based on the status, only getting all at the moment because I'm bad at sql ;D
-    var adminRetrieveLessonPlans = function(){
-        var promise = $http.get('/admin_dashboard').then(function(response) {
+    var adminRetrieveLessonPlans = function(id){
+        var promise = $http.get('/admin_dashboard/' + id).then(function(response) {
             lessonPlans = response.data;
             console.log('DataFactory: ' + lessonPlans);
         });
@@ -119,8 +119,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
       factoryTeacherRetrieveLessonPlans: function(id){
           return teacherRetrieveLessonPlans(id);
       },
-      factoryAdminRetrieveLessonPlans: function() {
-          return adminRetrieveLessonPlans();
+      factoryAdminRetrieveLessonPlans: function(id) {
+          return adminRetrieveLessonPlans(id);
       },
       factoryLessonPlans: function(){
           return lessonPlans;

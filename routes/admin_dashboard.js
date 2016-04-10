@@ -4,12 +4,11 @@ var path = require('path');
 var connection = require('../modules/connection');
 var pg = require('pg');
 
-router.get('/',  function(req, res) {
+router.get('/:id',  function(req, res) {
     var results =[];
     pg.connect(connection, function(err, client, done) {
-        var query = client.query("SELECT lesson_id, author, title, materials, status, published FROM lesson WHERE status = 'submitted' ORDER BY published ASC");
-            //'WHERE status = ($1, $2)',
-            //['needs review', 'submitted']);
+        var query = client.query("SELECT lesson_id, author, title, materials, status, published FROM lesson WHERE (status = 'submitted' OR status = 'draft' AND author_id = ($1)) ORDER BY published ASC",
+            [req.params.id]);
 
         //Stream results back one row at a time
         query.on('row', function(row) {

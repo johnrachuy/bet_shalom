@@ -1,4 +1,4 @@
-myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', function($scope, PassportFactory, $window) {
+myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$route', function($scope, PassportFactory, $window, $route) {
 
     $scope.passportFactory = PassportFactory;
 
@@ -29,13 +29,19 @@ myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', funct
             $scope.teacherEditState = true;
             $scope.loggedIn = true;
         } else {
-
+            $scope.teacherEditState = false;
+            $scope.adminEditState = false;
+            $scope.loggedIn = false;
         }
     }
 
+    $scope.reloadRoute = function() {
+        $route.reload();
+    };
+
     $scope.logout = function() {
         $scope.passportFactory.factoryLogoutUser().then(function () {
-            $window.location.reload();
+            validateUser();
         });
     }
 

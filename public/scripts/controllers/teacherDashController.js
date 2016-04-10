@@ -43,6 +43,8 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
 
     //Function to reroute the user to the lesson plan controller
         $scope.editClickedLesson = function(index){
+            console.log('what the: ', $scope.lessonPlans);
+
             $scope.dataFactory.factoryStoredLessonId = $scope.lessonPlans[index].lesson_id;
             $scope.dataFactory.factoryLessonViewState = true;
             $scope.dataFactory.factoryLessonStatus = $scope.lessonPlans[index].status;

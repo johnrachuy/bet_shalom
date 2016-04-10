@@ -160,3 +160,7 @@ tr td {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+textarea {
+    margin-bottom: 10px;
+}

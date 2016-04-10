@@ -41,7 +41,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   var commentSavedInDb = false;
 
-
   //clears form
   function clearForm () {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
@@ -74,7 +73,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
 
 
-  //Sets the edit variable that controls the stae of the page from the factory
+  //Sets the edit variable that controls the state of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
@@ -82,7 +81,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.dataFactory.factoryLessonStatus = undefined;
 
 
-  //Checks to see if the page should be editable and if so populates it based on the stored lession id
+  //Checks to see if the page should be editable and if so populates it based on the stored lesson id
   if ($scope.loadSavedLesson === true) {
     $scope.commentForm = true;
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
@@ -104,19 +103,19 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
 
-  //Grabs the file the user selects and attemtps to upload it to the server
-  (function() {
-    document.getElementById("file_input").onchange = function(){
-      var files = document.getElementById("file_input").files;
-      var file = files[0];
-      if(file == null){
-        alert("No file selected.");
-      }
-      else{
-        get_signed_request(file);
-      }
-    };
-  })();
+  ////Grabs the file the user selects and attemtps to upload it to the server
+  //(function() {
+  //  document.getElementById("file_input").onchange = function(){
+  //    var files = document.getElementById("file_input").files;
+  //    var file = files[0];
+  //    if(file == null){
+  //      alert("No file selected.");
+  //    }
+  //    else{
+  //      get_signed_request(file);
+  //    }
+  //  };
+  //})();
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
@@ -188,6 +187,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         });
 
         modalInstance.result.then(function () {
+          $scope.addComment();
 
           if ($scope.lessonPlanStatus === null) {
             $scope.lessonPlanStatus = 'published';
@@ -196,7 +196,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
             $scope.lessonPlanStatus = 'published';
             $scope.editLesson();
           }
-          $location.path('/admin_dash');
+          //$location.path('/admin_dash');
 
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
@@ -239,7 +239,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
               $scope.lessonPlanStatus = 'submitted';
               $scope.editLesson();
             }
-            $location.path('/teacher_dash');
+            //$location.path('/teacher_dash');
 
           }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -298,10 +298,11 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       if ($scope.lessonPlanStatus === null){
         alert('No lesson loaded.');
       } else {
+        $scope.addComment();
         $scope.lessonPlanStatus = 'needs review';
         $scope.editLesson();
       }
-      $location.path('/admin_dash');
+      //$location.path('/admin_dash');
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
@@ -520,6 +521,17 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     }
   };
 
+  //Grabs the file the user selects and attemtps to upload it to the server
+  $scope.uploadFile = function() {
+    var file = $scope.files[0];
+    if(file == null){
+      alert("No file selected.");
+    }
+    else{
+      get_signed_request(file);
+    }
+  }
+
   //Gets signed url to allow you to upload your file to aws
   function get_signed_request(file){
     var xhr = new XMLHttpRequest();
@@ -546,7 +558,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     xhr.onload = function() {
       if (xhr.status === 200) {
         document.getElementById("uploadedFile").src = url;
-        console.log('upload file ' + url);
       }
     };
     xhr.onerror = function() {
@@ -554,8 +565,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     };
     xhr.send(file);
   }
-
-
 }]);
 
 

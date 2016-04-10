@@ -95,10 +95,15 @@
     <br>
     <textarea id="lesson_text" class="form-control" ng-class="{'no_gray': statusToCheckIfPublished}" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished"></textarea>
 
+    <!--File upload input and buttons -->
+    <span id="file_upload" ng-if="!statusToCheckIfPublished">
+      <input class="btn btn-primary" type="file" file-upload-directive="files"/>
+      <button class="btn btn-primary" ng-click="uploadFile()">Upload File</button>
+    </span>
+
     <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
     <div class="teacher_buttons_div" ng-if="teacherEditState">
       <div ng-if="!statusToCheckIfPublished">
-        <!--<button class="btn btn-primary insert_file_button">Insert File</button>-->
         <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
         <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
       </div>
@@ -151,17 +156,11 @@
       <button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>
     </form>
   </div>
+  <!--<button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>-->
 
-
-      <!--<button class="btn btn-danger remove_lesson" ng-if="adminEditState" ng-click="removeLesson()">Remove Lesson</button>-->
-
-  <span id="file_upload">
-    <input class="btn btn-primary" type="file" id="file_input"/>
-    <img id="uploadedFile" src="" />
-  </span>
+  <!--Displays uploaded image-->
+  <img id="uploadedFile" src="" />
 </div>
-
-
 
   <!--comment section shown only on the viewable non-editable view coming from the search page-->
   <form id="comments_form" ng-if="searchState">
@@ -173,8 +172,6 @@
   <div id="posted_comments" >
 
   </div>
-
-
 
   <!--modal when delete is clicked-->
   <script type="text/ng-template" id="modalDelete.html">

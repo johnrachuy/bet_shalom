@@ -114,6 +114,10 @@ tr td {
     background-color: lightgrey;
 }
 
+#file_upload {
+    display: inline;
+}
+
 #file_input {
     margin-top: 10px;
     margin-bottom: 10px;

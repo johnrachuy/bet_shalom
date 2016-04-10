@@ -161,6 +161,12 @@ tr td {
     margin-bottom: 10px;
 }
 
+.logo {
+    text-align: center;
+    padding-top: 110px;
+    padding-bottom: 20px;
+}
+
 textarea {
     margin-bottom: 10px;
 }

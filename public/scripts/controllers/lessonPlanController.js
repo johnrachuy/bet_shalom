@@ -350,11 +350,19 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
    */
   $scope.saved_comments =[]; //global empty array to push comment objects into
+  var commentString = '';
   $scope.addComment = function(){
     console.log('add comment button');
     //new comment object is created when 'Add Comment' button is pushed
+
+    if($scope.loggedInUser.role == 'admin') {
+      commentString = ' commented on ';
+    } else {
+      commentString = ' used this lesson plan on '
+    }
+
     $scope.new_comment = {
-      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name,
+      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name + commentString,
       date_stamp: new Date(),
       comment: $scope.comment
     };

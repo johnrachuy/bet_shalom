@@ -122,7 +122,7 @@
       <div id="display_comments" ng-repeat="comments in saved_comments">
         <!-- Area to display comments -->
         <table class="table table-striped">
-          <thead><tr><th>{{comments.author}} used this on {{comments.date_stamp | date}}</th></tr></thead>
+          <thead><tr><th>{{comments.author}} {{comments.date_stamp | date}}</th></tr></thead>
           <tbody><tr><td>{{comments.comment}}</td></tr></tbody>
         </table>
       </div>

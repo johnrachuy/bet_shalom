@@ -131,7 +131,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group" ng-if="commentForm">
-        <label for="used_lesson_checkbox">Use Lesson Plan: </label>
+        <label for="used_lesson_checkbox"><span ng-if="teacherEditState">Use Lesson Plan:</span> <span ng-if="adminEditState">Add Comment:</span> </label>
         <input type="checkbox" id="used_lesson_checkbox" ng-model="$parent.lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
         <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
       </div>

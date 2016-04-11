@@ -17,6 +17,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.adminEditState = false;
 
   $scope.statusToCheckIfPublished = false;
+  $scope.statusAdminReview = false;
+  $scope.statusAdminSubmit = true;
 
   $scope.myFav = [];
 
@@ -75,8 +77,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Sets the edit variable that controls the state of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
+  if($scope.dataFactory.factoryLessonStatus == 'submitted') {
+    $scope.statusAdminReview = true;
+    $scope.statusAdminSubmit = false;
+  }
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
+    $scope.statusAdminReview = true;
+    $scope.statusAdminSubmit = false;
   }
   $scope.dataFactory.factoryLessonStatus = undefined;
 
@@ -187,7 +195,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         });
 
         modalInstance.result.then(function () {
-          $scope.addComment();
+          //$scope.addComment();
 
           if ($scope.lessonPlanStatus === null) {
             $scope.lessonPlanStatus = 'published';

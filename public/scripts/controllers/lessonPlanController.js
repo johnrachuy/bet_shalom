@@ -16,8 +16,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
 
+  /*
+   * boolean variables for button ng-if
+   */
   $scope.statusToCheckIfPublished = false;
   $scope.statusAdminReview = false;
+  $scope.needsReviewButton = false;
   $scope.statusAdminSubmit = true;
 
   $scope.myFav = [];
@@ -84,11 +88,13 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   if($scope.dataFactory.factoryLessonStatus == 'submitted') {
     $scope.statusAdminReview = true;
     $scope.statusAdminSubmit = false;
+    $scope.needsReviewButton = true;
   }
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
     $scope.statusAdminReview = true;
     $scope.statusAdminSubmit = false;
+    $scope.needsReviewButton = false;
   }
   $scope.dataFactory.factoryLessonStatus = undefined;
 

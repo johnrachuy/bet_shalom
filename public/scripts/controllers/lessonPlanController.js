@@ -49,7 +49,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_title = null;
     $scope.lesson_materials = null;
     $scope.lesson_text = null;
-    $scope.admin_comment = null;
+    $scope.comment = null;
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
@@ -60,8 +60,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     // Naming will be changed with added tag search
     $scope.selectedTag = null;
     $scope.tags = [];
+    $scope.saved_comments = [];
   }
 
+  function clearCommentField () {
+    $scope.comment = null;
+  }
 
   $scope.animationsEnabled = true;
 
@@ -195,7 +199,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         });
 
         modalInstance.result.then(function () {
-          //$scope.addComment();
+          if ($scope.lessonPlanUsed == true) { //if statement checks to see if checkbox that activates comment field is true
+            $scope.addComment();               //if unchecked, it does not add comments to JSON
+          }
 
           if ($scope.lessonPlanStatus === null) {
             $scope.lessonPlanStatus = 'published';
@@ -306,7 +312,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       if ($scope.lessonPlanStatus === null){
         alert('No lesson loaded.');
       } else {
-        $scope.addComment();
+        if ($scope.lessonPlanUsed == true) {
+          $scope.addComment();
+        }
         $scope.lessonPlanStatus = 'needs review';
         $scope.editLesson();
       }
@@ -376,6 +384,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     $scope.dataFactory.factoryAddComment(lessonPlan).then(function() { //$http PUT to update comments
       console.log('new comment success');
+      clearCommentField();
     })
   };
   /*

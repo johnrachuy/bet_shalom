@@ -5,13 +5,8 @@
 /*color: #b67434;*/
 /*color: #bfd5ed;*/
 
-
-
 body {
     background-color: #cfc8c6;
-    /*background-color: #796f64;*/
-
-    /*#bfd5ed*/
 }
 
 textarea {
@@ -30,33 +25,9 @@ tr td {
     text-overflow: ellipsis;
 }
 
-/*.select-lesson-btn{*/
-    /*width: 20%;*/
-/*}*/
-
 .jumbotron {
     /*border: 4px solid #b67434 ;*/
     background-color: #bfd5ed;
-
-}
-
-.navbar {
-    /*border: 4px solid #006dcc;*/
-    /*background-color: #006dcc;*/
-    /*color: #ffffff;*/
-    /*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);*/
-    /*background-color: #0066cc;*/
-    /**background-color: #0044cc;*/
-    /*background-image: -moz-linear-gradient(top, #0088cc, #0044cc);*/
-    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));*/
-    /*background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);*/
-    /*background-image: -o-linear-gradient(top, #0088cc, #0044cc);*/
-    /*background-image: linear-gradient(to bottom, #0088cc, #0044cc);*/
-    /*background-repeat: repeat-x;*/
-    /*border-color: #0044cc #0044cc #002a80;*/
-    /*border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*/
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);*/
-    /*filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);*/
 }
 
 .green {
@@ -78,7 +49,6 @@ tr td {
 
 .lessons-created-by-user {
     /*border-right: 1px dashed #333;*/
-
 }
 
 .center {
@@ -159,4 +129,20 @@ tr td {
 #file_input {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.logo {
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 10px;
+}
+
+textarea {
+    margin-bottom: 10px;
+}
+
+.login {
+    max-width: 380px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
 }

@@ -1,20 +1,31 @@
+<!--<div class="container">-->
+    <!--&lt;!&ndash; Set form action and method &ndash;&gt;-->
+    <!--<div class="logo">-->
+        <!--<img src="/images/Bet_Shalom_Transparent_Logo.png" height="300px">-->
+    <!--</div>-->
+    <!--<form class="center">-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="username">Username:</label>-->
+            <!--<input class="form-control" type="text" ng-model="username" id="username"/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="password">Password:</label>-->
+            <!--<input class="form-control" type="password" ng-model="password" id="password"/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<button class="btn btn-primary" ng-click="loginUser(username, password)">Submit</button>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
 <div class="container">
-    <!-- Set form action and method -->
-    <div class="center">
+    <div class="logo">
         <img src="/images/Bet_Shalom_Transparent_Logo.png" height="300px">
     </div>
-    <form class="center">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" ng-model="username" id="username"/>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" ng-model="password" id="password"/>
-        </div>
-        <div>
-            <button class="btn btn-primary" ng-click="loginUser(username, password)">Submit</button>
-            <a href="#register">Register</a>
-        </div>
+    <form class="login">
+        <input type="text" class="form-control" ng-model="username" placeholder="Email Address" autofocus="" />
+        <input type="password" class="form-control" ng-model="password" placeholder="Password" />
+        <button class="btn btn-lg btn-primary btn-block" ng-click="loginUser(username, password)" type="submit">Login</button>
     </form>
 </div>
+
+

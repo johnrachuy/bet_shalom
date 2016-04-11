@@ -1,12 +1,23 @@
+<!--<nav class="container" ng-controller="NavController">-->
+    <!--<div class="navbar navbar-default">-->
+        <!--<div class="navbar-header">-->
+            <!--<ul class="nav navbar-nav" ng-if="adminEditState"><li><a href="#admin_dash">Home</a></li></ul>-->
+            <!--<ul class="nav navbar-nav" ng-if="teacherEditState"><li><a href="#teacher_dash">Home</a></li></ul>-->
+            <!--<ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#lesson_plan" ng-click="reloadRoute()">Create Lesson Plan</a></li></ul>-->
+            <!--<ul class="nav navbar-nav" ng-if="adminEditState"><li><a href="#register">Create User</a></li></ul>-->
+            <!--<ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#search">Search</a></li></ul>-->
+            <!--<ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="" ng-click="logout()">Logout</a></li></ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
 <nav class="container" ng-controller="NavController">
-    <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <ul class="nav navbar-nav" ng-if="adminEditState"><li><a href="#admin_dash">Home</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="teacherEditState"><li><a href="#teacher_dash">Home</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#lesson_plan" ng-click="reloadRoute()">Create Lesson Plan</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="adminEditState"><li><a href="#register">Create User</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="#search">Search</a></li></ul>
-            <ul class="nav navbar-nav" ng-if="loggedIn"><li><a href="" ng-click="logout()">Logout</a></li></ul>
-        </div>
-    </div>
+    <ul class="nav nav-tabs">
+        <li ng-if="adminEditState"><a href="#admin_dash">Home</a></li>
+        <li ng-if="teacherEditState"><a href="#teacher_dash">Home</a></li>
+        <li ng-if="loggedIn"><a href="#lesson_plan" ng-click="reloadRoute()">Create Lesson Plan</a></li>
+        <li ng-if="adminEditState"><a href="#register">Create User</a></li>
+        <li ng-if="loggedIn"><a href="#search">Search</a></li>
+        <li ng-if="loggedIn"><a href="" ng-click="logout()">Logout</a></li>
+    </ul>
 </nav>

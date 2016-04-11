@@ -96,10 +96,14 @@
     <textarea id="lesson_text" class="form-control" ng-class="{'no_gray': statusToCheckIfPublished}" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished"></textarea>
 
     <!--File upload input and buttons -->
-    <span class="file_upload" ng-if="!statusToCheckIfPublished">
-      <input class="btn btn-primary" type="file" file-upload-directive="files"/>
-      <button class="btn btn-primary" ng-click="uploadFile()">Upload File</button>
-    </span>
+    <div class="row" ng-if="!statusToCheckIfPublished">
+      <div class="col-md-6">
+        <input class="btn btn-primary" type="file" file-upload-directive="files"/>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" ng-click="uploadFile()">Upload File</button>
+      </div>
+    </div>
 
     <!--div containing the buttons shown only on the enter lesson plan view for the teacher-->
     <div class="teacher_buttons_div" ng-if="teacherEditState">

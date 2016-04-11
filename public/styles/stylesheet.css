@@ -4,9 +4,16 @@
 /*color: #cfc8c6;*/
 /*color: #b67434;*/
 /*color: #bfd5ed;*/
-
+html{
+    height: 100%;
+}
 body {
-    background-color: #cfc8c6;
+    background-image: linear-gradient(to top, #F7F6F6, #cfc8c6);
+    /*background-image: linear-gradient(to top , #094F86, #4EABDB);*/
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 textarea {

@@ -114,8 +114,7 @@ tr td {
 }
 
 .starr {
-    width: 40px;
-    height: 40px;
+    padding-left: 15px;
 }
 
 .nav-color {
@@ -145,4 +144,10 @@ textarea {
     max-width: 380px;
     padding: 15px 35px 45px;
     margin: 0 auto;
+}
+
+.heading {
+    background-color: #796f64;
+    color: white;
+    padding: 10px;
 }

@@ -17,6 +17,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.adminEditState = false;
 
   $scope.statusToCheckIfPublished = false;
+  $scope.statusAdminReview = false;
+  $scope.statusAdminSubmit = true;
 
   $scope.myFav = [];
 
@@ -47,7 +49,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_title = null;
     $scope.lesson_materials = null;
     $scope.lesson_text = null;
-    $scope.admin_comment = null;
+    $scope.comment = null;
     $scope.required_materials = false;
     $scope.lessonPlanStatus = null;
     $scope.lessonPlanId = null;
@@ -58,8 +60,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     // Naming will be changed with added tag search
     $scope.selectedTag = null;
     $scope.tags = [];
+    $scope.saved_comments = [];
   }
 
+  function clearCommentField () {
+    $scope.comment = null;
+  }
 
   $scope.animationsEnabled = true;
 
@@ -75,8 +81,14 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //Sets the edit variable that controls the state of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
+  if($scope.dataFactory.factoryLessonStatus == 'submitted') {
+    $scope.statusAdminReview = true;
+    $scope.statusAdminSubmit = false;
+  }
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
+    $scope.statusAdminReview = true;
+    $scope.statusAdminSubmit = false;
   }
   $scope.dataFactory.factoryLessonStatus = undefined;
 
@@ -187,7 +199,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
         });
 
         modalInstance.result.then(function () {
-          $scope.addComment();
+          if ($scope.lessonPlanUsed == true) { //if statement checks to see if checkbox that activates comment field is true
+            $scope.addComment();               //if unchecked, it does not add comments to JSON
+          }
 
           if ($scope.lessonPlanStatus === null) {
             $scope.lessonPlanStatus = 'published';
@@ -298,7 +312,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
       if ($scope.lessonPlanStatus === null){
         alert('No lesson loaded.');
       } else {
-        $scope.addComment();
+        if ($scope.lessonPlanUsed == true) {
+          $scope.addComment();
+        }
         $scope.lessonPlanStatus = 'needs review';
         $scope.editLesson();
       }
@@ -342,11 +358,19 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * Inserting comments into Lesson Plan row when 'Add Comment' button is clicked.
    */
   $scope.saved_comments =[]; //global empty array to push comment objects into
+  var commentString = '';
   $scope.addComment = function(){
     console.log('add comment button');
     //new comment object is created when 'Add Comment' button is pushed
+
+    if($scope.loggedInUser.role == 'admin') {
+      commentString = ' commented on ';
+    } else {
+      commentString = ' used this lesson plan on '
+    }
+
     $scope.new_comment = {
-      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name,
+      author: $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name + commentString,
       date_stamp: new Date(),
       comment: $scope.comment
     };
@@ -360,6 +384,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
     $scope.dataFactory.factoryAddComment(lessonPlan).then(function() { //$http PUT to update comments
       console.log('new comment success');
+      clearCommentField();
     })
   };
   /*

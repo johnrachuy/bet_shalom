@@ -1,25 +1,13 @@
 <div class="container">
-    <div class="jumbotron">
+    <div class="col-md-12 heading">
         <h3>Welcome {{loggedInUser.first_name}} {{loggedInUser.last_name}}</h3>
     </div>
 
-    <div class="col-md-9">
+    <div class="jumbotron">
         <h4>Lessons needing approval</h4>
-        <table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Status</th>
-            <!--<th>Published</th>-->
-            <th>Materials needed</th></tr></thead><tbody ng-repeat="lesson in lessonPlans"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td>
-            <td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td>
-            <!--<td>{{lesson.published | date}}</td>-->
-            <td ng-show="lesson.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.materials == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
-    </div>
-
-    <div class="col-md-3">
-        <!--<h4>My favorites</h4>-->
-        <!--<table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Status</th><th>Published</th><th>Materials needed</th><th>Resource</th></tr></thead><tbody ng-repeat="lesson in lessonPlans"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select Me</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.materials == false"><span class="glyphicon red glyphicon-remove"></span></td><td ng-show="lesson.resource == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.resource == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>-->
+        <table class="table"><thead><tr><th>Select</th><th>Title</th><th>Author</th><th>Status</th><th>Date</th><th>Materials</th></tr></thead>
+            <tbody ng-repeat="lesson in lessonPlans"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td>
+            <td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td><td>{{lesson.published | date}}</td>
+            <td ng-show="lesson.materials"><span class="glyphicon green glyphicon-ok"></span></td><td ng-hide="lesson.materials"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
     </div>
 </div>
-
-<!--<div class="col-md-6" id="admin_lesson_plans" ng-repeat="lesson in lessonPlans" ng-click="editClickedLesson(lesson.lesson_id)">-->
-    <!--{{lesson.author}}, {{lesson.title}}, {{lesson.status}}, {{lesson.materials}}-->
-<!--</div>-->
-

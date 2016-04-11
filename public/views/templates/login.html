@@ -18,14 +18,16 @@
     <!--</form>-->
 <!--</div>-->
 <div class="container">
-    <div class="logo">
-        <img src="/images/Bet_Shalom_Transparent_Logo.png" height="300px">
+    <div class="login-logo-box">
+        <div class="logo">
+            <img src="/images/Bet_Shalom_Transparent_Logo.png" height="300px">
+        </div>
+        <form class="login">
+            <input type="text" class="form-control" ng-model="username" placeholder="Email Address" autofocus="" />
+            <input type="password" class="form-control" ng-model="password" placeholder="Password" />
+            <button class="btn btn-lg btn-primary btn-block" ng-click="loginUser(username, password)" type="submit">Login</button>
+        </form>
     </div>
-    <form class="login">
-        <input type="text" class="form-control" ng-model="username" placeholder="Email Address" autofocus="" />
-        <input type="password" class="form-control" ng-model="password" placeholder="Password" />
-        <button class="btn btn-lg btn-primary btn-block" ng-click="loginUser(username, password)" type="submit">Login</button>
-    </form>
 </div>
 
 

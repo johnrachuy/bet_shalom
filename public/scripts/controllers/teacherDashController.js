@@ -6,6 +6,8 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
     //Creates an array to store the list of lesson plans from the database
     //$scope.lessonPlans = undefined;
 
+    //$scope.lessonPlans;
+
     $scope.passportFactory = PassportFactory;
     $scope.dataFactory = DataFactory;
 

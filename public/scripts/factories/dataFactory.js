@@ -11,6 +11,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var favoritePlans = {};
     var favorite = {};
     var myFavorite = {};
+    var adminLessons = {};
 
 
 
@@ -51,7 +52,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
     //function to retrieve all the lessons based on the status, only getting all at the moment because I'm bad at sql ;D
     var adminRetrieveLessonPlans = function(id){
         var promise = $http.get('/admin_dashboard/' + id).then(function(response) {
-            lessonPlans = response.data;
+            adminLessons = response.data;
             console.log('DataFactory: ' + lessonPlans);
         });
         return promise;
@@ -103,60 +104,63 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
-    var publicApi = {
-        factorySaveLessonPlan: function(lessonPlan){
-            return saveLessonPlan(lessonPlan);
-        },
-        factoryEditLessonPlan: function(lessonPlan){
-            return editLessonPlan(lessonPlan);
-        },
-        factoryGetLessonPlan: function(id){
-            return retrieveLessonPlan(id);
-        },
-        factoryLessonPlan: function(){
-            return lessonPlan;
-        },
-        factoryTeacherRetrieveLessonPlans: function(id){
-            return teacherRetrieveLessonPlans(id);
-        },
-        factoryAdminRetrieveLessonPlans: function(id) {
-            return adminRetrieveLessonPlans(id);
-        },
-        factoryLessonPlans: function(){
-            return lessonPlans;
-        },
-        factoryLessonViewState: function(){
-            return lessonViewState;
-        },
-        factoryLessonStatus: function(){
-            return lessonStatus;
-        },
-        factoryStoredLessonId: function(){
-            return lessonId;
-        },
-        factoryAddFavorite: function(favorite) {
-            return addFavorite(favorite);
-        },
-        factoryGetFavorites: function(id) {
-            return getFavorites(id);
-        },
-        factoryGetfavoritePlans: function(){
-            return favoritePlans;
-        },
-        factoryCheckFavorite: function(id, lesson) {
-            return checkFavorite(id, lesson);
-        },
-        factoryMyFavorite: function() {
-            return myFavorite;
-        },
-        factoryUpdateFavorite: function(id) {
-            return updateFavorite(id);
-        },
-        factoryAddComment: function(lessonPlan) {
-            return addComment(lessonPlan);
-        }
-    };
+  var publicApi = {
+      factorySaveLessonPlan: function(lessonPlan){
+        return saveLessonPlan(lessonPlan);
+      },
+      factoryEditLessonPlan: function(lessonPlan){
+          return editLessonPlan(lessonPlan);
+      },
+      factoryGetLessonPlan: function(id){
+          return retrieveLessonPlan(id);
+      },
+      factoryLessonPlan: function(){
+          return lessonPlan;
+      },
+      factoryTeacherRetrieveLessonPlans: function(id){
+          return teacherRetrieveLessonPlans(id);
+      },
+      factoryAdminRetrieveLessonPlans: function(id) {
+          return adminRetrieveLessonPlans(id);
+      },
+      factoryLessonPlans: function(){
+          return lessonPlans;
+      },
+      factoryLessonViewState: function(){
+          return lessonViewState;
+      },
+      factoryLessonStatus: function(){
+          return lessonStatus;
+      },
+      factoryStoredLessonId: function(){
+          return lessonId;
+      },
+      factoryAddFavorite: function(favorite) {
+          return addFavorite(favorite);
+      },
+      factoryGetFavorites: function(id) {
+          return getFavorites(id);
+      },
+      factoryGetfavoritePlans: function(){
+          return favoritePlans;
+      },
+      factoryCheckFavorite: function(id, lesson) {
+          return checkFavorite(id, lesson);
+      },
+      factoryMyFavorite: function() {
+          return myFavorite;
+      },
+      factoryUpdateFavorite: function(id) {
+          return updateFavorite(id);
+      },
+      factoryAddComment: function(lessonPlan) {
+          return addComment(lessonPlan);
+      },
+      factoryAdminLessons: function(){
+          return adminLessons;
+      }
+  };
 
-    return publicApi;
+  return publicApi;
 
 }]);

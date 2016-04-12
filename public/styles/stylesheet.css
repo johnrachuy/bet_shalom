@@ -4,13 +4,22 @@
 /*color: #cfc8c6;*/
 /*color: #b67434;*/
 /*color: #bfd5ed;*/
+html{
+    height: 100%;
+}
 
 body {
-    background-color: #cfc8c6;
+    background-image: linear-gradient(to left, #F7F6F6, #cfc8c6);
+    /*background-image: linear-gradient(to top , #094F86, #4EABDB);*/
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 textarea {
     resize: none;
+    margin-bottom: 10px;
 }
 
 table {
@@ -20,7 +29,6 @@ table {
 tr td {
     width: 3%;
     /*word-break: break-all;*/
-
     word-wrap:break-word;
     text-overflow: ellipsis;
 }
@@ -28,6 +36,18 @@ tr td {
 .jumbotron {
     /*border: 4px solid #b67434 ;*/
     background-color: #bfd5ed;
+    box-shadow: 3px 3px 3px #2b1913;
+}
+
+.lessons-created-by-user {
+    background-color: #bfd5ed;
+    box-shadow: 3px 3px 3px #2b1913;
+    margin-top: 0;
+}
+
+.favorites-lesson-plans {
+    background-color: #bfd5ed;
+    box-shadow: 3px 3px 3px #2b1913;
 }
 
 .green {
@@ -82,6 +102,11 @@ tr td {
 
 .no_gray {
     background-color: #bfd5ed !important;
+    box-shadow: 3px 3px 3px #2b1913;
+}
+
+.lesson-materials-textarea:disabled {
+    background-color: #cfc8c6;
 }
 
 #lesson_text {
@@ -136,10 +161,6 @@ tr td {
     padding-bottom: 10px;
 }
 
-textarea {
-    margin-bottom: 10px;
-}
-
 .login {
     max-width: 380px;
     padding: 15px 35px 45px;
@@ -147,10 +168,31 @@ textarea {
 }
 
 .heading {
-    background-color: #796f64;
+    /*background-color: #796f64;*/
+    background-image: linear-gradient(to left, #796f64, #2b1913);
     color: white;
     padding: 10px;
+    margin-bottom: 35px;
+    border-radius: 4px;
 }
+
+.register_page_logo {
+    margin-top: 100px;
+}
+
+.btn-primary {
+    box-shadow: 3px 3px 3px #2b1913;
+}
+
+.btn-danger {
+    box-shadow: 3px 3px 3px #2b1913;
+
+}
+/*.login-logo-box {*/
+    /*border: 2px solid #2b1913;*/
+/*}*/
+
+
 
 #uploadedFile {
     width: 100%;

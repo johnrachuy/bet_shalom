@@ -125,16 +125,16 @@
     </div>
     <div class="col-md-3 col-md-offset-3" ng-if="teacherEditState">
       <div ng-if="!statusToCheckIfPublished">
-        <button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button>
-        <button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button>
+        <span class="float_right"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
+        <span class="float_right"><button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit Lesson</button></span>
       </div>
     </div>
     <div class="col-md-3 col-md-offset-3" ng-if="adminEditState">
       <div>
-        <span ng-if="needsReviewButton"><button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button></span>
-        <span ng-if="statusAdminSubmit"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
-        <button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Submit Lesson</button>
-        <span ng-if="statusAdminReview"><button class="btn btn-danger remove_lesson" ng-click="removeLesson()">Remove Lesson</button></span>
+        <span  class="float_right" ng-if="needsReviewButton"><button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button></span>
+        <span  class="float_right" ng-if="!statusAdminReview"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
+        <span  class="float_right" ng-if="!statusToCheckIfPublished"><button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Publish Lesson</button></span>
+        <span class="float_right" ng-if="removeButton"><button class="btn btn-danger remove_lesson" ng-click="removeLesson()">Remove Lesson</button></span>
       </div>
     </div>
   </div>

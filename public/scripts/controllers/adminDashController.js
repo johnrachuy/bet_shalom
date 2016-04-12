@@ -4,7 +4,7 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     //Creates an object to store the info of a logged-in user
     $scope.loggedInUser = {};
     //Creates an array to store the list of lesson plans from the database
-    //$scope.lessonPlans;
+    $scope.lessonPlans;
 
     $scope.passportFactory = PassportFactory;
     $scope.dataFactory = DataFactory;

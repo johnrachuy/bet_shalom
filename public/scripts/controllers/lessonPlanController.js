@@ -121,20 +121,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
   }
 
-  ////Grabs the file the user selects and attemtps to upload it to the server
-  //(function() {
-  //  document.getElementById("file_input").onchange = function(){
-  //    var files = document.getElementById("file_input").files;
-  //    var file = files[0];
-  //    if(file == null){
-  //      alert("No file selected.");
-  //    }
-  //    else{
-  //      get_signed_request(file);
-  //    }
-  //  };
-  //})();
-
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
     //of the page
   function validateUser() {

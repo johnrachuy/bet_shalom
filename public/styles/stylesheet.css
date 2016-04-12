@@ -198,3 +198,11 @@ tr td {
     width: 100%;
     margin-top: 20px;
 }
+
+.float_right {
+    float: right;
+    margin-bottom: 5px;
+}
+
+
+

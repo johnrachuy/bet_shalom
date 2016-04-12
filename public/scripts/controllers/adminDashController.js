@@ -4,7 +4,7 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     //Creates an object to store the info of a logged-in user
     $scope.loggedInUser = {};
     //Creates an array to store the list of lesson plans from the database
-    $scope.lessonPlans = undefined;
+    //$scope.lessonPlans;
 
     $scope.passportFactory = PassportFactory;
     $scope.dataFactory = DataFactory;
@@ -13,12 +13,11 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
 
     //validateUser to make sure the role can be on this page then get all the lessons for the teacher
     validateUser();
-    getLessonPlans();
 
     //Function to check the user and re-route them if they are not validated
     function validateUser() {
         if($scope.loggedInUser.role == 'admin') {
-
+            getLessonPlans();
         } else {
             $location.path('/home');
         }
@@ -27,7 +26,7 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     //Function to get all the lesson plans for this teacher
     function getLessonPlans () {
         $scope.dataFactory.factoryAdminRetrieveLessonPlans($scope.loggedInUser.users_id).then(function () {
-            $scope.lessonPlans = $scope.dataFactory.factoryLessonPlans();
+            $scope.lessonPlans = $scope.dataFactory.factoryAdminLessons();
             console.log('Admin controller' + $scope.lessonPlans);
         });
     }

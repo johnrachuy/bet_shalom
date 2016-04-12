@@ -17,10 +17,10 @@ myApp.factory('DataFactory', ['$http', function($http) {
 
     //The private function to save a lesson plan
     var saveLessonPlan = function(lessonPlan){
-      var promise = $http.post('/lesson', lessonPlan).then(function(response) {
-        console.log(response);
-      });
-      return promise;
+        var promise = $http.post('/lesson', lessonPlan).then(function(response) {
+            console.log(response);
+        });
+        return promise;
     };
 
     //The private function to update a lesson plan

@@ -18,6 +18,7 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     function validateUser() {
         if($scope.loggedInUser.role == 'admin') {
             getLessonPlans();
+
         } else {
             $location.path('/home');
         }

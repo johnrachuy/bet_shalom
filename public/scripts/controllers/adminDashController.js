@@ -13,11 +13,11 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
 
     //validateUser to make sure the role can be on this page then get all the lessons for the teacher
     validateUser();
-    getLessonPlans();
 
     //Function to check the user and re-route them if they are not validated
     function validateUser() {
         if($scope.loggedInUser.role == 'admin') {
+            getLessonPlans();
 
         } else {
             $location.path('/home');

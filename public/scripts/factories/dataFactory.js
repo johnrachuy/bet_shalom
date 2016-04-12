@@ -16,10 +16,10 @@ myApp.factory('DataFactory', ['$http', function($http) {
 
     //The private function to save a lesson plan
     var saveLessonPlan = function(lessonPlan){
-      var promise = $http.post('/lesson', lessonPlan).then(function(response) {
-        console.log(response);
-      });
-      return promise;
+        var promise = $http.post('/lesson', lessonPlan).then(function(response) {
+            console.log(response);
+        });
+        return promise;
     };
 
     //The private function to update a lesson plan
@@ -103,60 +103,60 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
-  var publicApi = {
-      factorySaveLessonPlan: function(lessonPlan){
-        return saveLessonPlan(lessonPlan);
-      },
-      factoryEditLessonPlan: function(lessonPlan){
-          return editLessonPlan(lessonPlan);
-      },
-      factoryGetLessonPlan: function(id){
-          return retrieveLessonPlan(id);
-      },
-      factoryLessonPlan: function(){
-          return lessonPlan;
-      },
-      factoryTeacherRetrieveLessonPlans: function(id){
-          return teacherRetrieveLessonPlans(id);
-      },
-      factoryAdminRetrieveLessonPlans: function(id) {
-          return adminRetrieveLessonPlans(id);
-      },
-      factoryLessonPlans: function(){
-          return lessonPlans;
-      },
-      factoryLessonViewState: function(){
-          return lessonViewState;
-      },
-      factoryLessonStatus: function(){
-          return lessonStatus;
-      },
-      factoryStoredLessonId: function(){
-          return lessonId;
-      },
-      factoryAddFavorite: function(favorite) {
-          return addFavorite(favorite);
-      },
-      factoryGetFavorites: function(id) {
-          return getFavorites(id);
-      },
-      factoryGetfavoritePlans: function(){
-          return favoritePlans;
-      },
-      factoryCheckFavorite: function(id, lesson) {
-          return checkFavorite(id, lesson);
-      },
-      factoryMyFavorite: function() {
-          return myFavorite;
-      },
-      factoryUpdateFavorite: function(id) {
-          return updateFavorite(id);
-      },
-      factoryAddComment: function(lessonPlan) {
-          return addComment(lessonPlan);
-      }
-  };
+    var publicApi = {
+        factorySaveLessonPlan: function(lessonPlan){
+            return saveLessonPlan(lessonPlan);
+        },
+        factoryEditLessonPlan: function(lessonPlan){
+            return editLessonPlan(lessonPlan);
+        },
+        factoryGetLessonPlan: function(id){
+            return retrieveLessonPlan(id);
+        },
+        factoryLessonPlan: function(){
+            return lessonPlan;
+        },
+        factoryTeacherRetrieveLessonPlans: function(id){
+            return teacherRetrieveLessonPlans(id);
+        },
+        factoryAdminRetrieveLessonPlans: function(id) {
+            return adminRetrieveLessonPlans(id);
+        },
+        factoryLessonPlans: function(){
+            return lessonPlans;
+        },
+        factoryLessonViewState: function(){
+            return lessonViewState;
+        },
+        factoryLessonStatus: function(){
+            return lessonStatus;
+        },
+        factoryStoredLessonId: function(){
+            return lessonId;
+        },
+        factoryAddFavorite: function(favorite) {
+            return addFavorite(favorite);
+        },
+        factoryGetFavorites: function(id) {
+            return getFavorites(id);
+        },
+        factoryGetfavoritePlans: function(){
+            return favoritePlans;
+        },
+        factoryCheckFavorite: function(id, lesson) {
+            return checkFavorite(id, lesson);
+        },
+        factoryMyFavorite: function() {
+            return myFavorite;
+        },
+        factoryUpdateFavorite: function(id) {
+            return updateFavorite(id);
+        },
+        factoryAddComment: function(lessonPlan) {
+            return addComment(lessonPlan);
+        }
+    };
 
-  return publicApi;
+    return publicApi;
 
 }]);

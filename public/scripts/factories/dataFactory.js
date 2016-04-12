@@ -11,15 +11,16 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var favoritePlans = {};
     var favorite = {};
     var myFavorite = {};
+    var adminLessons = {};
 
 
 
     //The private function to save a lesson plan
     var saveLessonPlan = function(lessonPlan){
-      var promise = $http.post('/lesson', lessonPlan).then(function(response) {
-        console.log(response);
-      });
-      return promise;
+        var promise = $http.post('/lesson', lessonPlan).then(function(response) {
+            console.log(response);
+        });
+        return promise;
     };
 
     //The private function to update a lesson plan
@@ -51,7 +52,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
     //function to retrieve all the lessons based on the status, only getting all at the moment because I'm bad at sql ;D
     var adminRetrieveLessonPlans = function(id){
         var promise = $http.get('/admin_dashboard/' + id).then(function(response) {
-            lessonPlans = response.data;
+            adminLessons = response.data;
             console.log('DataFactory: ' + lessonPlans);
         });
         return promise;
@@ -154,6 +155,9 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryAddComment: function(lessonPlan) {
           return addComment(lessonPlan);
+      },
+      factoryAdminLessons: function(){
+          return adminLessons;
       }
   };
 

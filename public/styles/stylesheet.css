@@ -4,6 +4,7 @@
 /*color: #cfc8c6;*/
 /*color: #b67434;*/
 /*color: #bfd5ed;*/
+
 html{
     height: 100%;
 }
@@ -27,19 +28,16 @@ table {
 
 tr td {
     width: 3%;
-    /*word-break: break-all;*/
     word-wrap:break-word;
     text-overflow: ellipsis;
 }
 
 .jumbotron {
-    /*border: 4px solid #b67434 ;*/
     background-color: hsla(13, 9%, 79%, 0.29);
     box-shadow: 3px 3px 3px #2b1913;
 }
 
 .lessons-created-by-user {
-    /*background-color: #bfd5ed;*/
     background-color: hsla(13, 9%, 79%, 0.29);
     box-shadow: 3px 3px 3px #2b1913;
     margin-top: 0;
@@ -47,7 +45,6 @@ tr td {
 
 .favorites-lesson-plans {
     background-color: hsla(13, 9%, 79%, 0.29);
-    /*background-color: #bfd5ed;*/
     box-shadow: 3px 3px 3px #2b1913;
 }
 
@@ -69,25 +66,8 @@ tr td {
     color: hsl(225, 100%, 25%)
 }
 
-.favorites-lesson-plans {
-    border-left: 1px dashed #333;
-
-}
-
-.lessons-created-by-user {
-    /*border-right: 1px dashed #333;*/
-}
-
 .center {
     text-align: center;
-}
-
-.lesson_plan_container {
-    /*margin: 0 auto;*/
-}
-
-.teacher_buttons_div {
-    /*text-align: center;*/
 }
 
 .admin_button_container {
@@ -187,7 +167,6 @@ tr td {
 }
 
 .heading {
-    /*background-color: #796f64;*/
     background-image: linear-gradient(to left, #796f64, #2b1913);
     color: white;
     padding: 10px;
@@ -212,9 +191,7 @@ tr td {
     box-shadow: 3px 3px 3px #2b1913;
 
 }
-/*.login-logo-box {*/
-    /*border: 2px solid #2b1913;*/
-/*}*/
+
 .lesson-plan-container {
     margin-top: 35px;
 }

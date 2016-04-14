@@ -53,10 +53,12 @@ tr td {
 
 .green {
     color: green;
+    font-size: 20px;
 }
 
 .red {
     color: red;
+    font-size: 20px;
 }
 
 .yellow {
@@ -134,12 +136,12 @@ tr td {
     text-align: center;
 }
 
-.fa-star {
+.big {
     font-size: 35px;
 }
 
-.fa-star-o {
-    font-size: 35px;
+.small-blue {
+    font-size: 25px;
 }
 
 .fa-star-o:hover {

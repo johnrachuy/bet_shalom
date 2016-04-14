@@ -46,7 +46,7 @@
     </script>
 
     <div class="jumbotron">
-        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td ng-show="plan.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="plan.materials == false"><span class="glyphicon red glyphicon-remove"></span></td><td ng-show="plan.resource == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="plan.resource == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
+        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td ng-show="plan.materials"><i class="fa green fa-check"></i></td><td ng-hide="plan.materials"><i class="fa red fa-times"></i></td><td ng-show="plan.resource"><i class="fa green fa-check"></i></td><td ng-hide="plan.resource"><i class="fa red fa-times"></i></span></td></tr></tbody></table>
     </div>
 
 </div>

@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-md-6 lessons-created-by-user">
-        <h4>My created lessons</h4>
+        <h3>My created lessons</h3>
         <table class="table">
             <thead>
             <tr><th></th><th>Title</th>
@@ -20,18 +20,18 @@
                 <!--<td>{{lesson.author}}</td>-->
                 <td>{{lesson.status}}</td>
                 <!--<td>{{lesson.published | date}}</td>-->
-                <td ng-show="lesson.materials == true">
-                    <span class="glyphicon green glyphicon-ok"></span>
-                </td><td ng-show="lesson.materials == false">
-                    <span class="glyphicon red glyphicon-remove"></span>
+                <td ng-show="lesson.materials">
+                    <i class="fa green fa-check"></i>
+                </td><td ng-hide="lesson.materials">
+                    <i class="fa red fa-times"></i>
                 </td></tr>
             </tbody>
         </table>
     </div>
 
     <div class="col-md-6 favorites-lesson-plans">
-        <h4>My favorites <i class="fa blue fa-star"></i></h4>
+        <h3>My favorites <i class="fa small-blue fa-star"></i></h3>
 
-        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="lesson in favoritePlans"><tr><td><button class="btn btn-primary" ng-click="editClickedFav($index)">Select</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.materials == false"><span class="glyphicon red glyphicon-remove"></span></td><td ng-show="lesson.resource == true"><span class="glyphicon green glyphicon-ok"></span></td><td ng-show="lesson.resource == false"><span class="glyphicon red glyphicon-remove"></span></td></tr></tbody></table>
+        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="lesson in favoritePlans"><tr><td><button class="btn btn-primary" ng-click="editClickedFav($index)">Select</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials"><i class="fa green fa-check"></i></td><td ng-hide="lesson.materials"><i class="fa red fa-times"></i></td><td ng-show="lesson.resource"><i class="fa green fa-check"></i></td><td ng-hide="lesson.resource"><i class="fa red fa-times"></i></td></tr></tbody></table>
     </div>
 </div>

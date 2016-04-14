@@ -12,6 +12,10 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     //the database
   $scope.required_materials = false;
   $scope.lessonPlanUsed = false;
+
+  //Sets whether the page is editable or not, changes based on where the user is coming from
+  $scope.loadSavedLesson = false;
+
   //True/false variables that are tied to what's shown on the page based on the logged-in user
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
@@ -22,16 +26,12 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.statusToCheckIfPublished = false;
   $scope.statusAdminReview = false;
   $scope.needsReviewButton = false;
-  $scope.statusAdminSubmit = true;
+  $scope.removeButton = false;
 
   $scope.myFav = [];
 
-  //Stores the id of the lesson plan from the factory, sent by the page the user came from
-  $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
   //Tracks what the status of the lesson is, changes based on where the user is coming from
   $scope.lessonPlanStatus = null;
-  //Sets whether the page is editable or not, changes based on where the user is coming from
-  $scope.loadSavedLesson = false;
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
@@ -47,30 +47,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   var commentSavedInDb = false;
 
-  //clears form
-  function clearForm () {
-    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
-    $scope.lesson_title = null;
-    $scope.lesson_materials = null;
-    $scope.lesson_text = null;
-    $scope.comment = null;
-    $scope.required_materials = false;
-    $scope.lessonPlanStatus = null;
-    $scope.lessonPlanId = null;
-    document.getElementById("uploadedFile").src = "";
-    lessonDeleted = false;
-    resourceOrLessonBoolean = "lesson_plan";
-
-    // Naming will be changed with added tag search
-    $scope.selectedTag = null;
-    $scope.tags = [];
-    $scope.saved_comments = [];
-  }
-
-  function clearCommentField () {
-    $scope.comment = null;
-  }
-
   $scope.animationsEnabled = true;
 
 
@@ -81,20 +57,21 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   validateUser();
 
-
+  //Stores the id of the lesson plan from the factory, sent by the page the user came from
+  $scope.lessonPlanId = $scope.dataFactory.factoryStoredLessonId;
 
   //Sets the edit variable that controls the state of the page from the factory
   $scope.loadSavedLesson = $scope.dataFactory.factoryLessonViewState;
   if($scope.dataFactory.factoryLessonStatus == 'submitted') {
     $scope.statusAdminReview = true;
-    $scope.statusAdminSubmit = false;
     $scope.needsReviewButton = true;
+    $scope.removeButton = true;
   }
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
     $scope.statusAdminReview = true;
-    $scope.statusAdminSubmit = false;
     $scope.needsReviewButton = false;
+    $scope.removeButton = true;
   }
   $scope.dataFactory.factoryLessonStatus = undefined;
 
@@ -119,6 +96,30 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.dataFactory.factoryLessonViewState = false;
   } else {
     $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
+  }
+
+  //clears form
+  function clearForm () {
+    $scope.lesson_author = $scope.loggedInUser.first_name + ' ' + $scope.loggedInUser.last_name;
+    $scope.lesson_title = null;
+    $scope.lesson_materials = null;
+    $scope.lesson_text = null;
+    $scope.comment = null;
+    $scope.required_materials = false;
+    $scope.lessonPlanStatus = null;
+    $scope.lessonPlanId = null;
+    document.getElementById("uploadedFile").src = "";
+    lessonDeleted = false;
+    resourceOrLessonBoolean = "lesson_plan";
+
+    // Naming will be changed with added tag search
+    $scope.selectedTag = null;
+    $scope.tags = [];
+    $scope.saved_comments = [];
+  }
+
+  function clearCommentField () {
+    $scope.comment = null;
   }
 
   //function that checks the current user and either kicks them off the page or changes the variables that set the state
@@ -165,6 +166,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   };
 
     $scope.lesson_title = [];
+
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (admin only button)
   $scope.adminPublishLesson = function(size) {

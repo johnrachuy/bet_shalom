@@ -223,7 +223,13 @@ tr td {
     margin-top: 20px;
 }
 
+.float_right {
+    float: right;
+    margin-bottom: 5px;
+}
+
 .comments-table {
     box-shadow: 3px 3px 3px #2b1913;
 
 }
+

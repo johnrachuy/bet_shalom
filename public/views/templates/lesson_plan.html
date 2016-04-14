@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group"><input type="text" class="form-control" id="lesson_title" placeholder="Enter Title" ng-model="$parent.lesson_title" ng-if="!statusToCheckIfPublished" /></div>
-      <div class="form-group" ng-if="statusToCheckIfPublished"><span class="lesson_title_displayed">{{lesson_title}}</span><span class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa blue fa-star"></i></span><span class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa fa-star-o"></i></span></div>
+      <div class="form-group" ng-if="statusToCheckIfPublished"><span class="lesson_title_displayed">{{lesson_title}}</span><span class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa big blue fa-star"></i></span><span class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa big fa-star-o"></i></span></div>
     </div>
   </div>
 
@@ -73,7 +73,7 @@
     </div>
 
     <div class="col-md-5 col-md-offset-1">
-      <div><label for="lesson_materials_checkbox">Materials required?</label><input type="checkbox" class="materials_checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" /><textarea class="form-control lesson-materials-textarea" id="lesson_materials" ng-class="{'no_gray': statusToCheckIfPublished}" rows="2" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished" placeholder="{{requiredMaterialsPlaceholder}}"></textarea></div>
+      <div><label for="lesson_materials_checkbox">Materials required?</label> <input type="checkbox" class="materials_checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" /><textarea class="form-control lesson-materials-textarea" id="lesson_materials" ng-class="{'no_gray': statusToCheckIfPublished}" rows="2" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished" placeholder="{{requiredMaterialsPlaceholder}}"></textarea></div>
     </div>
 
   </div>

@@ -1,5 +1,5 @@
-myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', '$location', '$uibModal', '$log',
-  function($scope, $http, PassportFactory, DataFactory, $location, $uibModal, $log) {
+myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'PassportFactory', 'DataFactory', '$location', '$uibModal', '$log',
+  function($scope, $http, $route, PassportFactory, DataFactory, $location, $uibModal, $log) {
   console.log('lesson plan controller');
   $scope.dataFactory = DataFactory;
   $scope.passportFactory = PassportFactory;
@@ -116,6 +116,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.selectedTag = null;
     $scope.tags = [];
     $scope.saved_comments = [];
+    $route.reload();
   }
 
   function clearCommentField () {
@@ -258,7 +259,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
-    if ($scope.lessonPlanStatus === null){
+    if (Object.keys($scope.lessonPlanStatus).length == 0) {
       $scope.lessonPlanStatus = 'draft';
       $scope.submitLesson();
     } else {

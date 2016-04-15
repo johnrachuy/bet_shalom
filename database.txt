@@ -31,7 +31,8 @@ CREATE TABLE lesson_tag
      (
      lesson_tag_id SERIAL NOT NULL PRIMARY KEY,
      fk_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
-     fk_tag_id INTEGER NOT NULL REFERENCES tag (tag_id)
+     fk_tag_id INTEGER NOT NULL REFERENCES tag (tag_id),
+     deleted BOOLEAN
      );
 
 CREATE TABLE favorite

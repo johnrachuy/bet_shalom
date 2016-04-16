@@ -94,7 +94,7 @@ router.get('/:id',  function(req, res) {
     'FROM lesson ' +
     'JOIN lesson_tag ON lesson.lesson_id = lesson_tag.fk_lesson_id ' +
     'JOIN tag ON lesson_tag.fk_tag_id = tag.tag_id ' +
-    'WHERE lesson.lesson_id = ($1)',
+    'WHERE lesson.lesson_id = ($1) AND lesson_tag.deleted IS NOT true',
       [lessonPlanId]);
 
     //Stream results back one row at a time

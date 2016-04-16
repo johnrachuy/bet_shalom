@@ -23,6 +23,7 @@ var get_favorites = require('./routes/get_favorites');
 var add_comment = require('./routes/add_comment');
 var pic_route = require('./routes/pic_route');
 var logout = require('./routes/logout');
+var update_tag = require('./routes/update_tag');
 
 
 app.use(bodyParser.json());
@@ -60,6 +61,7 @@ app.use('/get_favorites', get_favorites);
 app.use('/add_comment', add_comment);
 app.use('/sign_s3', pic_route);
 app.use('/logout', logout);
+app.use('/update_tag', update_tag);
 
 
 // Serve back static files

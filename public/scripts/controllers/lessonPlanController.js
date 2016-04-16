@@ -1,5 +1,5 @@
-myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 'DataFactory', '$location', '$uibModal', '$log',
-  function($scope, $http, PassportFactory, DataFactory, $location, $uibModal, $log) {
+myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'PassportFactory', 'DataFactory', '$location', '$uibModal', '$log',
+  function($scope, $http, $route, PassportFactory, DataFactory, $location, $uibModal, $log) {
   console.log('lesson plan controller');
   $scope.dataFactory = DataFactory;
   $scope.passportFactory = PassportFactory;
@@ -31,7 +31,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
   $scope.myFav = [];
 
   //Tracks what the status of the lesson is, changes based on where the user is coming from
-  $scope.lessonPlanStatus = null;
+  $scope.lessonPlanStatus = {};
   //Tracks whether the lesson is a resource or normal lesson, set on the dom by the admin
   var resourceOrLessonBoolean;
   //declares the empty lessonPlan object used to package up data to be sent to the database
@@ -116,6 +116,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
     $scope.selectedTag = null;
     $scope.tags = [];
     $scope.saved_comments = [];
+    $route.reload();
   }
 
   function clearCommentField () {
@@ -197,7 +198,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
             $scope.addComment();               //if unchecked, it does not add comments to JSON
           }
 
-          if ($scope.lessonPlanStatus === null) {
+          if (Object.keys($scope.lessonPlanStatus).length == 0) {
             $scope.lessonPlanStatus = 'published';
             $scope.submitLesson();
           } else {
@@ -240,7 +241,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
           modalInstance.result.then(function () {
 
-            if ($scope.lessonPlanStatus === null){
+            if (Object.keys($scope.lessonPlanStatus).length == 0) {
               $scope.lessonPlanStatus = 'submitted';
               $scope.submitLesson();
             } else {
@@ -258,7 +259,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
 
   //When the save draft button is clicked redirects to the function to save a new draft or update existing draft
   $scope.saveLessonDraft = function(size) {
-    if ($scope.lessonPlanStatus === null){
+    if (Object.keys($scope.lessonPlanStatus).length == 0) {
       $scope.lessonPlanStatus = 'draft';
       $scope.submitLesson();
     } else {
@@ -507,18 +508,42 @@ myApp.controller('LessonPlanController', ['$scope', '$http', 'PassportFactory', 
    * Functions that populate and remove tag_id from tags array when tags are selected with ngTagsInput
    */
   $scope.tags = [];
+
   $scope.tagAdded = function(tag) {
-    console.log('Tag added: ', tag);
-    $scope.tags.push(tag.tag_id);
-    console.log('tags array', $scope.tags);
+    if (Object.keys($scope.lessonPlanStatus).length == 0) {
+      console.log('new');
+      $scope.tags.push(tag.tag_id);
+    } else {
+      console.log('old');
+      var update_tag = {
+        tag_id: $scope.selectedTag[$scope.selectedTag.length -1].tag_id,
+        lesson_id: $scope.lessonPlanId
+      };
+      //console.log(update_tag);
+
+      $http.post('/update_tag', update_tag).then(function(response) {
+        console.log(response);
+      });
+    }
   };
   $scope.tagRemoved = function(tag) {
-    console.log('Tag removed: ', tag);
-    var removedTag = $scope.tags.indexOf(tag.tag_id);
-    if(removedTag != -1) {
-      $scope.tags.splice(removedTag, 1);
+    if (Object.keys($scope.lessonPlanStatus).length == 0) {
+      console.log('new');
+      var removedTag = $scope.tags.indexOf(tag.tag_id);
+      if(removedTag != -1) {
+        $scope.tags.splice(removedTag, 1);
+      }
+    } else {
+      console.log('old');
+      var update_tag = {
+        tag_id: tag.tag_id,
+        lesson_id: $scope.lessonPlanId
+      };
+
+      $http.put('/update_tag', update_tag).then(function(response) {
+        console.log(response);
+      });
     }
-    console.log($scope.tags);
   };
 
   /*

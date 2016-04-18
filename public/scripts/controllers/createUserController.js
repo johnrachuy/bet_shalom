@@ -1,4 +1,4 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$route', '$location', '$routeParams', function($scope, PassportFactory, $http, $route, $location, $routeParams) {
+myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$route', '$location', '$routeParams', '$uibModal', '$log', function($scope, PassportFactory, $http, $route, $location, $routeParams, $uibModal, $log) {
 
     $scope.passportFactory = PassportFactory;
     $scope.selectedName = null;
@@ -97,14 +97,33 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         $scope.selectedName = null;
     };
 
-    $scope.removeUser = function () {
+    $scope.removeUser = function (size) {
         var id = {
             users_id: $scope.users_id
         };
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'modalRemoveUser.html',
+            controller: 'ModalController',
+            size: size,
+            resolve: {
+                myUsername: function () {
+                    return $scope.username;
+                },
+                currentLessonPlan: function () {
+                    return $scope.lesson_title;
+                }
+            }
+        });
 
-        $http.put('/remove_user', id).then(function() {
-            clearForm();
-            $route.reload();
+        modalInstance.result.then(function () {
+
+            $http.put('/remove_user', id).then(function() {
+                clearForm();
+                $route.reload();
+            });
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
         });
     };
 

@@ -9,3 +9,15 @@
         </form>
     </div>
 </div>
+
+<!--modal for when user resets password that notifies them about email sent-->
+<script type="text/ng-template" id="modalResetPassword.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Link sent to {{username}}!</h3>
+        <h4>Please check your inbox to reset password.</h4>
+    </div>
+
+    <div class="modal-body">
+        <button class="btn btn-primary" type="button" ng-click="okayResetPassword()">Okay</button>
+    </div>
+</script>

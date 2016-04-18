@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var pg = require('pg');
 var connection = require('../modules/connection');
-var sendgrid  = require('sendgrid')('API Key');
+var sendgrid  = require('sendgrid')('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');
 
 router.post('/', function(req, res) {
 

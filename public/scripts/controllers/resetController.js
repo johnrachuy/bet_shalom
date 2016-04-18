@@ -1,8 +1,8 @@
-myApp.controller('ResetController', ['$scope', 'PassportFactory', '$location', '$route', '$routeParams', '$http', function($scope, PassportFactory, $location, $route, $routeParams, $http) {
+myApp.controller('ResetController', ['$scope', 'PassportFactory', '$location', '$route', '$routeParams', '$http', '$uibModal', function($scope, PassportFactory, $location, $route, $routeParams, $http, $uibModal) {
 
     $scope.passportFactory = PassportFactory;
 
-    $scope.resetPass = function (username) {
+    $scope.resetPass = function (username, size) {
         $http.get('/update_user/' + username).then(function(response) {
             var resetInfo = {
                 username: $scope.username,
@@ -10,7 +10,29 @@ myApp.controller('ResetController', ['$scope', 'PassportFactory', '$location', '
                 token: (Math.random() + 1).toString(36).substring(7)
             };
             $http.post('/email', resetInfo).then(function() {
-                $location.path('/home');
+                var modalInstance = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'modalResetPassword.html',
+                    controller: 'ModalController',
+                    size: size,
+                    resolve: {
+                        myUsername: function () {
+                            return $scope.username;
+                        },
+                        currentLessonPlan: function () {
+                            return $scope.lessonPlan;
+                        }
+                    }
+                });
+                console.log('here it is:', $scope.username);
+
+
+                modalInstance.result.then(function () {
+                    $location.path('/home');
+
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
             });
         })
     };

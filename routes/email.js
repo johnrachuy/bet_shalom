@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var pg = require('pg');
 var connection = require('../modules/connection');
-var sendgrid  = require('sendgrid')('API Key');
+var sendgrid  = require('sendgrid')('');
 
 router.post('/', function(req, res) {
 
@@ -12,7 +12,7 @@ router.post('/', function(req, res) {
             to:       req.body.username,
             from:     'john.rachuy@gmail.com',
             subject:  'Welcome to Bet Shalom',
-            text:     'Click on the link to set a password and login localhost:5000/#/password/' + req.body.token
+            text:     'Click on the link to set a password and login http://localhost:5000/#/password/' + req.body.token
         });
         sendgrid.send(email, function(err, json) {
 

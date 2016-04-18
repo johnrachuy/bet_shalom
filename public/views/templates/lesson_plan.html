@@ -5,18 +5,8 @@
       <div class="radio"><label for="lesson_plan"><input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan" ng-disabled="statusToCheckIfPublished" class="resource_lesson_radio" id="lesson_plan">Lesson Plan</label></div>
       <div class="radio"><label for="resource"><input type="radio" class="resource_lesson_radio" name="type_selector" ng-model="$parent.type_selector" value="resource" ng-disabled="statusToCheckIfPublished" id="resource">Resource</label></div>
     </div>
-    <div class="col-md-6">
-      <!--<div class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa yellow fa-star"></i></div>-->
-      <!--<div class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa fa-star-o"></i></div>-->
-    </div>
   </div>
 
-  <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-      <!--<div class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa yellow fa-star"></i></div>-->
-      <!--<div class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa fa-star-o"></i></div>-->
-    <!--</div>-->
-  <!--</div>-->
 
   <div class="row">
     <div class="col-md-6">
@@ -85,34 +75,6 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <div id="display_comments" ng-repeat="comments in saved_comments">
-        <!-- Area to display comments -->
-        <table class="table table-striped">
-          <thead><tr><th>{{comments.author}} {{comments.date_stamp | date}}</th></tr></thead>
-          <tbody><tr><td class="comments-table">{{comments.comment}}</td></tr></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group" ng-if="commentForm">
-          <label for="used_lesson_checkbox"><span ng-if="teacherEditState">Use Lesson Plan:</span> <span ng-if="adminEditState">Add Comment:</span> </label>
-          <input type="checkbox" id="used_lesson_checkbox" ng-model="$parent.lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
-          <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div ng-if="commentForm"><span ng-if="teacherEditState"><button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button></span></div>
-      </div>
-    </div>
-
-  <div class="row">
     <div class="col-md-3">
       <div ng-if="!statusToCheckIfPublished">
         <input class="btn btn-primary" type="file" file-upload-directive="$parent.files"/>
@@ -125,15 +87,15 @@
     </div>
     <div class="col-md-3 col-md-offset-3" ng-if="teacherEditState">
       <div ng-if="!statusToCheckIfPublished">
-        <span class="float_right"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
         <span class="float_right"><button class="btn btn-primary submit_lesson_button" ng-click="teacherSubmitLesson()">Submit</button></span>
+        <span class="float_right"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
       </div>
     </div>
     <div class="col-md-3 col-md-offset-3" ng-if="adminEditState">
       <div>
+        <span  class="float_right" ng-if="!statusToCheckIfPublished"><button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Publish</button></span>
         <span  class="float_right" ng-if="needsReviewButton"><button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button></span>
         <span  class="float_right" ng-if="!statusAdminReview"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
-        <span  class="float_right" ng-if="!statusToCheckIfPublished"><button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Publish</button></span>
         <span class="float_right" ng-if="removeButton"><button class="btn btn-danger remove_lesson" ng-click="removeLesson()">Remove</button></span>
       </div>
     </div>
@@ -143,6 +105,34 @@
     <div class="col-md-12">
       <!--Displays uploaded image-->
       <img id="uploadedFile" src="" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="display_comments" ng-repeat="comments in saved_comments">
+        <!-- Area to display comments -->
+        <table class="table table-striped">
+          <thead><tr><th>{{comments.author}} {{comments.date_stamp | date}}</th></tr></thead>
+          <tbody><tr><td class="comments-table">{{comments.comment}}</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group" ng-if="commentForm">
+        <label for="used_lesson_checkbox"><span ng-if="teacherEditState">Use Lesson Plan:</span> <span ng-if="adminEditState">Add Comment:</span> </label>
+        <input type="checkbox" id="used_lesson_checkbox" ng-model="$parent.lessonPlanUsed" ng-change="usedLessonPlanToggle(lessonPlanUsed)" />
+        <textarea class="form-control" id="comment" rows="3" cols="100" ng-model="$parent.comment" placeholder="Add Comments" ng-disabled="!lessonPlanUsed"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div ng-if="commentForm"><span ng-if="commentButton"><button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button></span></div>
     </div>
   </div>
 

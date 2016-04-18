@@ -70,7 +70,6 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
         //if existing user
         if ($scope.users_id > 0) {
-            console.log('existing user')
             $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function() {
                 clearForm();
                 getNames();
@@ -78,7 +77,6 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
         //if new user
         } else {
-            console.log('new user')
             $scope.passportFactory.factorySaveNewEntry(entry).then(function() {
                 clearForm();
                 getNames();
@@ -92,7 +90,7 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
     $scope.sendEmail = function() {
         $http.post('/email').then(function(response) {
         });
-    }
+    };
 
     console.log('Create User Controller');
 }]);

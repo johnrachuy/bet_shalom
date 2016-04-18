@@ -10,12 +10,6 @@ myApp.controller('ModalController', ['$scope', '$http', '$uibModalInstance', 'ho
 //modal for when delete button clicked
   $scope.deleteLessonPlan = function () {
     $uibModalInstance.close();
-
-    //$scope.modalFactory.factoryMessage('this is my message');
-
-    //$http.put('/remove_lesson', lessonId).then(function(){
-    //  console.log('removed!');
-    //});
   };
 
   //modal for when saved draft button is clicked

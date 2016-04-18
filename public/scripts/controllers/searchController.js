@@ -17,11 +17,6 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
         }
     }
 
-    //Populates the drop-down menus
-    //$http.get('/tags').then(function(response) {
-    //    $scope.keyTags = response.data;
-    //});
-
     $scope.tags = [];
     $scope.tagAdded = function(tag) {
         console.log('Tag added: ', tag);
@@ -60,6 +55,4 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
         $scope.dataFactory.factoryLessonStatus = $scope.viewLesson[index].status;
         $location.path('/lesson_plan');
     };
-
-    console.log('Search Controller');
 }]);

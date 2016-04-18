@@ -10,7 +10,4 @@ myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$win
     //    $scope.userData = userDatum;
     //    $scope.userName = userDatum.username;
     //});
-
-    console.log('Login Controller');
-
 }]);

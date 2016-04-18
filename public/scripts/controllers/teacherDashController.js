@@ -29,22 +29,18 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
     function getLessonPlans () {
         $scope.dataFactory.factoryTeacherRetrieveLessonPlans($scope.loggedInUser.users_id).then(function () {
             $scope.lessonPlans = $scope.dataFactory.factoryLessonPlans();
-            //console.log('Teacher controller' + $scope.lessonPlans);
         });
     }
 
         //Function to get favorite lesson plans for this teacher
         function getFavorites() {
             $scope.dataFactory.factoryGetFavorites($scope.loggedInUser.users_id).then(function (response) {
-                $scope.favoritePlans = $scope.dataFactory.factoryGetfavoritePlans();
-                //console.log('Teacher controller' + $scope.lessonPlans);
+                $scope.favoritePlans = $scope.dataFactory.factoryGetFavoritePlans();
             });
         }
 
     //Function to reroute the user to the lesson plan controller
         $scope.editClickedLesson = function(index){
-            console.log('what the: ', $scope.lessonPlans);
-
             $scope.dataFactory.factoryStoredLessonId = $scope.lessonPlans[index].lesson_id;
             $scope.dataFactory.factoryLessonViewState = true;
             $scope.dataFactory.factoryLessonStatus = $scope.lessonPlans[index].status;
@@ -53,7 +49,6 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
 
         //Function to reroute the user to the lesson plan controller
         $scope.editClickedFav = function(index){
-            console.log('what the: ', $scope.favoritePlans);
             $scope.dataFactory.factoryStoredLessonId = $scope.favoritePlans[index].lesson_id;
             $scope.dataFactory.factoryLessonViewState = true;
             $scope.dataFactory.factoryLessonStatus = $scope.favoritePlans[index].status;

@@ -9,7 +9,4 @@ myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$win
     $scope.go = function(path) {
         $location.path(path);
     };
-
-    console.log('Login Controller');
-
 }]);

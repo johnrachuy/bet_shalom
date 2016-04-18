@@ -24,6 +24,7 @@ var add_comment = require('./routes/add_comment');
 var pic_route = require('./routes/pic_route');
 var logout = require('./routes/logout');
 var update_tag = require('./routes/update_tag');
+var remove_user = require('./routes/remove_user');
 
 
 app.use(bodyParser.json());
@@ -62,6 +63,7 @@ app.use('/add_comment', add_comment);
 app.use('/sign_s3', pic_route);
 app.use('/logout', logout);
 app.use('/update_tag', update_tag);
+app.use('/remove_user', remove_user);
 
 
 // Serve back static files

@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>Search</h2>
+    <!--<div class="form-group">-->
+        <!--<select ng-model="selectedTag" ng-change="searchTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">-->
+            <!--<option value="">Select Tag</option>-->
+        <!--</select>-->
+        <!--<select ng-model="selectedTag2" ng-change="filterTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">-->
+            <!--<option value="">Select Tag</option>-->
+        <!--</select>-->
+    <!--</div>-->
+    <tags-input ng-model="keyTags"
+                display-property="tag_name"
+                placeholder="Select tag"
+                replace-spaces-with-dashes="false"
+                on-tag-added="tagAdded($tag)"
+                on-tag-removed="tagRemoved($tag)"
+                add-on-enter="false"
+                template="tag-template">
+        <auto-complete source="loadTags($query)"
+                       min-length="0"
+                       highlight-matched-text="true"
+                       load-on-down-arrow="true"
+                       load-on-focus="true"
+                       load-on-empty="false"
+                       max-results-to-show="45"
+                       template="autocomplete-template"></auto-complete>
+    </tags-input>
+
+    <script type="text/ng-template" id="tag-template">
+        <div class="tag-template">
+            <div class="right-panel">
+                <span ng-model="selectedTag">{{$getDisplayText()}}</span>
+                <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="autocomplete-template">
+        <div class="autocomplete-template">
+            <div class="right-panel">
+                <span ng-bind-html="$highlight($getDisplayText())"></span>
+            </div>
+        </div>
+    </script>
+
+    <div class="jumbotron">
+        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td ng-show="plan.materials"><i class="fa green fa-check"></i></td><td ng-hide="plan.materials"><i class="fa red fa-times"></i></td><td ng-show="plan.resource"><i class="fa green fa-check"></i></td><td ng-hide="plan.resource"><i class="fa red fa-times"></i></span></td></tr></tbody></table>
+    </div>
+
+</div>

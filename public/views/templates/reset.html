@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="login-logo-box">
+        <div class="logo">
+            <img src="/images/Bet_Shalom_Transparent_Logo.png" height="300px">
+        </div>
+        <form class="login">
+            <input type="text" class="form-control login-password-field" ng-model="username" placeholder="Email Address" autofocus="" />
+            <button class="btn btn-lg btn-primary btn-block login-button" ng-click="resetPass(username)" type="submit">Reset Password</button>
+        </form>
+    </div>
+</div>
+
+<!--modal for when user resets password that notifies them about email sent-->
+<script type="text/ng-template" id="modalResetPassword.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Link sent to {{username}}!</h3>
+        <h4>Please check your inbox to reset password.</h4>
+    </div>
+
+    <div class="modal-body">
+        <button class="btn btn-primary" type="button" ng-click="okayResetPassword()">Okay</button>
+    </div>
+</script>

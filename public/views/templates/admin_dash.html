@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="col-md-12 heading">
+        <h3>Welcome {{loggedInUser.first_name}} {{loggedInUser.last_name}}</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h3>Lessons Pending Approval</h3>
+        <table class="table">
+            <thead>
+                <tr><th></th><th>Title</th><th>Author</th><th>Status</th><th>Date</th><th>Materials</th></tr>
+            </thead>
+            <tbody ng-repeat="lesson in lessonPlans">
+                <tr>
+                    <td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td>
+                    <td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.status}}</td><td>{{lesson.published | date}}</td>
+                    <td ng-show="lesson.materials"><i class="fa green fa-check"></i></td><td ng-hide="lesson.materials"><i class="fa red fa-times"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

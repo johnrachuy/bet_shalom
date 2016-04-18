@@ -1,0 +1,107 @@
+db name: bet_shalom
+
+CREATE TABLE users
+     (
+     users_id SERIAL PRIMARY KEY,
+     username character varying(100) NOT NULL UNIQUE,
+     password character varying(120) NOT NULL,
+     role character varying(50) NOT NULL,
+     first_name character varying(120) NOT NULL,
+     last_name character varying(120) NOT NULL,
+     phone character varying(120) NOT NULL,
+     grade character varying(120) NOT NULL,
+     deleted BOOLEAN NOT NULL
+     );
+
+ CREATE TABLE lesson
+     (
+     lesson_id SERIAL NOT NULL PRIMARY KEY,
+     author character varying(120) NOT NULL,
+     author_id INTEGER NOT NULL,
+     title character varying(120) NOT NULL,
+     published character varying(120),
+     lesson_plan jsonb,
+     materials BOOLEAN NOT NULL,
+     resource BOOLEAN NOT NULL,
+     status character varying(20) NOT NULL,
+     deleted BOOLEAN NOT NULL
+     );
+
+CREATE TABLE lesson_tag
+     (
+     lesson_tag_id SERIAL NOT NULL PRIMARY KEY,
+     fk_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
+     fk_tag_id INTEGER NOT NULL REFERENCES tag (tag_id),
+     deleted BOOLEAN
+     );
+
+CREATE TABLE favorite
+     (
+     favorite_id SERIAL NOT NULL PRIMARY KEY,
+     fk_users_id INTEGER NOT NULL REFERENCES users (users_id),
+     fk_fav_lesson_id INTEGER NOT NULL REFERENCES lesson (lesson_id),
+     favorite_status BOOLEAN NOT NULL
+     );
+
+CREATE TABLE tag
+     (
+     tag_id SERIAL NOT NULL PRIMARY KEY,
+     tag_name character varying(30) NOT NULL,
+     tag_category character varying(30) NOT NULL
+     );
+
+CREATE TABLE token
+     (
+     token_id SERIAL NOT NULL PRIMARY KEY,
+     fk_users_id INTEGER NOT NULL REFERENCES users (users_id),
+     token character varying(120) NOT NULL
+     );
+
+INSERT INTO tag
+(tag_name, tag_category)
+VALUES
+('Shabbat', 'Holiday'),
+('Havdalah', 'Holiday'),
+('Rosh Hashanah', 'Holiday'),
+('Tu BiShevat', 'Holiday'),
+('Purim', 'Holiday'),
+('Passover', 'Holiday'),
+('Shavuot', 'Holiday'),
+('Yom Kippur', 'Holiday'),
+('Sukkot', 'Holiday'),
+('Simchat Torah', 'Holiday'),
+('Chanukah', 'Holiday'),
+('Barchu', 'Prayer'),
+('Shema', 'Prayer'),
+('Vahavta', 'Prayer'),
+('Mi Chamocha', 'Prayer'),
+('Amidah', 'Prayer'),
+('Torah Blessings', 'Prayer'),
+('Haftarah Blessings', 'Prayer'),
+('Aleinu', 'Prayer'),
+('Mourners Kaddish', 'Prayer'),
+('Kiddush', 'Prayer'),
+('Hamotzi', 'Prayer'),
+('God', 'General'),
+('Torah', 'General'),
+('Prophets', 'General'),
+('History', 'General'),
+('Holocaust', 'General'),
+('Israel', 'General'),
+('Values', 'General'),
+('Tzedakah', 'General'),
+('Social Responsibility', 'General'),
+('Electives', 'General'),
+('Modern Hebrew', 'Hebrew'),
+('Prayer Hebrew', 'Hebrew'),
+('Torah Hebrew', 'Hebrew'),
+('Pre K', 'Grade'),
+('Kindergarten', 'Grade'),
+('1st Grade', 'Grade'),
+('2nd Grade', 'Grade'),
+('3rd Grade', 'Grade'),
+('4th Grade', 'Grade'),
+('5th Grade', 'Grade'),
+('6th Grade', 'Grade'),
+('7th Grade', 'Grade'),
+('8th Grade', 'Grade');

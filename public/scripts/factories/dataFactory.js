@@ -141,7 +141,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
       factoryGetFavorites: function(id) {
           return getFavorites(id);
       },
-      factoryGetfavoritePlans: function(){
+      factoryGetFavoritePlans: function(){
           return favoritePlans;
       },
       factoryCheckFavorite: function(id, lesson) {

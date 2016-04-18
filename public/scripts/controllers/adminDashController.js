@@ -28,7 +28,6 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
     function getLessonPlans () {
         $scope.dataFactory.factoryAdminRetrieveLessonPlans($scope.loggedInUser.users_id).then(function () {
             $scope.lessonPlans = $scope.dataFactory.factoryAdminLessons();
-            console.log('Admin controller' + $scope.lessonPlans);
         });
     }
 

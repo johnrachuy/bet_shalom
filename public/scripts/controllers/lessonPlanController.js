@@ -212,7 +212,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
         });
       }
     }
-  }
+  };
 
   //Checks to see if the current lesson is new or a pre-existing lesson, sets the status, and redirects to the appropriate
     //function to handle the database call (teacher only button)
@@ -355,7 +355,6 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
   $scope.saved_comments =[]; //global empty array to push comment objects into
   var commentString = '';
   $scope.addComment = function(){
-    console.log('add comment button');
     //new comment object is created when 'Add Comment' button is pushed
 
     if($scope.loggedInUser.role == 'admin') {
@@ -577,7 +576,7 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
     else{
       get_signed_request(file);
     }
-  }
+  };
 
   //Gets signed url to allow you to upload your file to aws
   function get_signed_request(file){

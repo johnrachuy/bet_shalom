@@ -36,7 +36,7 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
         //Function to get favorite lesson plans for this teacher
         function getFavorites() {
             $scope.dataFactory.factoryGetFavorites($scope.loggedInUser.users_id).then(function (response) {
-                $scope.favoritePlans = $scope.dataFactory.factoryGetfavoritePlans();
+                $scope.favoritePlans = $scope.dataFactory.factoryGetFavoritePlans();
                 //console.log('Teacher controller' + $scope.lessonPlans);
             });
         }

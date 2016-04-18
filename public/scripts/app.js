@@ -23,10 +23,6 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: '/views/templates/lesson_plan.html',
             controller: 'LessonPlanController'
         })
-        .when('/failure', {
-            templateUrl: '/views/templates/failure.html',
-            controller: 'HomeController'
-        })
         .when('/register', {
             templateUrl: '/views/templates/register.html',
             controller: 'CreateUserController'

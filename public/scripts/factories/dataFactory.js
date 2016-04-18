@@ -12,6 +12,8 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var favorite = {};
     var myFavorite = {};
     var adminLessons = {};
+    var names = {};
+    var user = {};
 
 
 
@@ -104,6 +106,23 @@ myApp.factory('DataFactory', ['$http', function($http) {
         return promise;
     };
 
+    //function to populate existing users drop down on manage users page
+    var getNames = function() {
+        var promise = $http.get('/get_names').then(function(response) {
+            names = response.data;
+        });
+        return promise;
+    };
+
+    //function to get info for selected name from existing users drop down
+    var selectedName = function(name) {
+        var promise = $http.get('/selected_name/' + name).then(function(response) {
+            user = response.data;
+            console.log(user);
+        });
+        return promise;
+    };
+
   var publicApi = {
       factorySaveLessonPlan: function(lessonPlan){
         return saveLessonPlan(lessonPlan);
@@ -141,7 +160,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
       factoryGetFavorites: function(id) {
           return getFavorites(id);
       },
-      factoryGetfavoritePlans: function(){
+      factoryGetFavoritePlans: function(){
           return favoritePlans;
       },
       factoryCheckFavorite: function(id, lesson) {
@@ -149,6 +168,18 @@ myApp.factory('DataFactory', ['$http', function($http) {
       },
       factoryMyFavorite: function() {
           return myFavorite;
+      },
+      factoryGetNames: function() {
+          return getNames();
+      },
+      factoryNames: function() {
+          return names;
+      },
+      factorySelectedName: function(name) {
+          return selectedName(name);
+      },
+      factoryName: function() {
+          return user;
       },
       factoryUpdateFavorite: function(id) {
           return updateFavorite(id);

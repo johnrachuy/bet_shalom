@@ -1,10 +1,11 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$route', '$location', '$routeParams', function($scope, PassportFactory, $http, $route, $location, $routeParams) {
+myApp.controller('CreateUserController', ['$scope', 'DataFactory', 'PassportFactory', '$route', function($scope, DataFactory, PassportFactory, $route) {
 
+    $scope.dataFactory = DataFactory;
     $scope.passportFactory = PassportFactory;
     $scope.selectedName = null;
     $scope.users_id = null;
     $scope.getNames = [];
-    $scope.token = $routeParams.token;
+    $scope.viewData = [];
     //$scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     getNames();
@@ -23,16 +24,16 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
     //populating drop-down of existing users
     function getNames() {
-        $http.get('/get_names').then(function(response) {
-            $scope.getNames = response.data;
+        $scope.dataFactory.factoryGetNames().then(function () {
+            $scope.getNames = $scope.dataFactory.factoryNames();
         });
     }
 
     //get info of selected name
     $scope.getInfo = function () {
-        $http.get('/selected_name/' + $scope.selectedName).then(function(response) {
-            $scope.viewData = response.data;
-
+        $scope.dataFactory.factorySelectedName($scope.selectedName).then(function () {
+            $scope.viewData = $scope.dataFactory.factoryName();
+            console.log($scope.viewData);
             $scope.username = $scope.viewData[0].username;
             $scope.first_name = $scope.viewData[0].first_name;
             $scope.last_name = $scope.viewData[0].last_name;
@@ -40,7 +41,6 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
             $scope.phone = $scope.viewData[0].phone;
             $scope.grade = $scope.viewData[0].grade;
             $scope.users_id = $scope.viewData[0].users_id;
-
         });
     };
 
@@ -72,7 +72,7 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         //if existing user
         if ($scope.users_id > 0) {
             console.log('existing user');
-            $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function() {
+            $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function () {
                 clearForm();
                 getNames();
             });
@@ -80,29 +80,27 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         //if new user
         } else {
             console.log('new user');
-            $scope.passportFactory.factorySaveNewEntry(entry).then(function() {
+            $scope.passportFactory.factorySaveNewEntry(entry).then(function () {
                 $scope.newUser = $scope.passportFactory.factoryNewEntry();
                     var resetInfo = {
                         username: $scope.newUser.username,
                         fk_users_id: $scope.newUser.users_id,
                         token: (Math.random() + 1).toString(36).substring(7)
                 };
-                    $http.post('/email', resetInfo).then(function(response) {
+                    $scope.passportFactory.factoryTokenReset(resetInfo).then(function () {
+                        clearForm();
+                        getNames();
                     });
-                clearForm();
-                getNames();
             });
         }
-
-        $scope.selectedName = null;
     };
 
+    //removes user
     $scope.removeUser = function () {
         var id = {
             users_id: $scope.users_id
         };
-
-        $http.put('/remove_user', id).then(function() {
+        $scope.passportFactory.factoryRemoveUser(id).then(function () {
             clearForm();
             $route.reload();
         });

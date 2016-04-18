@@ -3,6 +3,7 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
     //private
     var loggedInUser = {};
     var addedUser = {};
+    var userEmail = {};
 
     //login
     var userSubmit =  function(username, password) {
@@ -39,6 +40,35 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         return promise;
     };
 
+    //verifying token
+    var verifyToken = function(token) {
+        var promise = $http.get('/email/' + token).then(function(response) {
+            userEmail = response.data[0].username;
+        });
+        return promise;
+    };
+
+    //set new password
+    var setPassword = function(password) {
+        var promise = $http.put('/register', password).then(function(response) {
+        });
+        return promise;
+    };
+
+    //reset password
+    var tokenReset = function(username) {
+        var promise = $http.post('/email', username).then(function(response) {
+        });
+        return promise;
+    };
+
+    //reset password
+    var removeUser = function(id) {
+        var promise = $http.put('/remove_user', id).then(function(response) {
+        });
+        return promise;
+    };
+
     //logout user
     var logoutUser = function() {
         var promise = $http.get('/logout').then( function(response) {
@@ -68,6 +98,21 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         },
         factorySaveUpdatedEntry: function(entry) {
             return saveUpdatedEntry(entry);
+        },
+        factoryVerifyToken: function(token) {
+            return verifyToken(token);
+        },
+        factoryUserEmail: function() {
+            return userEmail;
+        },
+        factorySetPassword: function(password) {
+            return setPassword(password);
+        },
+        factoryTokenReset: function(username) {
+            return tokenReset(username);
+        },
+        factoryRemoveUser: function(id) {
+            return removeUser(id);
         },
         factoryLogoutUser: function() {
             return logoutUser();

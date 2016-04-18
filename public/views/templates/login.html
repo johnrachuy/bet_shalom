@@ -7,7 +7,7 @@
             <input type="text" class="form-control" ng-model="username" placeholder="Email Address" autofocus="" />
             <input type="password" class="form-control login-password-field" ng-model="password" placeholder="Password" />
             <button class="btn btn-lg btn-primary btn-block login-button" ng-click="loginUser(username, password)" type="submit">Login</button>
-            <button class="btn login-password-field btn-danger" ng-click="forgotPass(username)">Forgot Password</button>
+            <button class="btn login-password-field btn-danger" ng-click="go('/reset')">Forgot Password</button>
         </form>
     </div>
 </div>

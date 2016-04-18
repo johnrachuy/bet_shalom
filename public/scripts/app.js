@@ -35,6 +35,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: '/views/templates/password.html',
             controller: 'PasswordController'
         })
+        .when('/reset', {
+            templateUrl: '/views/templates/reset.html',
+            controller: 'ResetController'
+        })
         .otherwise({
             redirectTo: 'home'
         });

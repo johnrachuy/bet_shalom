@@ -6,16 +6,8 @@ myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$win
         $scope.passportFactory.factoryUserSubmit(username, password)
     };
 
-    $scope.forgotPass = function (username) {
-        $http.get('/update_user/' + username).then(function(response) {
-            var resetInfo = {
-                username: $scope.username,
-                fk_users_id: response.data[0].users_id,
-                token: (Math.random() + 1).toString(36).substring(7)
-            };
-            $http.post('/email', resetInfo).then(function(response) {
-            });
-        })
+    $scope.go = function(path) {
+        $location.path(path);
     };
 
     console.log('Login Controller');

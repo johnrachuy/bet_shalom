@@ -8,16 +8,21 @@ myApp.controller('PasswordController', ['$scope', 'PassportFactory', '$location'
     });
 
     $scope.updatePassword = function() {
-        var newPassword = {
-            username: $scope.username,
-            password: $scope.password
-        };
-        $scope.passportFactory.factorySetPassword(newPassword).then(function () {
-            $scope.username = null;
-            $scope.password = null;
-            $scope.password1 = null;
-            $location.path('/home');
-        });
+        if ($scope.password == $scope.password1) {
+            var newPassword = {
+                username: $scope.username,
+                password: $scope.password
+            };
+            $scope.passportFactory.factorySetPassword(newPassword).then(function () {
+                $scope.username = null;
+                $scope.password = null;
+                $scope.password1 = null;
+                $location.path('/home');
+            });
+        } else {
+            alert('Passwords do not match!');
+        }
+
     };
 
     //console.log('Password Controller');

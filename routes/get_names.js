@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
     var results = [];
 
     pg.connect(connection, function(err, client, done) {
-        var query = client.query('SELECT * FROM users ORDER BY last_name ASC');
+        var query = client.query("SELECT * FROM users WHERE deleted = 'FALSE' ORDER BY last_name ASC");
 
         //Stream results back one row at a time
         query.on('row', function(row) {

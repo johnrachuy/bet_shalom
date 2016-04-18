@@ -5,7 +5,6 @@ var passport = require('passport');
 router.post('/', function(req, res, next) {
 
     passport.authenticate('local', function(err, user, info) {
-        //console.log('hi');
         if (err) {
             return next(err);
         }

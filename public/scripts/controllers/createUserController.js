@@ -1,9 +1,10 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$window', '$location', function($scope, PassportFactory, $http, $window, $location) {
+myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$route', '$location', '$routeParams', function($scope, PassportFactory, $http, $route, $location, $routeParams) {
 
     $scope.passportFactory = PassportFactory;
     $scope.selectedName = null;
     $scope.users_id = null;
     $scope.getNames = [];
+    $scope.token = $routeParams.token;
     //$scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     getNames();
@@ -59,7 +60,7 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
     $scope.saveUser = function () {
         var entry = {
             username: $scope.username,
-            password: $scope.password,
+            password: '123',
             role: $scope.role,
             first_name: $scope.first_name,
             last_name: $scope.last_name,
@@ -70,7 +71,7 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
         //if existing user
         if ($scope.users_id > 0) {
-            console.log('existing user')
+            console.log('existing user');
             $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function() {
                 clearForm();
                 getNames();
@@ -78,8 +79,16 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
         //if new user
         } else {
-            console.log('new user')
+            console.log('new user');
             $scope.passportFactory.factorySaveNewEntry(entry).then(function() {
+                $scope.newUser = $scope.passportFactory.factoryNewEntry();
+                    var resetInfo = {
+                        username: $scope.newUser.username,
+                        fk_users_id: $scope.newUser.users_id,
+                        token: (Math.random() + 1).toString(36).substring(7)
+                };
+                    $http.post('/email', resetInfo).then(function(response) {
+                    });
                 clearForm();
                 getNames();
             });
@@ -88,11 +97,16 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
         $scope.selectedName = null;
     };
 
-    //links to the sendgrid function
-    $scope.sendEmail = function() {
-        $http.post('/email').then(function(response) {
+    $scope.removeUser = function () {
+        var id = {
+            users_id: $scope.users_id
+        };
+
+        $http.put('/remove_user', id).then(function() {
+            clearForm();
+            $route.reload();
         });
-    }
+    };
 
     console.log('Create User Controller');
 }]);

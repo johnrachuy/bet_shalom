@@ -29,16 +29,39 @@ router.post('/', function(req, res, next) {
     console.log('new user:', saveUser);
 
     pg.connect(connection, function(err, client, done) {
-        client.query("INSERT INTO users (username, password, role, first_name, last_name, phone, grade, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING users_id",
+        client.query("INSERT INTO users (username, password, role, first_name, last_name, phone, grade, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, users_id",
             [saveUser.username, saveUser.password, saveUser.role, saveUser.first_name, saveUser.last_name, saveUser.phone, saveUser.grade, saveUser.deleted],
             function (err, result) {
-                client.end();
+                done();
 
                 if(err) {
                     console.log("Error inserting data: ", err);
                     next(err);
                 } else {
-                    res.redirect('/');
+                    res.send(result.rows);
+                }
+            });
+    });
+});
+
+router.put('/', function(req, res){
+
+    var newPass = {
+        password: encryptLib.encryptPassword(req.body.password),
+        username: req.body.username
+    };
+
+    pg.connect(connection, function(err, client) {
+        client.query(
+            'UPDATE users SET (password) = ($1) WHERE username = ($2)',
+            [newPass.password, newPass.username],
+
+            function(err, result) {
+                if (err) {
+                    console.log('Error inserting data', err);
+                    res.send(false);
+                } else {
+                    res.send(true);
                 }
             });
     });

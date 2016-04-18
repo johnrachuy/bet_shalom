@@ -31,6 +31,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: '/views/templates/register.html',
             controller: 'CreateUserController'
         })
+        .when('/password/:token', {
+            templateUrl: '/views/templates/password.html',
+            controller: 'PasswordController'
+        })
         .otherwise({
             redirectTo: 'home'
         });

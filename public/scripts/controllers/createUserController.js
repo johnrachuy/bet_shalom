@@ -1,9 +1,11 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$window', '$location', function($scope, PassportFactory, $http, $window, $location) {
+myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$window', '$location', '$routeParams', function($scope, PassportFactory, $http, $window, $location, $routeParams) {
 
     $scope.passportFactory = PassportFactory;
     $scope.selectedName = null;
     $scope.users_id = null;
     $scope.getNames = [];
+    $scope.token = $routeParams.token;
+    console.log($scope.token);
     //$scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     getNames();
@@ -66,11 +68,12 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
             phone: $scope.phone,
             grade: $scope.grade,
             users_id: $scope.users_id
+            //token: (Math.random() + 1).toString(36).substring(7)
         };
 
         //if existing user
         if ($scope.users_id > 0) {
-            console.log('existing user')
+            console.log('existing user');
             $scope.passportFactory.factorySaveUpdatedEntry(entry).then(function() {
                 clearForm();
                 getNames();
@@ -78,8 +81,16 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
 
         //if new user
         } else {
-            console.log('new user')
+            console.log('new user');
             $scope.passportFactory.factorySaveNewEntry(entry).then(function() {
+                $scope.newUser = $scope.passportFactory.factoryNewEntry();
+                    var resetInfo = {
+                        username: $scope.newUser.username,
+                        fk_users_id: $scope.newUser.users_id,
+                        token: (Math.random() + 1).toString(36).substring(7)
+                };
+                    $http.post('/email', resetInfo).then(function(response) {
+                    });
                 clearForm();
                 getNames();
             });

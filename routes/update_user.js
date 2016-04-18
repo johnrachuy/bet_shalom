@@ -36,4 +36,31 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.get('/:username', function(req, res) {
+    var results = [];
+    //console.log(req.params);
+
+    pg.connect(connection, function(err, client, done) {
+
+        var query = client.query('SELECT users_id FROM users WHERE username = ($1)',
+            [req.params.username]);
+
+        //Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        //close connection
+        query.on('end', function() {
+            done();
+
+            return res.json(results);
+        });
+
+        if(err) {
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;

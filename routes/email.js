@@ -10,7 +10,7 @@ router.post('/', function(req, res) {
     function email() {
         var email     = new sendgrid.Email({
             to:       req.body.username,
-            from:     'teacherapp@betshalom.org',
+            from:     'john.rachuy@gmail.com',
             subject:  'Welcome to Bet Shalom',
             text:     'Click on the link to set a password and login http://betshalom.herokuapp.com/#/password/' + req.body.token
         });

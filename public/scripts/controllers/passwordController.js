@@ -1,25 +1,29 @@
-myApp.controller('PasswordController', ['$scope', 'PassportFactory', '$location', '$route', '$routeParams', '$http', function($scope, PassportFactory, $location, $route, $routeParams, $http) {
+myApp.controller('PasswordController', ['$scope', 'PassportFactory', '$location', '$routeParams', function($scope, PassportFactory, $location, $routeParams) {
 
     $scope.passportFactory = PassportFactory;
-    $scope. token = $routeParams.token;
+    $scope.token = $routeParams.token;
 
-    $http.get('/email/' + $scope.token).then(function(response) {
-        $scope.username = response.data[0].username;
+    $scope.passportFactory.factoryVerifyToken($scope.token).then(function () {
+        $scope.username = $scope.passportFactory.factoryUserEmail();
     });
 
     $scope.updatePassword = function() {
-        var newPassword = {
-            username: $scope.username,
-            password: $scope.password
-        };
-        $http.put('/register', newPassword).then(function(response) {
-            $scope.username = null;
-            $scope.password = null;
-            $scope.password1 = null;
-            $location.path('/home');
-        });
+        if ($scope.password == $scope.password1) {
+            var newPassword = {
+                username: $scope.username,
+                password: $scope.password
+            };
+            $scope.passportFactory.factorySetPassword(newPassword).then(function () {
+                $scope.username = null;
+                $scope.password = null;
+                $scope.password1 = null;
+                $location.path('/home');
+            });
+        } else {
+            alert('Passwords do not match!');
+        }
+
     };
 
-
-    console.log('Password Controller');
+    //console.log('Password Controller');
 }]);

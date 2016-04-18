@@ -20,6 +20,8 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
   $scope.teacherEditState = false;
   $scope.adminEditState = false;
 
+  $scope.commentButton = true;
+
   /*
    * boolean variables for button ng-if
    */
@@ -66,29 +68,42 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
     $scope.statusAdminReview = true;
     $scope.needsReviewButton = true;
     $scope.removeButton = true;
+    if($scope.loggedInUser.role === 'admin') {
+      $scope.commentForm = true;
+      $scope.commentButton = false;
+    }
   }
   if($scope.dataFactory.factoryLessonStatus == 'published') {
     $scope.statusToCheckIfPublished = true;
     $scope.statusAdminReview = true;
     $scope.needsReviewButton = false;
     $scope.removeButton = true;
+    $scope.commentForm = true;
   }
   $scope.dataFactory.factoryLessonStatus = undefined;
 
 
   //Checks to see if the page should be editable and if so populates it based on the stored lesson id
   if ($scope.loadSavedLesson === true) {
-    $scope.commentForm = true;
+
     $scope.dataFactory.factoryGetLessonPlan($scope.lessonPlanId).then(function() {
       $scope.savedLessonPlan = $scope.dataFactory.factoryLessonPlan();
       /*
        * Sets lessonPlanStatus to the 'status' property coming back from the database.
        * This allows the 'Publish' button to determine whether to POST or PUT. -Savio
        */
-      console.log('why', $scope.savedLessonPlan);
       $scope.lessonPlanStatus = $scope.savedLessonPlan[0].status;
-      console.log($scope.lessonPlanStatus);
-      console.log('What we want from the returned variable in data factory', $scope.savedLessonPlan);
+
+      //if($scope.lessonPlanStatus === 'draft' || $scope.lessonPlanStatus === 'submitted') {
+      //  if ($scope.loggedInUser.role === 'admin'){
+      //    console.log('role:', $scope.loggedInUser.role);
+      //    $scope.commentForm = true;
+      //  } else {
+      //    $scope.commentForm = false;
+      //  }
+      //} else {
+      //  $scope.commentForm = false;
+      //}
 
       populateLessonForEdit();
       checkFav();
@@ -593,6 +608,9 @@ myApp.controller('LessonPlanController', ['$scope', '$http', '$route', 'Passport
 
     if ($scope.savedLessonPlan[0].materials == true) {
       $scope.required_materials = true;
+    }
+    if ($scope.savedLessonPlan[0].resource == true){
+      $scope.type_selector = "resource";
     }
     $scope.lesson_author = $scope.savedLessonPlan[0].author;
     $scope.lesson_title = $scope.savedLessonPlan[0].title;

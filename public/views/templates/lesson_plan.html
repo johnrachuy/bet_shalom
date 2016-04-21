@@ -1,23 +1,31 @@
-<!-- Explore tag options -->
 <div class="container lesson-plan-container">
   <div class="row">
     <div class="col-md-6" ng-if="adminEditState">
-      <div class="radio"><label for="lesson_plan"><input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan" ng-disabled="statusToCheckIfPublished" class="resource_lesson_radio" id="lesson_plan">Lesson Plan</label></div>
-      <div class="radio"><label for="resource"><input type="radio" class="resource_lesson_radio" name="type_selector" ng-model="$parent.type_selector" value="resource" ng-disabled="statusToCheckIfPublished" id="resource">Resource</label></div>
+      <div class="radio">
+        <label for="lesson_plan"><input type="radio" name="type_selector" ng-model="$parent.type_selector" value="lesson_plan" ng-disabled="statusToCheckIfPublished" class="resource_lesson_radio" id="lesson_plan">Lesson Plan</label>
+      </div>
+      <div class="radio">
+        <label for="resource"><input type="radio" class="resource_lesson_radio" name="type_selector" ng-model="$parent.type_selector" value="resource" ng-disabled="statusToCheckIfPublished" id="resource">Resource</label>
+      </div>
     </div>
   </div>
 
-
   <div class="row">
     <div class="col-md-6">
-      <div class="form-group"><input type="text" class="form-control" id="lesson_title" placeholder="Enter Title" ng-model="$parent.lesson_title" ng-if="!statusToCheckIfPublished" /></div>
-      <div class="form-group" ng-if="statusToCheckIfPublished"><span class="lesson_title_displayed">{{lesson_title}}</span><span class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa big blue fa-star"></i></span><span class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa big fa-star-o"></i></span></div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="lesson_title" placeholder="Enter Title" ng-model="$parent.lesson_title" ng-if="!statusToCheckIfPublished" />
+      </div>
+      <div class="form-group" ng-if="statusToCheckIfPublished">
+        <span class="lesson_title_displayed">{{lesson_title}}</span><span class="starr" ng-show="myFav.favorite_status" ng-click="addFav()"><i class="fa big blue fa-star"></i></span><span class="starr" ng-hide="myFav.favorite_status" ng-click="addFav()"><i class="fa big fa-star-o"></i></span>
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4">
-      <div><label for="lesson_author">Author: </label><span id="lesson_author"> {{lesson_author}}</span></div>
+      <div>
+        <label for="lesson_author">Author: </label><span id="lesson_author"> {{lesson_author}}</span>
+      </div>
     </div>
   </div>
 
@@ -55,22 +63,25 @@
           <div class="autocomplete-template">
             <div class="right-panel">
               <span ng-bind-html="$highlight($getDisplayText())"></span>
-              <span>ID: {{data.tag_id}}, </span>
-              <span>Category: {{data.tag_category}}</span>
             </div>
           </div>
         </script></div>
     </div>
 
     <div class="col-md-5 col-md-offset-1">
-      <div><label for="lesson_materials_checkbox">Materials required?</label> <input type="checkbox" class="materials_checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" /><textarea class="form-control lesson-materials-textarea" id="lesson_materials" ng-class="{'no_gray': statusToCheckIfPublished}" rows="2" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished" placeholder="{{requiredMaterialsPlaceholder}}"></textarea></div>
+      <div>
+        <label for="lesson_materials_checkbox">Materials required?</label> <input type="checkbox" class="materials_checkbox" ng-model="required_materials" ng-change="toggleMaterialsRequirement(required_materials)" ng-disabled="statusToCheckIfPublished" /><textarea class="form-control lesson-materials-textarea" id="lesson_materials" ng-class="{'no_gray': statusToCheckIfPublished}" rows="2" cols="130" ng-model="lesson_materials" ng-disabled="!required_materials||statusToCheckIfPublished" placeholder="{{requiredMaterialsPlaceholder}}"></textarea>
+      </div>
     </div>
 
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group"><label for="lesson_text">Lesson text:</label><textarea id="lesson_text" class="form-control" ng-class="{'no_gray': statusToCheckIfPublished}" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished" placeholder="Create Your Lesson Plan"></textarea></div>
+      <div class="form-group">
+        <label for="lesson_text">Lesson text:</label>
+        <textarea id="lesson_text" class="form-control" ng-class="{'no_gray': statusToCheckIfPublished}" rows="20" cols="100" ng-model="lesson_text" ng-disabled="statusToCheckIfPublished" placeholder="Create Your Lesson Plan"></textarea>
+      </div>
     </div>
   </div>
 
@@ -93,9 +104,9 @@
     </div>
     <div class="col-md-3 col-md-offset-3" ng-if="adminEditState">
       <div>
-        <span  class="float_right" ng-if="!statusToCheckIfPublished"><button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Publish</button></span>
-        <span  class="float_right" ng-if="needsReviewButton"><button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button></span>
-        <span  class="float_right" ng-if="!statusAdminReview"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
+        <span class="float_right" ng-if="!statusToCheckIfPublished"><button class="btn btn-primary submit_lesson_button" ng-click="adminPublishLesson()">Publish</button></span>
+        <span class="float_right" ng-if="needsReviewButton"><button class="btn btn-primary needs_review" ng-click="needsReview()">Needs Review</button></span>
+        <span class="float_right" ng-if="!statusAdminReview"><button class="btn btn-primary save_draft_button" ng-click="saveLessonDraft()">Save Draft</button></span>
         <span class="float_right" ng-if="removeButton"><button class="btn btn-danger remove_lesson" ng-click="removeLesson()">Remove</button></span>
       </div>
     </div>
@@ -132,7 +143,9 @@
 
   <div class="row">
     <div class="col-md-4">
-      <div ng-if="commentForm"><span ng-if="commentButton"><button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button></span></div>
+      <div ng-if="commentForm">
+        <span ng-if="commentButton"><button class="btn btn-primary comment_button" ng-click="addComment()">Add Comment</button></span>
+      </div>
     </div>
   </div>
 
@@ -147,11 +160,6 @@
       <button class="btn btn-primary" type="button" ng-click="deleteLessonPlan()">Yes. Delete this lesson plan.</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
-
-    <!--<div class="modal-footer">-->
-    <!--<button class="btn btn-primary" type="button" ng-click="ok()">Yes. Delete this lesson plan.</button>-->
-    <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
-    <!--</div>-->
   </script>
 
   <!--modal when save draft is clicked-->
@@ -164,7 +172,6 @@
       <button class="btn btn-primary" type="button" ng-click="okaySavedDraft()">Okay</button>
     </div>
   </script>
-
 
 <!--modal when teacher submits lesson for approval-->
   <script type="text/ng-template" id="modalTeacherSubmit.html">

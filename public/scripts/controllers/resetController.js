@@ -24,8 +24,6 @@ myApp.controller('ResetController', ['$scope', 'PassportFactory', '$location', '
                         }
                     }
                 });
-                console.log('here it is:', $scope.username);
-
 
                 modalInstance.result.then(function () {
                     $location.path('/home');
@@ -36,6 +34,4 @@ myApp.controller('ResetController', ['$scope', 'PassportFactory', '$location', '
             });
         })
     };
-
-    console.log('Password Controller');
 }]);

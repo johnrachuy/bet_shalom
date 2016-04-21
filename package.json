@@ -25,7 +25,6 @@
     "ng-tags-input": "^3.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "path": "^0.12.7",
     "pg": "^4.5.1",
     "sendgrid": "^2.0.0"
   }

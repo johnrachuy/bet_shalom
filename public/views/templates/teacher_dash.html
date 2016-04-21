@@ -8,18 +8,14 @@
         <table class="table">
             <thead>
             <tr><th></th><th>Title</th>
-                <!--<th>Author</th>-->
                 <th>Status</th>
-                <!--<th>Published</th>-->
                 <th>Materials</th></tr>
             </thead>
             <tbody ng-repeat="lesson in lessonPlans">
             <tr><td>
                 <button class="select-lesson-btn btn btn-primary" ng-click="editClickedLesson($index)">Select</button>
             </td><td>{{lesson.title}}</td>
-                <!--<td>{{lesson.author}}</td>-->
                 <td>{{lesson.status}}</td>
-                <!--<td>{{lesson.published | date}}</td>-->
                 <td ng-show="lesson.materials">
                     <i class="fa green fa-check"></i>
                 </td><td ng-hide="lesson.materials">
@@ -31,7 +27,9 @@
 
     <div class="col-md-6 favorites-lesson-plans">
         <h3>My favorites <i class="fa small-blue fa-star"></i></h3>
-
-        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="lesson in favoritePlans"><tr><td><button class="btn btn-primary" ng-click="editClickedFav($index)">Select</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials"><i class="fa green fa-check"></i></td><td ng-hide="lesson.materials"><i class="fa red fa-times"></i></td><td ng-show="lesson.resource"><i class="fa green fa-check"></i></td><td ng-hide="lesson.resource"><i class="fa red fa-times"></i></td></tr></tbody></table>
+        <table class="table">
+            <thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead>
+            <tbody ng-repeat="lesson in favoritePlans"><tr><td><button class="btn btn-primary" ng-click="editClickedFav($index)">Select</button></td><td>{{lesson.title}}</td><td>{{lesson.author}}</td><td>{{lesson.published | date}}</td><td ng-show="lesson.materials"><i class="fa green fa-check"></i></td><td ng-hide="lesson.materials"><i class="fa red fa-times"></i></td><td ng-show="lesson.resource"><i class="fa green fa-check"></i></td><td ng-hide="lesson.resource"><i class="fa red fa-times"></i></td></tr></tbody>
+        </table>
     </div>
 </div>

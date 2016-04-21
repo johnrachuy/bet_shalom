@@ -8,7 +8,6 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
 
     $scope.passportFactory = PassportFactory;
     $scope.dataFactory = DataFactory;
-
     $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     //validateUser to make sure the role can be on this page then get all the lessons for the teacher
@@ -54,6 +53,4 @@ myApp.controller('TeacherDashController', ['$scope', 'PassportFactory', 'DataFac
             $scope.dataFactory.factoryLessonStatus = $scope.favoritePlans[index].status;
             $location.path('/lesson_plan');
         };
-
-    console.log('Teacher Dashboard Controller');
 }]);

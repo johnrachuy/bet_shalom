@@ -27,7 +27,6 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
     var saveNewEntry = function(entry) {
         var promise = $http.post('/register', entry).then( function(response) {
             addedUser = response.data[0];
-
         });
         return promise;
     };
@@ -81,9 +80,6 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
 
     //public
     var publicApi = {
-        factoryUserAuthentication: function() {
-            return privateUserAuthentication();
-        },
         factoryUserSubmit: function(username, password) {
             return userSubmit(username, password);
         },
@@ -117,9 +113,7 @@ myApp.factory('PassportFactory', ['$http', '$location', function($http, $locatio
         factoryLogoutUser: function() {
             return logoutUser();
         }
-
     };
 
     return publicApi;
-
 }]);

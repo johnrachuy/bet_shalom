@@ -1,4 +1,4 @@
-myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', '$route', '$location', '$routeParams', '$uibModal', '$log', 'DataFactory', function($scope, PassportFactory, $http, $route, $location, $routeParams, $uibModal, $log, DataFactory) {
+myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$route', '$location', '$uibModal', '$log', 'DataFactory', function($scope, PassportFactory, $route, $location, $uibModal, $log, DataFactory) {
 
     $scope.dataFactory = DataFactory;
     $scope.passportFactory = PassportFactory;
@@ -6,21 +6,19 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
     $scope.users_id = null;
     $scope.getNames = [];
     $scope.viewData = [];
-    //$scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
+    $scope.loggedInUser = $scope.passportFactory.factoryLoggedInUser();
 
     getNames();
-
-    //validateUser to make sure the role can be on this page then get all the lessons for the teacher
-    //validateUser();
+    validateUser();
 
     //Function to check the user and re-route them if they are not validated
-    //function validateUser() {
-    //    if($scope.loggedInUser.role == 'admin') {
-    //
-    //    } else {
-    //        $location.path('/home');
-    //    }
-    //}
+    function validateUser() {
+        if($scope.loggedInUser.role == 'admin') {
+
+        } else {
+            $location.path('/home');
+        }
+    }
 
     //populating drop-down of existing users
     function getNames() {
@@ -60,6 +58,7 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
     $scope.saveUser = function () {
         var entry = {
             username: $scope.username,
+            //password is set to '123' by default
             password: '123',
             role: $scope.role,
             first_name: $scope.first_name,
@@ -124,6 +123,4 @@ myApp.controller('CreateUserController', ['$scope', 'PassportFactory', '$http', 
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-
-    console.log('Create User Controller');
 }]);

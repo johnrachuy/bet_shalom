@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var path = require('path');
 
 // module with bcrypt functions
 var encryptLib = require('../modules/encryption');
@@ -66,6 +65,5 @@ router.put('/', function(req, res){
             });
     });
 });
-
 
 module.exports = router;

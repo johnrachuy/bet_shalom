@@ -19,11 +19,9 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
 
     $scope.tags = [];
     $scope.tagAdded = function(tag) {
-        console.log('Tag added: ', tag);
         $scope.searchTag(tag);
     };
     $scope.tagRemoved = function(tag) {
-        console.log('Tag removed: ', tag);
         $scope.viewLesson = null;
     };
 
@@ -41,7 +39,6 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
     $scope.searchTag = function(tag) {
         $http.get('/tag_search/' + tag.tag_id).then(function(response) {
             $scope.viewLesson = response.data;
-            console.log($scope.viewLesson);
             $scope.selectedName = null;
         });
     };
@@ -49,9 +46,7 @@ myApp.controller('SearchController', ['$scope', 'PassportFactory', 'DataFactory'
     //Function to reroute the user to the lesson plan controller
     $scope.editClickedLesson = function(index){
         $scope.dataFactory.factoryStoredLessonId = $scope.viewLesson[index].lesson_id;
-        //$scope.dataFactory.factoryStoredLessonId = id.lesson_id;
         $scope.dataFactory.factoryLessonViewState = true;
-        console.log('what is this::', $scope.viewLesson);
         $scope.dataFactory.factoryLessonStatus = $scope.viewLesson[index].status;
         $location.path('/lesson_plan');
     };

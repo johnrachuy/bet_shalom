@@ -15,12 +15,9 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var names = {};
     var user = {};
 
-
-
     //The private function to save a lesson plan
     var saveLessonPlan = function(lessonPlan){
         var promise = $http.post('/lesson', lessonPlan).then(function(response) {
-            console.log(response);
         });
         return promise;
     };
@@ -28,16 +25,13 @@ myApp.factory('DataFactory', ['$http', function($http) {
     //The private function to update a lesson plan
     var editLessonPlan = function(lessonPlan){
         $http.put('/lesson', lessonPlan).then(function(response) {
-            console.log(response);
         });
     };
 
     //The private function to retrieve a lesson plan based on a passed-in user id
     var retrieveLessonPlan = function(id){
-        console.log(id);
         var promise = $http.get('/lesson/' + id).then(function(response) {
             lessonPlan = response.data;
-            console.log(lessonPlan);
         });
         return promise;
     };
@@ -46,7 +40,6 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var teacherRetrieveLessonPlans = function(id){
         var promise = $http.get('/teacher_dashboard/' + id).then(function(response) {
             lessonPlans = response.data;
-            console.log('DataFactory: ' + lessonPlans);
         });
         return promise;
     };
@@ -55,16 +48,13 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var adminRetrieveLessonPlans = function(id){
         var promise = $http.get('/admin_dashboard/' + id).then(function(response) {
             adminLessons = response.data;
-            console.log('DataFactory: ' + lessonPlans);
         });
         return promise;
     };
 
     //function to add favorite status on lesson plan
     var addFavorite = function(favorite){
-        console.log(favorite);
         var promise = $http.post('/favorite', favorite).then(function(response) {
-            console.log(response);
         });
         return promise;
     };
@@ -73,27 +63,21 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var getFavorites = function(id){
         var promise = $http.get('/get_favorites/' + id).then(function(response) {
             favoritePlans = response.data;
-            console.log(response);
         });
         return promise;
     };
 
     //function to check logged in users favorites
     var checkFavorite = function(id, lesson){
-
-        console.log(id, lesson);
         var promise = $http.get('/favorite?id=' + id + '&lesson=' + lesson).then(function(response) {
             myFavorite = response.data[0];
-            console.log(response.data);
         });
         return promise;
     };
 
     //function update favorite status on lesson plan
     var updateFavorite = function(id){
-        console.log(id);
         var promise = $http.put('/favorite', id).then(function(response) {
-            //console.log(response);
         });
         return promise;
     };
@@ -101,7 +85,6 @@ myApp.factory('DataFactory', ['$http', function($http) {
     //function to add comment
     var addComment = function(lessonPlan) {
         var promise = $http.put('/add_comment', lessonPlan).then(function(response) {
-            console.log(response);
         });
         return promise;
     };
@@ -118,7 +101,6 @@ myApp.factory('DataFactory', ['$http', function($http) {
     var selectedName = function(name) {
         var promise = $http.get('/selected_name/' + name).then(function(response) {
             user = response.data;
-            console.log(user);
         });
         return promise;
     };
@@ -193,5 +175,4 @@ myApp.factory('DataFactory', ['$http', function($http) {
   };
 
   return publicApi;
-
 }]);

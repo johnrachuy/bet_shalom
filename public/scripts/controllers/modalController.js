@@ -1,9 +1,4 @@
-myApp.controller('ModalController', ['$scope', '$http', '$uibModalInstance', 'myUsername', 'currentLessonPlan', 'DataFactory', '$location', function ($scope, $http, $uibModalInstance, myUsername, currentLessonPlan, DataFactory, $location){
-
-  $scope.dataFactory = DataFactory;
-
-  $scope.username = myUsername;
-  $scope.lessonPlanTitle = currentLessonPlan;
+myApp.controller('ModalController', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance){
 
   //cancel button for all modals
   $scope.cancel = function () {

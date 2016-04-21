@@ -1,10 +1,10 @@
-myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFactory', '$http', '$window', '$location',
-    function($scope, PassportFactory, DataFactory, $http, $window, $location) {
+myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFactory', '$location',
+    function($scope, PassportFactory, DataFactory, $location) {
 
     //Creates an object to store the info of a logged-in user
     $scope.loggedInUser = {};
     //Creates an array to store the list of lesson plans from the database
-    $scope.lessonPlans;
+    $scope.lessonPlans = [];
 
     $scope.passportFactory = PassportFactory;
     $scope.dataFactory = DataFactory;
@@ -38,6 +38,4 @@ myApp.controller('AdminDashController', ['$scope', 'PassportFactory', 'DataFacto
         $scope.dataFactory.factoryLessonStatus = $scope.lessonPlans[index].status;
         $location.path('/lesson_plan');
     };
-
-    console.log('Admin Dashboard Controller');
 }]);

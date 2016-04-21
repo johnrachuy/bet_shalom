@@ -4,7 +4,6 @@
             <div><h3>Manage Users</h3></div>
             <div class="form-group"><label for="selectedName">Existing Users</label><select class="form-control" ng-model="selectedName" ng-options="person.users_id as person.last_name + ', ' + person.first_name for person in getNames" ng-change="getInfo()">Select Person</select></div>
             <div class="form-group"><label for="username">Username/Email:</label><input class="form-control" type="text" ng-model="username"></div>
-            <!--<div class="form-group"><label for="password">Password:</label><input class="form-control" type="password" ng-model="password"></div>-->
             <div class="radio"><label for="admin"><input class="resource_lesson_radio" type="radio" ng-model="role" value="admin">Admin</label></div>
             <div class="radio"><label for="teacher"><input class="resource_lesson_radio" type="radio" ng-model="role" value="teacher">Teacher</label></div>
             <div class="form-group"><label for="first_name">First Name:</label><input class="form-control" type="text" ng-model="first_name"></div>

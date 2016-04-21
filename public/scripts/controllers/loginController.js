@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$scope', 'PassportFactory', '$http', '$window', '$location', function($scope, PassportFactory, $http, $window, $location) {
+myApp.controller('LoginController', ['$scope', 'PassportFactory', '$location', function($scope, PassportFactory, $location) {
 
     $scope.passportFactory = PassportFactory;
 

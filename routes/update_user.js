@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var path = require('path');
 var connection = require('../modules/connection');
 var pg = require('pg');
 
@@ -38,7 +37,6 @@ router.post('/', function(req, res, next) {
 
 router.get('/:username', function(req, res) {
     var results = [];
-    //console.log(req.params);
 
     pg.connect(connection, function(err, client, done) {
 

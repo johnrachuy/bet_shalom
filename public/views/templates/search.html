@@ -1,13 +1,5 @@
 <div class="container">
     <h2>Search</h2>
-    <!--<div class="form-group">-->
-        <!--<select ng-model="selectedTag" ng-change="searchTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">-->
-            <!--<option value="">Select Tag</option>-->
-        <!--</select>-->
-        <!--<select ng-model="selectedTag2" ng-change="filterTag()" ng-options="keyword.tag_id as keyword.tag_name for keyword in keyTags">-->
-            <!--<option value="">Select Tag</option>-->
-        <!--</select>-->
-    <!--</div>-->
     <tags-input ng-model="keyTags"
                 display-property="tag_name"
                 placeholder="Select tag"
@@ -44,7 +36,10 @@
     </script>
 
     <div class="jumbotron">
-        <table class="table"><thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead><tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td ng-show="plan.materials"><i class="fa green fa-check"></i></td><td ng-hide="plan.materials"><i class="fa red fa-times"></i></td><td ng-show="plan.resource"><i class="fa green fa-check"></i></td><td ng-hide="plan.resource"><i class="fa red fa-times"></i></span></td></tr></tbody></table>
+        <table class="table">
+            <thead><tr><th></th><th>Title</th><th>Author</th><th>Published</th><th>Materials</th><th>Resource</th></tr></thead>
+            <tbody ng-repeat="plan in viewLesson"><tr><td><button class="btn btn-primary" ng-click="editClickedLesson($index)">Select</button></td><td>{{plan.title}}</td><td>{{plan.author}}</td><td>{{plan.published | date}}</td><td ng-show="plan.materials"><i class="fa green fa-check"></i></td><td ng-hide="plan.materials"><i class="fa red fa-times"></i></td><td ng-show="plan.resource"><i class="fa green fa-check"></i></td><td ng-hide="plan.resource"><i class="fa red fa-times"></i></span></td></tr></tbody>
+        </table>
     </div>
 
 </div>

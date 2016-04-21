@@ -1,4 +1,4 @@
-myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$route', function($scope, PassportFactory, $window, $route) {
+myApp.controller('NavController', ['$scope', 'PassportFactory', '$route', function($scope, PassportFactory, $route) {
 
     $scope.passportFactory = PassportFactory;
 
@@ -44,5 +44,4 @@ myApp.controller('NavController', ['$scope', 'PassportFactory', '$window', '$rou
             validateUser();
         });
     }
-
 }]);

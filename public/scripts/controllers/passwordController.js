@@ -63,6 +63,4 @@ myApp.controller('PasswordController', ['$scope', 'PassportFactory', '$location'
         }
 
     };
-
-    //console.log('Password Controller');
 }]);

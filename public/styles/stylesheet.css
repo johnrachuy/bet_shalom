@@ -9,14 +9,6 @@ html{
     height: 100%;
 }
 
-body {
-    /*background-image: linear-gradient(to left, #F7F6F6, #cfc8c6);*/
-    /*height: 100%;*/
-    /*margin: 0;*/
-    /*background-repeat: no-repeat;*/
-    /*background-attachment: fixed;*/
-}
-
 textarea {
     resize: none;
     margin-bottom: 10px;
@@ -202,7 +194,6 @@ tr td {
 
 .float_right {
     float: right;
-
     margin-bottom: 5px;
 }
 

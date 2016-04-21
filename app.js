@@ -26,7 +26,6 @@ var logout = require('./routes/logout');
 var update_tag = require('./routes/update_tag');
 var remove_user = require('./routes/remove_user');
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -65,7 +64,6 @@ app.use('/logout', logout);
 app.use('/update_tag', update_tag);
 app.use('/remove_user', remove_user);
 
-
 // Serve back static files
 app.use(express.static('public'));
 app.use(express.static('public/views'));
@@ -80,9 +78,5 @@ app.set('port', (process.env.PORT || 5000));
 // Listen //
 app.listen(app.get("port"), function(){
     console.log("Listening on port: " + app.get("port"));
-
-
-
-
 
 });

@@ -1,6 +1,4 @@
 var express = require('express');
-var http = require('http');
-var path = require('path');
 var aws = require('aws-sdk');
 var router = express.Router();
 

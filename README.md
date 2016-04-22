@@ -24,6 +24,12 @@ week.
 ##How this applications works
 Here is a quick walk through with some screen shots to give you a better idea of how everything works.
 
+##Login Page
+This is the login page. The user enters their email address and password to gain access to the site. If they can't
+remember their password they can easily request a password reset by pressing the forgot password button. The user is
+sent an email to verify their identity and directed to a page to set a new password and login.
+![Home View](/public/images/bet_shalom_login.png?raw=true "Optional Title")
+
 ##Admin Dashboard
 This is the homepage for anyone logging in with admin credentials. Upon logging in the admin is greeted with a list of
 lesson plans that have been submitted for approval. All lesson plans created must be approved by an admin before they
@@ -37,12 +43,21 @@ is logged in. There is a field to enter a lesson title, the author is automatica
 user, a dynamic typahead of different searchable tags, a materials field to put any required items needed to do this
 particular lesson, a large text area for the plan itself and a choose file button to upload files/images into the
 lesson plan.
+
 ![Home View](/public/images/bet_shalom_lesson_with_content.png?raw=true "Optional Title")
 The admin has the ability to edit any submitted lessons before publishing. If there's something small they want to
 change they can eaisly do this from right here. If there's something more major they can add a comment and send it
 back to the teacher as needs review. Upon pressing the publish button a modal pops up to verify the action. Modals are
-used throughout the site to give user feedback on actions.
+used throughout the site to give the user feedback on requests.
+
 ![Home View](/public/images/bet_shalom_publish_modal.png?raw=true "Optional Title")
+
+##Manage Users
+The manage users page is only accessible by users logged in with admin credentials. Here an admin can add new users and
+edit existing ones. When a new user is created they are sent and email with a link which will bring them to the site
+allowing them to set a password and login.
+![Home View](/public/images/bet_shalom_manage_users.png?raw=true "Optional Title")
+![Home View](/public/images/bet_shalom_password_reset.png?raw=true "Optional Title")
 
 ##Teacher Dashboard
 ![Home View](/public/images/bet_shalom_teacher_dashboard.png?raw=true "Optional Title")

@@ -56,18 +56,15 @@ The manage users page is only accessible by users logged in with admin credentia
 edit existing ones. When a new user is created they are sent and email with a link which will bring them to the site
 allowing them to set a password and login.
 ![Home View](/public/images/bet_shalom_manage_users.png?raw=true "Optional Title")
-
 ##Teacher Dashboard
 This is the homepage for teachers logging in to the application. On the left, teachers can easily see the lesson plans
 they have created and the status of those plans. On the right, they can see any lessons they have marked as a favorite.
 ![Home View](/public/images/bet_shalom_teacher_dashboard.png?raw=true "Optional Title")
-
 ##Search
 This is the search page. The search page uses the same dynamic typahead that is on the create lesson plan page. Users
 can quickly search for lesson plans by typing in a subject, holiday or grade. There are 46 searchable tags with most
 lesson plans containing multiples of these tags.
 ![Home View](/public/images/bet_shalom_search.png?raw=true "Optional Title")
-
 ##Published Lessons / Favorites / Comments
 When a lesson is selected this is what the user will see. Notice that nothing is editable on a published lesson plan.
 From this view teachers can favorite lesson plans by clicking on the star next to the title as well as leave feedback

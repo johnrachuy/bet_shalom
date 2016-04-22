@@ -3,9 +3,13 @@ This application was developed for Bet Shalom Congregation as part of a group pr
 requirements gathering through deployment this project was completed in three weeks by students:
 
 Remy Allen https://github.com/remyallen
+
 Bennett Batzli https://github.com/BennettBatzli
+
 Savio Nguyen https://github.com/savionguyen
+
 John Rachuy https://github.com/johnrachuy
+
 Josh Sternberg https://github.com/JoshuaSternberg
 
 ##Who Bet Shalom Congregation is and how they are using this application

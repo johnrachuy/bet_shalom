@@ -2,15 +2,15 @@
 This application was developed for Bet Shalom Congregation as part of a group project at Prime Digital Academy. From
 requirements gathering through deployment this project was completed in three weeks by students:
 
-Remy Allen https://github.com/remyallen
+Remy Allen:  https://github.com/remyallen
 
-Bennett Batzli https://github.com/BennettBatzli
+Bennett Batzli:  https://github.com/BennettBatzli
 
-Savio Nguyen https://github.com/savionguyen
+Savio Nguyen:  https://github.com/savionguyen
 
-John Rachuy https://github.com/johnrachuy
+John Rachuy:  https://github.com/johnrachuy
 
-Josh Sternberg https://github.com/JoshuaSternberg
+Josh Sternberg:  https://github.com/JoshuaSternberg
 
 ##Who Bet Shalom Congregation is and how they are using this application
 Bet Shalom Congregation is a Reform Jewish congregation located in Minnetonka, Minnesota. Their religious school is
@@ -22,8 +22,7 @@ for everyone by allowing them spend more time teaching rather than building bran
 week.
 
 ##How this applications works
-This application is deployed and getting used, but being a private site here are some screen shots to give
-you a better idea of how everything works.
+Here is a quick walk through with some screen shots to give you a better idea of how everything works.
 
 ##Admin Dashboard
 This is the homepage for anyone logging in with admin credentials. Upon logging in the admin is greeted with a list of
@@ -32,8 +31,17 @@ are searchable by other users.
 ![Home View](/public/images/bet_shalom_admin_dashboard.png?raw=true "Optional Title")
 
 ##Create Lesson Plan
-![Home View](/public/images/bet_shalom_lesson_empty.png?raw=true "Optional Title")
+When a user goes to the Create Lesson Plan page this is what they will see. The first thing is to select if this will
+be a lesson plan or a resource. The ability to add resources is an admin only feature and will only appear if an admin
+is logged in. There is a field to enter a lesson title, the author is automatically populated based on the logged in
+user, a dynamic typahead of different searchable tags, a materials field to put any required items needed to do this
+particular lesson, a large text area for the plan itself and a choose file button to upload files/images into the
+lesson plan.
 ![Home View](/public/images/bet_shalom_lesson_with_content.png?raw=true "Optional Title")
+The admin has the ability to edit any submitted lessons before publishing. If there's something small they want to
+change they can eaisly do this from right here. If there's something more major they can add a comment and send it
+back to the teacher as needs review. Upon pressing the publish button a modal pops up to verify the action. Modals are
+used throughout the site to give user feedback on actions.
 ![Home View](/public/images/bet_shalom_publish_modal.png?raw=true "Optional Title")
 
 ##Teacher Dashboard

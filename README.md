@@ -36,7 +36,7 @@ are searchable by other users.
 ![Home View](/public/images/bet_shalom_admin_dashboard.png?raw=true "Optional Title")
 
 ##Create Lesson Plan
-When a user goes to the Create Lesson Plan page this is what they will see. The first thing is to select if this will
+When a user goes to the create lesson plan page this is what they will see. The first thing is to select if this will
 be a lesson plan or a resource. The ability to add resources is an admin only feature and will only appear if an admin
 is logged in. There is a field to enter a lesson title, the author is automatically populated based on the logged in
 user, a dynamic typahead of different searchable tags, a materials field to put any required items needed to do this
@@ -45,7 +45,7 @@ lesson plan.
 
 ![Home View](/public/images/bet_shalom_lesson_with_content.png?raw=true "Optional Title")
 The admin has the ability to edit any submitted lessons before publishing. If there's something small they want to
-change they can eaisly do this from right here. If there's something more major they can add a comment and send it
+change they can easily do this right from here. If there's something more major they can add a comment and send it
 back to the teacher as needs review. Upon pressing the publish button a modal pops up to verify the action. Modals are
 used throughout the site to give the user feedback on requests.
 
@@ -77,6 +77,6 @@ this feature so crucial to the application. A user making a lesson can simply pr
 lower left of the create lesson plan page. Upon pressing this button a finder window appears allowing the user to
 select the file they wish to add to the lesson plan.
 ![Home View](/public/images/bet_shalom_file_upload.png?raw=true "Optional Title")
-Pressing the upload button brings that selected file into the lesson plan placing that file/image just under they lesson
+Pressing the upload file button brings that selected file into the lesson plan placing that file/image just under the lesson
 plan text area.
 ![Home View](/public/images/bet_shalom_lesson_photo.png?raw=true "Optional Title")

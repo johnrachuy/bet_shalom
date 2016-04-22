@@ -1,4 +1,8 @@
-myApp.controller('ModalController', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance){
+myApp.controller('ModalController', ['$scope', '$uibModalInstance', 'myUsername', 'currentLessonPlan', function ($scope, $uibModalInstance, myUsername, currentLessonPlan){
+
+  //these variables allow for the username and lesson plan titles to be displayed on certain modals
+  $scope.username = myUsername;
+  $scope.lessonPlanTitle = currentLessonPlan;
 
   //cancel button for all modals
   $scope.cancel = function () {
